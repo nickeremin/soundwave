@@ -3,11 +3,12 @@ import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/shared/lib/utils"
 
-const wrapperVariants = cva("mx-auto px-6", {
+const wrapperVariants = cva("px-6", {
   variants: {
     variant: {
-      default: "max-w-full w-[--content-page-width-with-margin]",
-      header: "w-[--page-width-with-margin] flex items-center h-16",
+      default: "max-w-full w-[--content-page-width-with-margin] mx-auto",
+      header:
+        "sticky top-0 z-50 flex w-full items-center bg-background-100/70 backdrop-blur-lg backdrop-saturate-200",
     },
   },
   defaultVariants: {
@@ -32,6 +33,6 @@ const Wrapper = React.forwardRef<HTMLDivElement, WrapperProps>(
     )
   }
 )
-Wrapper.displayName = "Shell"
+Wrapper.displayName = "Wrapper"
 
 export { Wrapper, wrapperVariants }

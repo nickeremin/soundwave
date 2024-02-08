@@ -24,6 +24,7 @@ import {
   FormMessage,
 } from "@/shared/components/ui/form"
 import { Input } from "@/shared/components/ui/input"
+import { PageHeading } from "@/shared/components/ui/page-heading"
 import { catchClerkError } from "@/shared/lib/utils"
 import { checkEmailSchema } from "@/shared/lib/validations/auth"
 
@@ -108,9 +109,7 @@ function SignInEmailForm() {
       <div className="flex flex-1 flex-col items-center justify-center p-6">
         <div className="flex w-full max-w-[456px] flex-col items-center">
           <div className="flex w-full flex-col items-center gap-7">
-            <AuthHeading className="text-[32px]">
-              Войдите в Timebuilder
-            </AuthHeading>
+            <AuthHeading>Log in to SoundWave</AuthHeading>
 
             <div className="flex w-full flex-col xs:max-w-[320px]">
               <Form {...form}>
@@ -125,7 +124,7 @@ function SignInEmailForm() {
                             <Input
                               autoFocus
                               type="email"
-                              placeholder="Электронная Почта"
+                              placeholder="Email Address"
                               className="h-14 rounded-2xl"
                               {...field}
                             />
@@ -145,7 +144,7 @@ function SignInEmailForm() {
                       ) : (
                         <LucideIcon name="Mail" />
                       )}
-                      Продолжить по Почте
+                      Continue with Email
                     </Button>
                   </div>
                 </form>
@@ -161,7 +160,7 @@ function SignInEmailForm() {
                     className="flex items-center gap-1"
                   >
                     <LucideIcon name="MoveLeft" />
-                    Другие варианты входа
+                    Other Login Options
                   </Link>
                 </span>
               </div>

@@ -13,6 +13,7 @@ import {
 import { ClerkLoaded } from "@/shared/components/clerk"
 import { LucideIcon } from "@/shared/components/icons"
 import { buttonVariants } from "@/shared/components/ui/button"
+import { PageHeading } from "@/shared/components/ui/page-heading"
 import { cn } from "@/shared/lib/utils"
 
 import { OAuthSignInButtons } from "./oauth"
@@ -25,9 +26,7 @@ function SignInForm() {
       <div className="flex flex-1 flex-col items-center justify-center gap-7 p-6">
         <div className="flex w-full max-w-[456px] flex-col items-center">
           <div className="flex w-full flex-col items-center gap-7">
-            <AuthHeading className="text-[32px]">
-              Войдите в Timebuilder
-            </AuthHeading>
+            <AuthHeading>Log in to SoundWave</AuthHeading>
 
             <div className="flex min-h-[320px] w-full flex-col xs:max-w-[320px]">
               <ClerkLoaded fallbackComponent={<OAuthLoading />}>
@@ -50,7 +49,7 @@ function SignInForm() {
                   )}
                 >
                   <LucideIcon name="Mail" />
-                  Продолжить по Почте
+                  Continue with Email
                 </Link>
               </ClerkLoaded>
             </div>

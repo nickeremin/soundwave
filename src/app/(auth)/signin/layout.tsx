@@ -6,7 +6,7 @@ interface SignInLayoutProps {
 
 function SignInLayout({ children }: SignInLayoutProps) {
   return (
-    <main className="flex min-h-screen flex-col justify-center pt-16">
+    <main className="flex min-h-screen flex-col justify-center">
       {children}
     </main>
   )

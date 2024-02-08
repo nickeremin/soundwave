@@ -34,6 +34,7 @@ import {
 } from "@/shared/components/ui/form"
 import { Input } from "@/shared/components/ui/input"
 import { Label } from "@/shared/components/ui/label"
+import { PageHeading } from "@/shared/components/ui/page-heading"
 import { RadioGroup, RadioGroupItem } from "@/shared/components/ui/radio-group"
 import { catchClerkError, cn } from "@/shared/lib/utils"
 import {
@@ -61,10 +62,10 @@ function SignUpForm() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="flex min-h-[85vh] flex-col justify-between gap-8 px-6"
+        className="flex h-screen flex-col justify-between px-6"
       >
         <Form {...initialForm}>
-          <div className="flex flex-col items-center">
+          <div className="flex flex-1 flex-col items-center justify-center">
             {step === "initial_data" && <InitialDataStep />}
             {step === "choose_signup_method" && <ChooseSignUpMethodStep />}
             {step === "email_signup" && <EmailSignUpStep />}
@@ -79,13 +80,13 @@ function SignUpForm() {
 
 const subscriptionPlans: SubscriptionPlan[] = [
   {
-    title: "Хобби",
-    description: "Я работаю над личными проектами.",
+    title: "Free",
+    description: "Standard plan with some restrictions.",
     value: "hobby",
   },
   {
-    title: "Про",
-    description: "Я работаю над коммерческими проектами.",
+    title: "Pro",
+    description: "Full access to all features.",
     value: "pro",
   },
 ]
@@ -106,16 +107,14 @@ function InitialDataStep() {
   }
 
   return (
-    <div className="flex w-full max-w-[456px] flex-col items-center pt-28">
+    <div className="flex w-full max-w-[456px] flex-col items-center pt-12">
       <div className="flex w-full flex-col items-center gap-7">
-        <AuthHeading>Создайте Аккаунт Timebuilder</AuthHeading>
+        <AuthHeading>Create&nbsp;Your&nbsp;Account</AuthHeading>
 
         <div className="flex w-full flex-col">
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <FormItem>
-              <FormLabel className="text-sm text-tertiary">
-                План подписки
-              </FormLabel>
+              <FormLabel className="text-sm text-tertiary">Plan Type</FormLabel>
               <FormField
                 control={form.control}
                 name="subscriptionPlan"
@@ -172,7 +171,7 @@ function InitialDataStep() {
               />
             </FormItem>
 
-            <div className="flex flex-col gap-4 pt-10">
+            <div className="flex flex-col gap-4 pt-6">
               {isSubscriptionPlanSelected && (
                 <FormField
                   control={form.control}
@@ -180,7 +179,7 @@ function InitialDataStep() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel className="text-sm text-tertiary">
-                        Имя пользователя
+                        Your Name
                       </FormLabel>
                       <FormControl>
                         <Input
@@ -201,7 +200,7 @@ function InitialDataStep() {
                 disabled={!form.formState.isValid}
                 size="xl"
               >
-                Продолжить
+                Continue
               </Button>
             </div>
           </form>
@@ -219,7 +218,7 @@ function ChooseSignUpMethodStep() {
   return (
     <div className="flex w-full max-w-[456px] flex-col items-center pt-28">
       <div className="flex w-full flex-col items-center gap-7">
-        <AuthHeading>Выберите Способ Создать&nbsp;Аккаунт</AuthHeading>
+        <AuthHeading>Connect Your Provider</AuthHeading>
 
         <div className="flex w-full flex-col xs:max-w-[320px]">
           <OAuthSignUpButtons {...initialForm.getValues()} />
@@ -235,7 +234,7 @@ function ChooseSignUpMethodStep() {
             }}
           >
             <LucideIcon name="Mail" />
-            Продолжить по Почте
+            Continue with Email
           </Button>
         </div>
       </div>
@@ -315,7 +314,7 @@ function EmailSignUpStep() {
   return (
     <div className="flex w-full max-w-[456px] flex-col items-center pt-28">
       <div className="flex w-full flex-col items-center gap-7">
-        <AuthHeading>Зарегистрируйтесь в&nbsp;Timebuilder</AuthHeading>
+        <AuthHeading>Sign up for SoundWave</AuthHeading>
 
         <div className="flex w-full flex-col xs:max-w-[320px]">
           <Form {...emailForm}>
@@ -330,7 +329,7 @@ function EmailSignUpStep() {
                         <Input
                           autoFocus
                           type="email"
-                          placeholder="Электронная Почта"
+                          placeholder="Email Address"
                           className="h-14 rounded-2xl"
                           {...field}
                         />
@@ -351,7 +350,7 @@ function EmailSignUpStep() {
                   ) : (
                     <LucideIcon name="Mail" />
                   )}
-                  Продолжить по Почте
+                  Continue with Email
                 </Button>
               </div>
             </form>
@@ -370,7 +369,7 @@ function EmailSignUpStep() {
               tabIndex={0}
             >
               <LucideIcon name="MoveLeft" />
-              Другие варианты регистрации
+              Other Sign Up Options
             </span>
           </div>
         </div>

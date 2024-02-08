@@ -21,21 +21,21 @@ type OAuthProvider = {
 
 const oauthProviders: OAuthProvider[] = [
   {
-    title: "Продолжить с Google",
+    title: "Continue with Google",
     name: "Google",
     strategy: "oauth_google",
     icon: "Google",
     className: "bg-[rgb(24,106,224)] hover:bg-[rgb(46,128,246)]",
   },
   {
-    title: "Продолжить с GitHub",
+    title: "Continue with GitHub",
     name: "GitHub",
     strategy: "oauth_github",
     icon: "GitHub",
     className: "bg-[rgb(36,41,46)] hover:bg-[rgb(85,85,85)]",
   },
   {
-    title: "Продолжить с Discord",
+    title: "Continue with Discord",
     name: "Discord",
     strategy: "oauth_discord",
     icon: "Discord",

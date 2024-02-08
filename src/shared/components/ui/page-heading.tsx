@@ -12,9 +12,10 @@ const headingVariants = cva("!tracking-tighter !leading-tight", {
     },
     size: {
       default: "text-[32px]",
-      logo: "text-[24px] leading-none",
-      xs: "text-[32px] sm:text-[36px]",
-      sm: "text-[36px] sm:text-[40px] ",
+      logo: "text-[20px] leading-none",
+      xxs: "text-[28px]",
+      xs: "text-[32px]",
+      sm: "text-[32px] sm:text-[40px]",
       md: "text-[32px] sm:text-[52px] ",
       lg: "text-[32px] sm:text-[60px] ",
       xl: "text-[32px] sm:text-[56px] lg:text-[72px]",

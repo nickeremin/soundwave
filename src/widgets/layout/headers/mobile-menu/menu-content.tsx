@@ -78,7 +78,7 @@ function UnauthorizedMenuContent() {
               toggleOpen()
             }}
           >
-            Войти
+            Sign In
           </Button>
         </motion.li>
         <motion.li
@@ -95,7 +95,7 @@ function UnauthorizedMenuContent() {
               toggleOpen()
             }}
           >
-            Создать Аккаунт
+            Sign Up
           </Button>
         </motion.li>
       </ul>

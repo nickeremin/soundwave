@@ -13,12 +13,12 @@ const buttonVariants = cva(
         default: "bg-primary text-primary-foreground hover:bg-primary/80",
         outline:
           "ring-1 ring-themed-border hover:ring-themed-border-hover bg-background-100 hover:bg-accent text-primary",
-        secondary: "bg-accent text-accent-foreground hover:bg-muted",
+        secondary: "bg-muted text-accent-foreground hover:bg-accent",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         destructive: "bg-red text-gray-light hover:bg-red/80",
         link: "text-primary underline-offset-4 hover:underline",
         success: "bg-blue text-gray-light hover:bg-blue/80 ",
-        empty: "",
+        none: "",
       },
       size: {
         default: "h-9 px-4 rounded-md text-sm",
@@ -26,7 +26,7 @@ const buttonVariants = cva(
         lg: "h-12 rounded-lg px-6 text-base",
         xl: "h-14 rounded-2xl px-8 text-base",
         icon: "size-9 rounded-md",
-        empty: "",
+        none: "",
       },
     },
     defaultVariants: {

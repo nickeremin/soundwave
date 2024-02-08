@@ -8,14 +8,14 @@ function PrivacyAndTermsLinks() {
     <div className="flex flex-col items-center justify-center">
       <div className="flex w-fit flex-col items-center gap-8 py-8">
         <p className="text-center text-sm text-tertiary">
-          Присоединяясь, вы соглашаетесь с{" "}
+          By joining, you agree to our{" "}
           <span className="link-hover text-primary">
             <Link
               href="/legal/terms"
               target="_blank"
               className="inline-flex items-center gap-0.5 font-medium"
             >
-              Условиями Использования
+              Terms of Service
               <LucideIcon
                 name="ExternalLink"
                 strokeWidth={2}
@@ -23,14 +23,14 @@ function PrivacyAndTermsLinks() {
               />
             </Link>
           </span>{" "}
-          и{" "}
+          and{" "}
           <span className="link-hover text-primary">
             <Link
               href="/legal/privacy-policy"
               target="_blank"
               className="inline-flex items-center gap-0.5 font-medium"
             >
-              Политикой Конфиденциальности
+              Privacy Policy
               <LucideIcon
                 name="ExternalLink"
                 strokeWidth={2}
@@ -41,13 +41,13 @@ function PrivacyAndTermsLinks() {
         </p>
         <div className="w-[90%] border-b" />
         <p className="text-center text-sm text-tertiary">
-          У вас сложныe требования в компании?{" "}
+          Have a complex use case?{" "}
           <span className="link-hover text-primary">
             <Link
-              href="/contact/sales"
+              href="/contact"
               className="inline-flex items-center gap-0.5 font-medium"
             >
-              Получите помощь корпоративного уровня
+              Get assistance
             </Link>
           </span>
         </p>
