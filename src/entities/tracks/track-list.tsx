@@ -1,26 +1,31 @@
 import React from "react"
+import Image from "next/image"
+import { format } from "date-fns"
 
-type Track = {}
+import { Track } from "@/shared/types/track"
+import { AspectRatio } from "@/shared/components/ui/aspect-ratio"
 
 interface TrackListProps {
-  items: Track[]
+  tracks: Track[] | undefined
 }
 
-function TrackList({ items }: TrackListProps) {
+function TrackList({ tracks }: TrackListProps) {
   return (
     <ul className="flex flex-col">
-      {items.map((track, i) => (
+      {tracks?.map((track, i) => (
         <li
           key={i}
-          className="flex h-14 cursor-pointer items-center gap-3 rounded-md px-2 transition hover:bg-accent"
+          className="tex-sm flex h-14 cursor-pointer items-center gap-3 rounded-md px-2 text-tertiary transition hover:bg-accent"
         >
-          <div className="size-10 rounded-md bg-blue" />
-          <div className="flex flex-1 flex-col text-sm">
-            <p className="font-medium">Track Name</p>
-            <p className="text-tertiary">Author Name</p>
+          <div className="relative size-10 overflow-hidden rounded-md">
+            <Image src={track.imageUrl} alt="" fill className="object-cover" />
           </div>
-          <div className="text-sm">
-            <p className="text-tertiary">Track : Time</p>
+          <div className="flex flex-1 flex-col">
+            <p className="text-base text-primary">{track.title}</p>
+            <p>{track.artist}</p>
+          </div>
+          <div>
+            <p>{format(new Date(track.duration * 1000), "m:ss")}</p>
           </div>
         </li>
       ))}

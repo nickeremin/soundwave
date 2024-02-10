@@ -10,7 +10,6 @@ import {
   UserNav,
 } from "@/features/nav"
 import { useSearchContext } from "@/features/nav/search-context"
-import SearchTabs from "@/features/nav/search-tabs"
 import { Wrapper } from "@/shared/components/ui/wrapper"
 
 function SearchHeader() {
@@ -31,8 +30,6 @@ function SearchHeader() {
             <LogInSignUpButtons />
           </SignedOut>
         </nav>
-
-        {search.length > 0 && <SearchTabs />}
       </div>
     </Wrapper>
   )

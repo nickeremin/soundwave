@@ -36,6 +36,7 @@ const config = {
           400: "rgb(var(--gray-color-400))",
           500: "rgb(var(--gray-color-500))",
           600: "rgb(var(--gray-color-600))",
+          700: "rgb(var(--gray-color-600))",
           light: "rgb(var(--gray-light))",
           dark: "rgb(var(--gray-dark))",
         },
@@ -65,6 +66,10 @@ const config = {
         accent: {
           DEFAULT: "rgb(var(--accent))",
           foreground: "rgb(var(--accent-foreground))",
+        },
+
+        focus: {
+          DEFAULT: "rgb(var(--focus))",
         },
 
         destructive: {

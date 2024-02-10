@@ -8,10 +8,7 @@ import "./globals.css"
 
 import { ClerkProvider } from "@clerk/nextjs"
 
-import {
-  ThemeProvider,
-  TRPCReactQueryProvider,
-} from "@/shared/components/providers"
+import { TRPCReactQueryProvider } from "@/shared/components/providers"
 import { Toaster } from "@/shared/components/ui/sonner"
 import { cn } from "@/shared/lib/utils"
 

@@ -5,12 +5,13 @@ import { SignedIn, SignedOut } from "@clerk/nextjs"
 import { BackForwardButtons, UserNav } from "@/features/nav"
 import { LucideIcon } from "@/shared/components/icons"
 import { Button, buttonVariants } from "@/shared/components/ui/button"
+import { Wrapper } from "@/shared/components/ui/wrapper"
 import { cn } from "@/shared/lib/utils"
 
-function MainHeader() {
+function MainHeader({ className }: React.HTMLAttributes<HTMLElement>) {
   return (
-    <header className="sticky top-0 z-50 flex h-16 w-full items-center bg-background-100/80 px-6 backdrop-blur-[20px] backdrop-saturate-200">
-      <nav className="flex w-full items-center justify-between">
+    <Wrapper variant="header" as="header" className={className}>
+      <nav className="flex h-16 w-full items-center justify-between px-6">
         <BackForwardButtons />
         <SignedIn>
           <div className="flex items-center gap-3">
@@ -51,7 +52,7 @@ function MainHeader() {
           </div>
         </SignedOut>
       </nav>
-    </header>
+    </Wrapper>
   )
 }
 

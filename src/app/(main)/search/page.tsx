@@ -10,7 +10,7 @@ function SearchPage() {
     <div className="mt-10 flex flex-col gap-10">
       <div className="flex flex-col gap-4">
         <h2 className="text-3xl font-semibold">Songs</h2>
-        <TrackList items={[1, 2, 3, 4, 5]} />
+        <TrackList tracks={[1, 2, 3, 4, 5]} />
       </div>
       <div className="flex flex-col gap-4">
         <h2 className="text-3xl font-semibold">Artists</h2>

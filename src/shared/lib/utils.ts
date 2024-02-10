@@ -1,11 +1,26 @@
 import { isClerkAPIResponseError } from "@clerk/nextjs"
 import { clsx, type ClassValue } from "clsx"
+import { format } from "date-fns"
 import { toast } from "sonner"
 import { twMerge } from "tailwind-merge"
 import * as z from "zod"
 
+import { Image } from "../types/image"
+import { imageSchema } from "./validations/image"
+
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
+}
+
+export function formatDuration(ms: number | undefined) {
+  console.log(ms)
+  return format(new Date(ms ?? 0), "m:ss")
+}
+
+export function getImageUrl(images: Image[] | undefined) {
+  const fallbackUrl = ""
+  const image = images?.[1]
+  return image ? image.url : fallbackUrl
 }
 
 export function catchError(error: unknown) {

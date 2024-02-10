@@ -3,7 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 
 import { cn } from "@/shared/lib/utils"
 
-const wrapperVariants = cva("px-6", {
+const wrapperVariants = cva("", {
   variants: {
     variant: {
       default: "max-w-full w-[--content-page-width-with-margin] mx-auto",

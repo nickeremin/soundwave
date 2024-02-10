@@ -3,7 +3,7 @@ import { getAuth } from "@clerk/nextjs/server"
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch"
 
 import { createContextInner } from "@/shared/trpc/context"
-import { appRouter } from "@/app/_trpc/routers/app"
+import { appRouter } from "@/app/_trpc/app"
 
 function handler(req: NextRequest) {
   return fetchRequestHandler({
