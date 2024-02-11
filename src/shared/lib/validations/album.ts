@@ -1,6 +1,6 @@
 import * as z from "zod"
 
-import { artistSchema, shortArtistSchema } from "./artist"
+import { artistSchema, artistShortSchema } from "./artist"
 import { imageSchema } from "./image"
 
 export const albumSchema = z.object({
@@ -9,14 +9,21 @@ export const albumSchema = z.object({
   label: z.string(),
   type: z.enum(["album"]),
   release_date: z.string(),
-  album_type: z.enum(["album", "single", "compilation"]),
+  album_type: z.enum([
+    "album",
+    "single",
+    "compilation",
+    "ALBUM",
+    "SINGLE",
+    "COMPILATION",
+  ]),
   popularity: z.number(),
   total_tracks: z.number(),
-  artists: shortArtistSchema.array(),
+  artists: artistShortSchema.array(),
   images: imageSchema.array(),
 })
 
-export const shortAlbumSchema = albumSchema.omit({
+export const albumShortSchema = albumSchema.omit({
   label: true,
   popularity: true,
 })

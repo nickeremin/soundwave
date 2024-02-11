@@ -1,11 +1,11 @@
 import * as z from "zod"
 
-import { shortAlbumSchema } from "./album"
-import { shortArtistSchema } from "./artist"
+import { albumShortSchema } from "./album"
+import { artistShortSchema } from "./artist"
 
 export const trackSchema = z.object({
-  album: shortAlbumSchema,
-  artists: shortArtistSchema.array(),
+  album: albumShortSchema,
+  artists: artistShortSchema.array(),
   duration_ms: z.number(),
   id: z.string(),
   name: z.string(),
@@ -14,3 +14,30 @@ export const trackSchema = z.object({
   type: z.string(),
   preview_url: z.string().nullable(),
 })
+
+export const getTrackSchema = z.object({})
+
+/*
+{
+  track : {
+    id:
+    name:
+    album: {
+      id:
+      name:
+      images:
+    }
+  }
+  artists: {
+    id:
+    name:
+    images:
+
+  }[]
+  recommendations: {
+    
+    tracks: []
+    relatedArtists: []
+  }
+}
+*/

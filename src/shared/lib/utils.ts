@@ -1,6 +1,8 @@
 import { isClerkAPIResponseError } from "@clerk/nextjs"
+import { isAxiosError } from "axios"
 import { clsx, type ClassValue } from "clsx"
 import { format } from "date-fns"
+import { FastAverageColor } from "fast-average-color"
 import { toast } from "sonner"
 import { twMerge } from "tailwind-merge"
 import * as z from "zod"
@@ -12,15 +14,20 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
-export function formatDuration(ms: number | undefined) {
-  console.log(ms)
+export function formatTimeDuration(ms: number | undefined) {
   return format(new Date(ms ?? 0), "m:ss")
 }
 
 export function getImageUrl(images: Image[] | undefined) {
-  const fallbackUrl = ""
+  const fallbackUrl = "/"
   const image = images?.[1]
-  return image ? image.url : fallbackUrl
+  return image?.url
+}
+
+export function getAverageColor(image: HTMLImageElement) {
+  const fac = new FastAverageColor()
+  const color = fac.getColor(image)
+  return color
 }
 
 export function catchError(error: unknown) {
@@ -33,6 +40,17 @@ export function catchError(error: unknown) {
     return toast(error.message)
   } else {
     return toast("Что-то пошло не так. Пожалуйста, попробуйте еще раз.")
+  }
+}
+
+export function catchAxiosError(error: unknown) {
+  if (isAxiosError(error)) {
+    console.log({
+      message: error.message,
+      status: error.response?.status,
+    })
+  } else if (error instanceof z.ZodError) {
+    console.log(error)
   }
 }
 

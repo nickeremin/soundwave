@@ -5,7 +5,7 @@ import MobileFooterNav from "../navs/mobile-footer-nav"
 
 function SiteFooter() {
   return (
-    <footer className="bg-background-100 p-6 shadow-border-t lg:p-10">
+    <footer className="bg-background-100 p-6 shadow-border-t">
       <nav className="mx-auto flex max-w-[--page-width] flex-col">
         <DesktopFooterNav />
         <MobileFooterNav />

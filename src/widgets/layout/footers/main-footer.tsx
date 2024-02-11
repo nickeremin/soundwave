@@ -36,7 +36,7 @@ const footerLinks: FooterSection[] = [
 
 function MainFooter() {
   return (
-    <footer className="flex p-10 pt-20">
+    <footer className="flex p-6 pt-20">
       <nav className="flex w-full flex-col">
         <div className="flex">
           {footerLinks.map((section, i) => (

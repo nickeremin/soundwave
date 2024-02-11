@@ -1,14 +1,9 @@
 "use client"
 
 import React from "react"
-import axios from "axios"
-import { FastAverageColor } from "fast-average-color"
-import * as z from "zod"
 
-import TrackDetails from "@/entities/tracks/track-details"
-import { Button } from "@/shared/components/ui/button"
-import { trackSchema } from "@/shared/lib/validations/track"
-import { getArtist, getSpotifyAccessToken, getTrack } from "@/app/_actions/test"
+import TrackDetails from "@/widgets/track/track-details"
+import TrackRecommendations from "@/widgets/track/track-recommendations"
 
 interface TrackPageProps {
   params: {
@@ -18,9 +13,10 @@ interface TrackPageProps {
 
 function TrackPage({ params: { trackId } }: TrackPageProps) {
   return (
-    <div className="flex flex-col">
+    <React.Fragment>
       <TrackDetails key={trackId} trackId={trackId} />
-    </div>
+      <TrackRecommendations />
+    </React.Fragment>
   )
 }
 

@@ -6,7 +6,7 @@ export const artistSchema = z.object({
   followers: z.object({
     total: z.number(),
   }),
-  genres: z.string().array(),
+  genres: z.string().array().optional(),
   id: z.string(),
   images: imageSchema.array(),
   name: z.string(),
@@ -14,7 +14,7 @@ export const artistSchema = z.object({
   type: z.enum(["artist"]),
 })
 
-export const shortArtistSchema = artistSchema.pick({
+export const artistShortSchema = artistSchema.pick({
   id: true,
   name: true,
   type: true,

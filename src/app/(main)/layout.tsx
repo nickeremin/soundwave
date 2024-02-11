@@ -20,7 +20,6 @@ function PublicLayout({ children }: PublicLayoutProps) {
         <main className="relative flex flex-col px-6">
           <div className="relative flex flex-col">{children}</div>
         </main> */}
-        <MainFooter />
       </ScrollArea>
     </div>
   )

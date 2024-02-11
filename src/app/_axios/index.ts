@@ -3,7 +3,7 @@ import axios, { AxiosError } from "axios"
 
 import { env } from "@/shared/components/env.mjs"
 
-import { getSpotifyAccessToken } from "../_actions/test"
+import { getSpotifyAccessToken } from "../_actions/track"
 
 export const spotifyApiAxios = axios.create({
   baseURL: "https://api.spotify.com/v1",
