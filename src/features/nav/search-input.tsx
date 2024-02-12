@@ -45,7 +45,7 @@ function SearchInput({ className, ...props }: SearchInputProps) {
         onChange={(e) => {
           setSearch(e.target.value)
         }}
-        className="inline-flex h-full w-full bg-transparent px-3 text-base placeholder:text-muted-foreground focus-visible:outline-none"
+        className="inline-flex size-full bg-transparent px-3 text-base placeholder:text-muted-foreground focus-visible:outline-none"
       />
       {search.length > 0 && (
         <span className="-ml-3 flex flex-col items-center justify-center pr-1">

@@ -1,4 +1,3 @@
-import { catchAxiosError } from "@/shared/lib/utils"
 import { albumShortSchema } from "@/shared/lib/validations/album"
 
 import { spotifyApiAxios } from "."

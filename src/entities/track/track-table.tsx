@@ -4,7 +4,6 @@ import React from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { useQuery } from "@tanstack/react-query"
-import { format, formatDuration, secondsToMinutes } from "date-fns"
 import * as z from "zod"
 
 import { cn } from "@/shared/lib/utils"
@@ -16,7 +15,7 @@ interface TrackTableProps {
   tracks: Track[]
 }
 
-function TrackTable({ tracks }: TrackTableProps) {
+function TrackTable({}: TrackTableProps) {
   const [currentTrack, setCurrentTrack] = React.useState<number | null>(null)
 
   const { data, isLoading } = useQuery({
@@ -50,20 +49,20 @@ function TrackTable({ tracks }: TrackTableProps) {
               <td className="justify-self-end text-base">{i + 1}</td>
               <td className="flex items-center gap-3">
                 <Image
-                  src={track.imageUrl}
+                  src={"/"}
                   alt=""
                   height={40}
                   width={40}
                   className="rounded-md"
                 />
                 <div className="flex flex-col">
-                  <p className="text-base text-primary">{track.title}</p>
-                  <p className="">{track.artist}</p>
+                  <p className="text-base text-primary">{""}</p>
+                  <p className="">{""}</p>
                 </div>
               </td>
-              <td className="line-clamp-1">{track.album}</td>
+              {/* <td className="line-clamp-1">{track.album}</td> */}
               <td className="mr-8 justify-self-end">
-                {format(new Date(track.duration * 1000), "m:ss")}
+                {/* {format(new Date(track.duration * 1000), "m:ss")} */}
               </td>
             </tr>
           </Link>

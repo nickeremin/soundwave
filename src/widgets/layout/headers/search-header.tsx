@@ -13,7 +13,7 @@ import { useSearchContext } from "@/features/nav/search-context"
 import { Wrapper } from "@/shared/components/ui/wrapper"
 
 function SearchHeader() {
-  const { search } = useSearchContext()
+  const {} = useSearchContext()
 
   return (
     <Wrapper as="header" variant="header" className="">

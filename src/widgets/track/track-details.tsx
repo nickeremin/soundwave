@@ -2,7 +2,6 @@
 
 import React from "react"
 import Image from "next/image"
-import Link from "next/link"
 import { format } from "date-fns"
 import { type FastAverageColorResult } from "fast-average-color"
 
@@ -10,7 +9,7 @@ import { LogInSignUpButtons } from "@/features/nav"
 import AddFavoriteTrackButton from "@/features/track/add-favorite-track-button"
 import PlayTrackButton from "@/features/track/play-track-button"
 import TrackMenuButton from "@/features/track/track-menu-button"
-import { PageHeading } from "@/shared/components/ui/page-heading"
+import ArtistTrackCard from "@/entities/artist/artist-track-card"
 import {
   formatTimeDuration,
   getAverageColor,
@@ -25,25 +24,35 @@ interface TrackDetails {
 }
 
 function TrackDetails({ trackId }: TrackDetails) {
+  const timer = React.useRef({
+    start: Date.now(),
+  })
   const { setIsVisible } = useTrackContext()
 
   const [backgroundColor, setBackgroundColor] =
     React.useState<FastAverageColorResult | null>(null)
-  const { data, isLoading } = trpc.trackRouter.getTrack.useQuery(trackId)
 
-  if (!data) return null
+  // Queries
+  const { data: track } = trpc.trackRouter.getTrack.useQuery(trackId)
 
-  const trackName = data.track.name
-  const trackArtists = data.trackArtists
-    .map(({ artist }) => artist.name)
-    .join(", ")
-  const trackAlbumName = data.track.album.name
-  const trackDate = format(
-    new Date(data?.track.album.release_date ?? 0),
-    "yyyy"
+  const artistsWithAlbumsQueries = trpc.useQueries((t) =>
+    track
+      ? track.artists.map((artist) =>
+          t.artistRouter.getArtistWithAlbums(artist.id)
+        )
+      : []
   )
-  const trackDuration = formatTimeDuration(data.track.duration_ms)
-  const trackImageUrl = getImageUrl(data.track.album.images)
+
+  if (!track) return null
+
+  console.log("Past: " + (Date.now() - timer.current.start))
+
+  const trackName = track.name
+  const trackArtists = track.artists.map((artist) => artist.name).join(", ")
+  const trackAlbumName = track.album.name
+  const trackDate = format(new Date(track.album.release_date ?? 0), "yyyy")
+  const trackDuration = formatTimeDuration(track.duration_ms)
+  const trackImageUrl = getImageUrl(track.album.images)
 
   return (
     <React.Fragment>
@@ -54,20 +63,23 @@ function TrackDetails({ trackId }: TrackDetails) {
           }}
           className="absolute inset-0 bg-gradient-to-b from-transparent to-black/20 "
         />
-        <div className="shadow-image relative size-[clamp(128px,128px_+_(100vw-320px-600px)/424*104,232px)] overflow-hidden rounded-md">
-          {trackImageUrl && (
-            <Image
-              src={trackImageUrl}
-              alt=""
-              fill
-              onLoad={(e) => {
-                const color = getAverageColor(e.currentTarget)
-                setBackgroundColor(color)
-                setIsVisible(true)
-              }}
-              className="object-cover"
-            />
-          )}
+        <div className="relative size-[clamp(128px,128px_+_(100vw-320px-600px)/424*104,232px)] overflow-hidden rounded-md shadow-image">
+          <Image
+            src={trackImageUrl}
+            alt=""
+            width={300}
+            height={300}
+            onLoad={async (e) => {
+              const color = getAverageColor(e.currentTarget)
+              setBackgroundColor(color)
+              setIsVisible(true)
+
+              console.log(
+                "Content visible after ~ " + (Date.now() - timer.current.start)
+              )
+            }}
+            className="object-cover"
+          />
         </div>
         <div className="relative flex flex-col">
           <p className="text-sm font-medium">Song</p>
@@ -94,38 +106,17 @@ function TrackDetails({ trackId }: TrackDetails) {
           <AddFavoriteTrackButton className="mr-3" />
           <TrackMenuButton />
         </div>
-        <div className="flex flex-col items-start justify-between gap-6 lg:flex-row lg:gap-[200px]">
-          <div className="flex w-full max-w-xl flex-col items-end gap-10 rounded-lg bg-background/50 p-4 lg:max-w-[420px]">
+        <div className="flex flex-col items-start justify-between gap-6">
+          <div className="flex w-full max-w-xl flex-col items-end gap-10 rounded-lg bg-background/50 p-4">
             <p className="self-start font-semibold">
               Sign in to see lyrics and listen to the full track
             </p>
             <LogInSignUpButtons />
           </div>
           <div className="flex w-full flex-col">
-            {data.trackArtists.map(({ artist }) => {
-              const artistImageUrl = getImageUrl(artist.images)
-
-              return (
-                <Link href="/" key={artist.id}>
-                  <div className="flex w-full items-center gap-4 rounded-md p-2 transition hover:bg-accent lg:max-w-md">
-                    <div className="relative size-20 overflow-hidden rounded-full">
-                      {artistImageUrl && (
-                        <Image
-                          src={artistImageUrl}
-                          alt=""
-                          fill
-                          className="object-cover"
-                        />
-                      )}
-                    </div>
-                    <div className="flex flex-col font-medium">
-                      <p className="text-sm">Artist</p>
-                      <p>{artist.name}</p>
-                    </div>
-                  </div>
-                </Link>
-              )
-            })}
+            {artistsWithAlbumsQueries.map((query, i) => (
+              <ArtistTrackCard key={i} {...query} />
+            ))}
           </div>
         </div>
       </div>

@@ -1,4 +1,3 @@
-import { catchAxiosError } from "@/shared/lib/utils"
 import { trackSchema } from "@/shared/lib/validations/track"
 
 import { spotifyApiAxios } from "."
@@ -6,6 +5,7 @@ import { spotifyApiAxios } from "."
 export async function getTrack(trackId: string) {
   const { data } = await spotifyApiAxios.get(`/tracks/${trackId}`)
   const track = trackSchema.parse(data)
+
   return track
 }
 

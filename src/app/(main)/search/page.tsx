@@ -1,16 +1,15 @@
 import React from "react"
 
-import AlbumList from "@/entities/albums/album-list"
-import ArtistList from "@/entities/artists/artist-list"
-import PlaylistList from "@/entities/playlists/playlist-list"
-import TrackList from "@/entities/tracks/track-list"
+import AlbumList from "@/entities/album/album-list"
+import ArtistList from "@/entities/artist/artist-list"
+import TrackList from "@/entities/track/track-list"
 
 function SearchPage() {
   return (
     <div className="mt-10 flex flex-col gap-10">
       <div className="flex flex-col gap-4">
         <h2 className="text-3xl font-semibold">Songs</h2>
-        <TrackList tracks={[1, 2, 3, 4, 5]} />
+        <TrackList tracks={[]} />
       </div>
       <div className="flex flex-col gap-4">
         <h2 className="text-3xl font-semibold">Artists</h2>
@@ -18,11 +17,10 @@ function SearchPage() {
       </div>
       <div className="flex flex-col gap-4">
         <h2 className="text-3xl font-semibold">Albums</h2>
-        <AlbumList items={[1, 2, 3, 4]} />
+        <AlbumList items={[]} />
       </div>
       <div className="flex flex-col gap-4">
         <h2 className="text-3xl font-semibold">Playlists</h2>
-        <PlaylistList items={[1, 2, 3, 4]} />
       </div>
     </div>
   )

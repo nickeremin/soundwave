@@ -1,4 +1,5 @@
 import { router } from "@/shared/trpc/trpc"
+import { inferRouterOutputs } from "@trpc/server"
 
 import { artistRouter } from "./routers/artist-router"
 import { testRouter } from "./routers/protected/test"
@@ -11,3 +12,4 @@ export const appRouter = router({
 })
 
 export type AppRouter = typeof appRouter
+export type AppRouterOutput = inferRouterOutputs<AppRouter>;

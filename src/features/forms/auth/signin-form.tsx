@@ -13,7 +13,6 @@ import {
 import { ClerkLoaded } from "@/shared/components/clerk"
 import { LucideIcon } from "@/shared/components/icons"
 import { buttonVariants } from "@/shared/components/ui/button"
-import { PageHeading } from "@/shared/components/ui/page-heading"
 import { cn } from "@/shared/lib/utils"
 
 import { OAuthSignInButtons } from "./oauth"

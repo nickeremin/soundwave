@@ -1,12 +1,9 @@
 import React from "react"
 import Image from "next/image"
-import Link from "next/link"
 
 import { AuthHeader, SiteFooter } from "@/widgets/layout"
 import { AspectRatio } from "@/shared/components/ui/aspect-ratio"
 import { GradientText } from "@/shared/components/ui/gradient-text"
-import { PageHeading } from "@/shared/components/ui/page-heading"
-import { cn } from "@/shared/lib/utils"
 
 interface AuthLayoutProps {
   children: React.ReactNode

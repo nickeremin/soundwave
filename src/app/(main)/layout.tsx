@@ -1,7 +1,6 @@
 import React from "react"
 
 import { MainNav } from "@/widgets/layout"
-import MainFooter from "@/widgets/layout/footers/main-footer"
 import { ScrollArea } from "@/shared/components/ui/scroll-area"
 
 interface PublicLayoutProps {

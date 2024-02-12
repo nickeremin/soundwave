@@ -2,8 +2,6 @@ import { HeartIcon, PlayIcon, SpeakerLoudIcon } from "@radix-ui/react-icons"
 
 import { cn } from "@/shared/lib/utils"
 
-import { type IconProps } from "./icons"
-
 const MusicIcons = {
   Play: PlayIcon,
   SpeakerLoud: SpeakerLoudIcon,

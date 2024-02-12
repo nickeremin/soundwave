@@ -43,7 +43,7 @@ function UserNav() {
             </li>
           </ul>
 
-          <div className="mx-3 my-3 border-t" />
+          <div className="m-3 border-t" />
 
           <ul className="flex flex-col">
             <li className="flex h-12 cursor-pointer items-center rounded-2xl px-3 text-secondary transition hover:bg-accent hover:text-primary">

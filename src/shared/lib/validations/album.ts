@@ -1,6 +1,6 @@
 import * as z from "zod"
 
-import { artistSchema, artistShortSchema } from "./artist"
+import { artistShortSchema } from "./artist"
 import { imageSchema } from "./image"
 
 export const albumSchema = z.object({

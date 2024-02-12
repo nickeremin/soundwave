@@ -1,13 +1,13 @@
-import { AlbumShort } from "@/shared/types/album"
-import { Artist, ArtistShort } from "@/shared/types/artist"
-import { Track } from "@/shared/types/track"
-import { catchAxiosError } from "@/shared/lib/utils"
+import { type AlbumShort } from "@/shared/types/album"
+import { type Artist } from "@/shared/types/artist"
 import { artistSchema } from "@/shared/lib/validations/artist"
 
 import { spotifyApiAxios } from "."
 import { getArtistAlbums } from "./album"
+import { getTrack } from "./track"
 
-export async function getTrackArtists(track: Track) {
+export async function getTrackArtists(trackId: string) {
+  const track = await getTrack(trackId)
   const trackArtists: {
     artist: Artist
     albums: AlbumShort[]
@@ -27,8 +27,9 @@ export async function getTrackArtists(track: Track) {
   return trackArtists
 }
 
-export async function getRelatedArtists(trackArtists: ArtistShort[]) {
-  const mainArtist = trackArtists[0]
+export async function getRelatedArtists(trackId: string) {
+  const track = await getTrack(trackId)
+  const mainArtist = track.artists[0]
   const { data } = await spotifyApiAxios(
     `/artists/${mainArtist!.id}/related-artists`
   )

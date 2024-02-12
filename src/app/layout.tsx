@@ -28,6 +28,10 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" suppressHydrationWarning>
+      {/* <head>
+        <script src="/path/to/dist/vibrant.js"></script>
+        <script src="/path/to/dist/vibrant.min.js"></script>
+      </head> */}
       <ClerkProvider localization={enUS}>
         <body
           className={cn(

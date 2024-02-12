@@ -5,7 +5,6 @@ import React from "react"
 type SearchContextData = {
   search: string
   setSearch: React.Dispatch<React.SetStateAction<string>>
-  data?: any
 }
 
 const SearchContext = React.createContext<SearchContextData | null>(null)

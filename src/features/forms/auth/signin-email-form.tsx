@@ -24,7 +24,6 @@ import {
   FormMessage,
 } from "@/shared/components/ui/form"
 import { Input } from "@/shared/components/ui/input"
-import { PageHeading } from "@/shared/components/ui/page-heading"
 import { catchClerkError } from "@/shared/lib/utils"
 import { checkEmailSchema } from "@/shared/lib/validations/auth"
 

@@ -8,7 +8,6 @@ import { twMerge } from "tailwind-merge"
 import * as z from "zod"
 
 import { Image } from "../types/image"
-import { imageSchema } from "./validations/image"
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -19,9 +18,8 @@ export function formatTimeDuration(ms: number | undefined) {
 }
 
 export function getImageUrl(images: Image[] | undefined) {
-  const fallbackUrl = "/"
-  const image = images?.[1]
-  return image?.url
+  const image = images?.[0]
+  return image!.url
 }
 
 export function getAverageColor(image: HTMLImageElement) {
@@ -50,7 +48,9 @@ export function catchAxiosError(error: unknown) {
       status: error.response?.status,
     })
   } else if (error instanceof z.ZodError) {
-    console.log(error)
+    console.log({ ZodError: error.message })
+  } else {
+    return console.log(error)
   }
 }
 

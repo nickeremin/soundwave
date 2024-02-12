@@ -1,13 +1,5 @@
 import { InferInsertModel, InferSelectModel, relations } from "drizzle-orm"
-import {
-  boolean,
-  json,
-  numeric,
-  pgEnum,
-  pgTable,
-  text,
-  timestamp,
-} from "drizzle-orm/pg-core"
+import { boolean, numeric, pgTable, text, timestamp } from "drizzle-orm/pg-core"
 
 // Users
 export const users = pgTable("user", {

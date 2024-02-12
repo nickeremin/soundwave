@@ -3,8 +3,7 @@ import Link from "next/link"
 import { SignedIn, SignedOut } from "@clerk/nextjs"
 
 import { BackForwardButtons, UserNav } from "@/features/nav"
-import { LucideIcon } from "@/shared/components/icons"
-import { Button, buttonVariants } from "@/shared/components/ui/button"
+import { buttonVariants } from "@/shared/components/ui/button"
 import { Wrapper } from "@/shared/components/ui/wrapper"
 import { cn } from "@/shared/lib/utils"
 

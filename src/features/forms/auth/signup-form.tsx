@@ -7,18 +7,12 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { motion, MotionConfig } from "framer-motion"
 import { useForm, useFormContext, useWatch } from "react-hook-form"
 
-import {
-  EmailInputs,
-  InitialInputs,
-  SignUpContextData,
-  SignUpStep,
-} from "@/shared/types/signup"
+import { EmailInputs, InitialInputs } from "@/shared/types/signup"
 import { SubscriptionPlan } from "@/shared/types/user"
 import {
   AuthHeading,
   ContinueAuthWith,
   PrivacyAndTermsLinks,
-  SignUpContextProvider,
   useSignUpContext,
   VerifyEmail,
 } from "@/entities/auth"
@@ -34,7 +28,6 @@ import {
 } from "@/shared/components/ui/form"
 import { Input } from "@/shared/components/ui/input"
 import { Label } from "@/shared/components/ui/label"
-import { PageHeading } from "@/shared/components/ui/page-heading"
 import { RadioGroup, RadioGroupItem } from "@/shared/components/ui/radio-group"
 import { catchClerkError, cn } from "@/shared/lib/utils"
 import {

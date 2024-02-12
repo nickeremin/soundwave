@@ -3,18 +3,13 @@
 import React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { useCycle } from "framer-motion"
 
 import { buttonVariants } from "@/shared/components/ui/button"
 import { PageHeading } from "@/shared/components/ui/page-heading"
-import { Wrapper } from "@/shared/components/ui/wrapper"
 import { cn } from "@/shared/lib/utils"
 
-import MobileMenuToggleButton from "../mobile-menu-toggle-button"
-import MobileMenuHeaderWrapper from "./mobile-menu/mobile-menu-header-wrapper"
-
 function AuthHeader() {
-  const [isOpen, toggleOpen] = useCycle(false, true)
+  //const [isOpen, toggleOpen] = useCycle(false, true)
   const pathname = usePathname()
 
   //Based on pathname switch button on sign in or sign up
@@ -83,7 +78,7 @@ function AuthHeader() {
             className={cn(
               buttonVariants({
                 variant: "outline",
-                className: "rounded-full"
+                className: "rounded-full",
               })
             )}
           >

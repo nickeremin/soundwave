@@ -1,10 +1,8 @@
 "use client"
 
 import React from "react"
-import { getCookie, setCookie } from "cookies-next"
 
 import { Button } from "@/shared/components/ui/button"
-import { addTimerAction } from "@/app/_actions/track"
 
 interface TimerProps {
   value: number
@@ -18,7 +16,7 @@ function Timer({ value }: TimerProps) {
     const onUnload = () => {
       document.cookie = `seconds=${seconds}`
       localStorage.setItem("seconds", seconds.toString())
-      addTimerAction({ time: value, remainTime: seconds })
+      // addTimerAction({ time: value, remainTime: seconds })
     }
 
     window.addEventListener("unload", onUnload)
