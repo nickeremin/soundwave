@@ -16,7 +16,7 @@ export const artistRouter = router({
         const artist = artistSchema.parse(data)
         return artist
       } catch (error) {
-        console.log("getArtist this")
+        catchAxiosError(error)
       }
     }),
   getArtistWithAlbums: publicProcedure
@@ -45,6 +45,19 @@ export const artistRouter = router({
           .array()
           .parse(artistAlbumsResponse.data.items)
         return { artist, albums }
+      } catch (error) {
+        catchAxiosError(error)
+      }
+    }),
+  getRelatedArtists: publicProcedure
+    .input(z.string())
+    .query(async ({ input: artistId }) => {
+      try {
+        const { data } = await spotifyApiAxios.get(
+          `/artists/${artistId}/related-artists`
+        )
+        const relatedArtists = artistSchema.array().parse(data.artists)
+        return relatedArtists
       } catch (error) {
         catchAxiosError(error)
       }

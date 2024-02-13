@@ -12,10 +12,7 @@ async function TrackLayout({ children }: TrackLayoutProps) {
   return (
     <div className="">
       <MainHeader />
-      <TrackContextProvider>
-        <main className="relative">{children}</main>
-        <MainFooter />
-      </TrackContextProvider>
+      {children}
     </div>
   )
 }

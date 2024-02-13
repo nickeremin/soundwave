@@ -81,7 +81,7 @@
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-border decoration-2 decoration-current;
   }
 
   html {

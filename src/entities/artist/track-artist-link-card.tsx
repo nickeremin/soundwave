@@ -8,7 +8,7 @@ import { Skeleton } from "@/shared/components/ui/skeleton"
 import { getImageUrl } from "@/shared/lib/utils"
 import { AppRouter, AppRouterOutput } from "@/app/_trpc/app"
 
-function ArtistTrackCard({
+function TrackArtistLinkCard({
   data,
 }: UseTRPCQueryResult<
   AppRouterOutput["artistRouter"]["getArtistWithAlbums"],
@@ -26,19 +26,21 @@ function ArtistTrackCard({
     )
   }
 
-  const artistImageUrl = getImageUrl(data.artist.images)
+  const imageUrl = getImageUrl(data.artist.images)
 
   return (
     <Link href="/" key={data.artist.id}>
       <div className="flex w-full items-center gap-4 rounded-md p-2 transition hover:bg-accent">
-        <div className="relative size-20 overflow-hidden rounded-full shadow-image">
-          <Image
-            src={artistImageUrl}
-            width={160}
-            height={160}
-            alt=""
-            className="object-cover"
-          />
+        <div className="relative size-20 overflow-hidden rounded-full bg-muted shadow-image">
+          {imageUrl ? (
+            <Image
+              src={imageUrl}
+              width={160}
+              height={160}
+              alt=""
+              className="size-full object-cover object-center"
+            />
+          ) : null}
         </div>
         <div className="flex flex-col font-medium">
           <p className="text-sm">Artist</p>
@@ -49,4 +51,4 @@ function ArtistTrackCard({
   )
 }
 
-export default ArtistTrackCard
+export default TrackArtistLinkCard

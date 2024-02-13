@@ -8,6 +8,7 @@ import "./globals.css"
 
 import { ClerkProvider } from "@clerk/nextjs"
 
+import { PlayerContextProvider } from "@/features/player/player-context-provider"
 import { TRPCReactQueryProvider } from "@/shared/components/providers"
 import { Toaster } from "@/shared/components/ui/sonner"
 import { cn } from "@/shared/lib/utils"
@@ -41,13 +42,15 @@ export default function RootLayout({ children }: RootLayoutProps) {
           suppressHydrationWarning
         >
           <TRPCReactQueryProvider>
-            {children}
-            <Toaster />
-            <ReactQueryDevtools
-              buttonPosition="bottom-left"
-              position="bottom"
-              initialIsOpen={false}
-            />
+            <PlayerContextProvider>
+              {children}
+              <Toaster />
+              <ReactQueryDevtools
+                buttonPosition="bottom-left"
+                position="bottom"
+                initialIsOpen={false}
+              />
+            </PlayerContextProvider>
           </TRPCReactQueryProvider>
         </body>
       </ClerkProvider>

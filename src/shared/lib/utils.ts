@@ -19,7 +19,7 @@ export function formatTimeDuration(ms: number | undefined) {
 
 export function getImageUrl(images: Image[] | undefined) {
   const image = images?.[0]
-  return image!.url
+  return image?.url
 }
 
 export function getAverageColor(image: HTMLImageElement) {

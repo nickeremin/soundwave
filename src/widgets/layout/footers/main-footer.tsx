@@ -51,14 +51,14 @@ function MainFooter() {
 
         <div className="my-10 w-full border-t" />
 
-        <div className="flex h-full w-[400px] flex-col justify-between">
+        <div className="flex h-full w-[400px] flex-col justify-between text-sm font-medium">
           <p className="text-secondary">&copy; 2024 SoundWave</p>
 
           <p className="text-tertiary">
             Created by{" "}
             <Link
               href="/"
-              className="font-medium text-secondary transition hover:text-primary"
+              className="font-bold text-secondary transition hover:text-primary hover:underline"
             >
               nickeremin
             </Link>

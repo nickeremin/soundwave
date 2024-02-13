@@ -14,30 +14,3 @@ export const trackSchema = z.object({
   type: z.string(),
   preview_url: z.string().nullable(),
 })
-
-export const getTrackSchema = z.object({})
-
-/*
-{
-  track : {
-    id:
-    name:
-    album: {
-      id:
-      name:
-      images:
-    }
-  }
-  artists: {
-    id:
-    name:
-    images:
-
-  }[]
-  recommendations: {
-    
-    tracks: []
-    relatedArtists: []
-  }
-}
-*/

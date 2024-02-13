@@ -2,9 +2,9 @@
 
 import React from "react"
 
+import TrackList from "@/entities/track/track-list"
+import TrackListLoading from "@/entities/track/track-list-loading"
 import { trpc } from "@/shared/trpc/client"
-
-import TrackList from "./track-list"
 
 interface RecommendedTracksProps {
   trackId: string
@@ -22,10 +22,18 @@ function RecommendedTracks({ trackId }: RecommendedTracksProps) {
   )
 
   if (!data) {
-    return <p>Loading</p>
+    return (
+      <div className="flex flex-col gap-4 px-6">
+        <div className="flex flex-col">
+          <h2 className="text-2xl font-bold">Recommended</h2>
+          <p className="text-sm font-medium text-tertiary">
+            Based on this song
+          </p>
+        </div>
+        <TrackListLoading limit={5} />
+      </div>
+    )
   }
-
-  console.log(data.tracks)
 
   return (
     <div className="flex flex-col gap-4 px-6 py-2">

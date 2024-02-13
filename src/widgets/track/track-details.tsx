@@ -9,7 +9,7 @@ import { LogInSignUpButtons } from "@/features/nav"
 import AddFavoriteTrackButton from "@/features/track/add-favorite-track-button"
 import PlayTrackButton from "@/features/track/play-track-button"
 import TrackMenuButton from "@/features/track/track-menu-button"
-import ArtistTrackCard from "@/entities/artist/artist-track-card"
+import TrackArtistLinkCard from "@/entities/artist/track-artist-link-card"
 import {
   formatTimeDuration,
   getAverageColor,
@@ -52,10 +52,10 @@ function TrackDetails({ trackId }: TrackDetails) {
   const trackAlbumName = track.album.name
   const trackDate = format(new Date(track.album.release_date ?? 0), "yyyy")
   const trackDuration = formatTimeDuration(track.duration_ms)
-  const trackImageUrl = getImageUrl(track.album.images)
+  const imageUrl = getImageUrl(track.album.images)
 
   return (
-    <React.Fragment>
+    <div>
       <div className="relative flex h-[280px] items-end gap-4 p-6">
         <div
           style={{
@@ -63,23 +63,26 @@ function TrackDetails({ trackId }: TrackDetails) {
           }}
           className="absolute inset-0 bg-gradient-to-b from-transparent to-black/20 "
         />
-        <div className="relative size-[clamp(128px,128px_+_(100vw-320px-600px)/424*104,232px)] overflow-hidden rounded-md shadow-image">
-          <Image
-            src={trackImageUrl}
-            alt=""
-            width={300}
-            height={300}
-            onLoad={async (e) => {
-              const color = getAverageColor(e.currentTarget)
-              setBackgroundColor(color)
-              setIsVisible(true)
+        <div className="shadow-image-lg relative size-[clamp(128px,128px_+_(100vw-320px-600px)/424*104,232px)] shrink-0 overflow-hidden rounded-md bg-muted">
+          {imageUrl ? (
+            <Image
+              src={imageUrl}
+              alt=""
+              width={300}
+              height={300}
+              onLoad={async (e) => {
+                const color = getAverageColor(e.currentTarget)
+                setBackgroundColor(color)
+                setIsVisible(true)
 
-              console.log(
-                "Content visible after ~ " + (Date.now() - timer.current.start)
-              )
-            }}
-            className="object-cover"
-          />
+                console.log(
+                  "Content visible after ~ " +
+                    (Date.now() - timer.current.start)
+                )
+              }}
+              className="size-full object-cover object-center"
+            />
+          ) : null}
         </div>
         <div className="relative flex flex-col">
           <p className="text-sm font-medium">Song</p>
@@ -100,7 +103,7 @@ function TrackDetails({ trackId }: TrackDetails) {
         }}
         className="absolute z-[-1] h-[240px] w-full bg-gradient-to-b from-black/40 to-background-100 "
       />
-      <div className="flex flex-col gap-6 p-6">
+      <div className="flex flex-col gap-6 px-6 pt-6">
         <div className="flex items-center">
           <PlayTrackButton className="mr-6" />
           <AddFavoriteTrackButton className="mr-3" />
@@ -115,12 +118,12 @@ function TrackDetails({ trackId }: TrackDetails) {
           </div>
           <div className="flex w-full flex-col">
             {artistsWithAlbumsQueries.map((query, i) => (
-              <ArtistTrackCard key={i} {...query} />
+              <TrackArtistLinkCard key={i} {...query} />
             ))}
           </div>
         </div>
       </div>
-    </React.Fragment>
+    </div>
   )
 }
 
