@@ -5,6 +5,8 @@ import { AlbumTrack } from "@/shared/types/track"
 import TrackWrapper from "@/features/player/track-wrapper"
 import { formatTimeDuration } from "@/shared/lib/utils"
 
+import ArtistLinksNames from "../artist/artist-link-names"
+
 interface AlbumTrackListProps {
   tracks: AlbumTrack[]
 }
@@ -27,7 +29,7 @@ function AlbumTrackList({ tracks }: AlbumTrackListProps) {
                     {track.name}
                   </p>
                 </Link>
-                <p>{artistNames}</p>
+                <ArtistLinksNames artists={track.artists} />
               </div>
               <div className="flex items-center justify-end">
                 <p>{formatTimeDuration(track.duration_ms)}</p>

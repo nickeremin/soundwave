@@ -11,29 +11,9 @@ interface RecommendedTracksProps {
 }
 
 function RecommendedTracks({ trackId }: RecommendedTracksProps) {
-  const { data } = trpc.trackRouter.getRecommendedTracks.useQuery(
-    {
-      limit: 5,
-      seedTracks: trackId,
-    },
-    {
-      refetchOnWindowFocus: false,
-    }
-  )
-
-  if (!data) {
-    return (
-      <div className="flex flex-col gap-4 px-6">
-        <div className="flex flex-col">
-          <h2 className="text-2xl font-bold">Recommended</h2>
-          <p className="text-sm font-medium text-tertiary">
-            Based on this song
-          </p>
-        </div>
-        <TrackListLoading limit={5} />
-      </div>
-    )
-  }
+  const { data: tracks } = trpc.trackRouter.getRecommendedTracks.useQuery({
+    seedTracks: trackId,
+  })
 
   return (
     <div className="flex flex-col gap-4 px-6 py-2">
@@ -41,7 +21,11 @@ function RecommendedTracks({ trackId }: RecommendedTracksProps) {
         <h2 className="text-2xl font-bold">Recommended</h2>
         <p className="text-sm font-medium text-tertiary">Based on this song</p>
       </div>
-      <TrackList tracks={data.tracks} />
+      {tracks ? (
+        <TrackList tracks={tracks.slice(0, 5)} />
+      ) : (
+        <TrackListLoading limit={5} />
+      )}
     </div>
   )
 }

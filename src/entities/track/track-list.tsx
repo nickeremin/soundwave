@@ -9,6 +9,8 @@ import { Track } from "@/shared/types/track"
 import TrackWrapper from "@/features/player/track-wrapper"
 import { formatTimeDuration, getImageUrl } from "@/shared/lib/utils"
 
+import ArtistLinksNames from "../artist/artist-link-names"
+
 // import { AspectRatio } from "@/shared/components/ui/aspect-ratio"
 
 interface TrackListProps {
@@ -20,9 +22,6 @@ function TrackList({ tracks }: TrackListProps) {
     <ul className="flex flex-col">
       {tracks?.map((track) => {
         const imageUrl = getImageUrl(track.album.images)
-        const trackArtistNames = track.artists
-          .map((artist) => artist.name)
-          .join(", ")
 
         return (
           <TrackWrapper key={track.id} trackId={track.id}>
@@ -40,13 +39,13 @@ function TrackList({ tracks }: TrackListProps) {
               </div>
               <div className="flex flex-1 flex-col items-start">
                 <Link href={`/track/${track.id}`}>
-                  <p className="w-fit text-base leading-tight text-primary decoration-2 hover:underline">
+                  <p className="line-clamp-1 w-fit text-base leading-tight text-primary decoration-2 hover:underline">
                     {track.name}
                   </p>
                 </Link>
-                <p className="overflow-hidden text-ellipsis whitespace-nowrap">
-                  {trackArtistNames}
-                </p>
+                <div className="overflow-hidden text-ellipsis whitespace-nowrap">
+                  <ArtistLinksNames artists={track.artists} />
+                </div>
               </div>
               <p>{formatTimeDuration(track.duration_ms)}</p>
             </li>

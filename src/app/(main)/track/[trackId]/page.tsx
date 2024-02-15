@@ -3,6 +3,7 @@
 import React from "react"
 
 import AlbumTracks from "@/widgets/album/album-tracks"
+import ArtistPopularAlbums from "@/widgets/artist/artist-popular-albums"
 import RelatedArtists from "@/widgets/artist/related-artists"
 import MainFooter from "@/widgets/layout/footers/main-footer"
 import RecommendedTracks from "@/widgets/track/recommended-tracks"
@@ -18,27 +19,22 @@ interface TrackPageProps {
 
 function TrackPage({ params: { trackId } }: TrackPageProps) {
   const { data: track } = trpc.trackRouter.getTrack.useQuery(trackId)
-  // const artistsWithAlbumsQueries = trpc.useQueries((t) =>
-  //   track
-  //     ? track.artists.map((artist) =>
-  //         t.artistRouter.getArtistWithAlbums(artist.id)
-  //       )
-  //     : []
-  // )
-  // const relatedArtistsQuery = trpc.artistRouter.getRelatedArtists.useQuery(artistId)
-  // const {data: album} = trpc.albumRouter.getAlbum.useQuery(albumId)
+
   if (!track) return null
 
   return (
     <TrackContextProvider key={trackId}>
-      <main key={trackId} className="relative space-y-10">
+      <main className="relative space-y-10">
         <TrackDetails trackId={trackId} />
         <RecommendedTracks trackId={trackId} />
+        {/* Popular releases by artists on this track */}
+        <div className="flex flex-col gap-10 px-6">
+          {track.artists.map((artist) => (
+            <ArtistPopularAlbums key={artist.id} artist={artist} />
+          ))}
+        </div>
         <RelatedArtists artistId={track.artists[0]!.id} />
         <AlbumTracks albumId={track.album.id} />
-        {/* <TrackArtistAlbums {trackId} />
-     
-       */}
       </main>
       <MainFooter />
     </TrackContextProvider>

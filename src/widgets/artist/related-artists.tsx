@@ -2,6 +2,8 @@ import React from "react"
 import Link from "next/link"
 
 import ArtistPreviewCard from "@/entities/artist/artist-preview-card"
+import ArtistPreviewCardLoading from "@/entities/artist/artist-preview-card-loading"
+import { useGridColumns } from "@/shared/lib/hooks/use-grid-columns"
 import { trpc } from "@/shared/trpc/client"
 
 interface RelatedArtistsProps {
@@ -9,6 +11,7 @@ interface RelatedArtistsProps {
 }
 
 function RelatedArtists({ artistId }: RelatedArtistsProps) {
+  const columns = useGridColumns()
   const { data: relatedArtists } =
     trpc.artistRouter.getRelatedArtists.useQuery(artistId)
 
@@ -26,10 +29,21 @@ function RelatedArtists({ artistId }: RelatedArtistsProps) {
           <span>Show all</span>
         </Link>
       </div>
-      <ul className="grid grid-cols-4 gap-4">
-        {relatedArtists.slice(0, 4).map((artist) => (
-          <ArtistPreviewCard key={artist.id} artist={artist} />
-        ))}
+      <ul
+        style={{
+          gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
+        }}
+        className="grid gap-4"
+      >
+        {relatedArtists
+          ? relatedArtists
+              .slice(0, columns)
+              .map((artist) => (
+                <ArtistPreviewCard key={artist.id} artist={artist} />
+              ))
+          : Array.from({ length: columns }, (_, i) => i).map((_, i) => (
+              <ArtistPreviewCardLoading key={i} />
+            ))}
       </ul>
     </div>
   )

@@ -1,9 +1,10 @@
 "use client"
 
 import React from "react"
+import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { SignedIn, SignedOut } from "@clerk/nextjs"
-import { motion } from "framer-motion"
+import { AnimatePresence, motion } from "framer-motion"
 
 import {
   BackForwardButtons,
@@ -11,7 +12,7 @@ import {
   SearchInput,
   UserNav,
 } from "@/features/nav"
-import { Button } from "@/shared/components/ui/button"
+import { Button, buttonVariants } from "@/shared/components/ui/button"
 import { cn } from "@/shared/lib/utils"
 
 type Tab = {
@@ -66,16 +67,20 @@ function SearchHeader() {
           <LogInSignUpButtons />
         </SignedOut>
       </nav>
+
       <nav className="flex w-full items-center px-6 pb-3 pt-1">
         <div className="flex items-center gap-4">
           {tabs.map((tab, i) => (
-            <Button
-              variant="none"
-              size="none"
+            <Link
+              data-shadcnui-button
               key={i}
-              // href={tab.href}
+              href={tab.href}
               className={cn(
-                "group relative inline-block h-8 select-none px-3 text-sm font-medium text-primary"
+                buttonVariants({
+                  variant: "none",
+                  size: "none",
+                  className: "group h-8 rounded-full px-3 text-sm",
+                })
               )}
               onClick={() => {
                 setActiveTab(tab.href)
@@ -92,7 +97,7 @@ function SearchHeader() {
                 />
               )}
               {tab.title}
-            </Button>
+            </Link>
           ))}
         </div>
       </nav>

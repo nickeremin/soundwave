@@ -1,4 +1,4 @@
+import TRPCReactQueryProvider from "../../trpc/trpc-react-query-provider"
 import ThemeProvider from "./theme-provider"
-import TRPCReactQueryProvider from "./trpc-react-query-provider"
 
 export { TRPCReactQueryProvider, ThemeProvider }

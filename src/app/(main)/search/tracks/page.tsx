@@ -8,13 +8,13 @@ import { Wrapper } from "@/shared/components/ui/wrapper"
 function SearchTracksPage() {
   return (
     <div>
-      <Wrapper as="header" variant="header" className="flex-col">
-        <SearchHeader />
+      {/* <Wrapper as="header" variant="header" className="flex-col">
+        <SearchHeader key="search-header" />
         <SearchTrackSubheader />
       </Wrapper>
       <main>
         <TrackTable tracks={[]} />
-      </main>
+      </main> */}
     </div>
   )
 }

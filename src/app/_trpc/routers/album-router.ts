@@ -1,7 +1,7 @@
 import * as z from "zod"
 
 import { catchAxiosError } from "@/shared/lib/utils"
-import { albumSchema, albumTrackSchema } from "@/shared/lib/validations/album"
+import { albumSchema } from "@/shared/lib/validations/album"
 import { publicProcedure, router } from "@/shared/trpc/trpc"
 import { spotifyApiAxios } from "@/app/_axios"
 

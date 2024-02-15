@@ -2,7 +2,9 @@ import React from "react"
 import Image from "next/image"
 
 import { Artist } from "@/shared/types/artist"
-import { getImageUrl } from "@/shared/lib/utils"
+import PlayerButton from "@/features/player/player-button"
+import { Button } from "@/shared/components/ui/button"
+import { cn, getImageUrl } from "@/shared/lib/utils"
 
 interface ArtistPreviewCardProps {
   artist: Artist
@@ -12,25 +14,26 @@ function ArtistPreviewCard({ artist }: ArtistPreviewCardProps) {
   const imageUrl = getImageUrl(artist.images)
 
   return (
-    <div className="flex flex-col gap-6 rounded-lg bg-muted p-4 pb-8 transition hover:bg-accent">
-      <div className="relative">
-        <div className="shadow-image-sm relative w-full overflow-hidden rounded-full bg-muted pb-[100%]">
-          {imageUrl ? (
-            <Image
-              src={imageUrl}
-              alt=""
-              width={160}
-              height={160}
-              className="absolute size-full object-cover object-center"
-            />
-          ) : null}
+    <div className="group flex flex-col gap-6 rounded-lg bg-muted p-4 pb-8 transition duration-300 hover:bg-accent">
+      <div className="relative w-full rounded-full bg-accent pb-[100%] shadow-image-sm">
+        {imageUrl ? (
+          <Image
+            src={imageUrl}
+            alt=""
+            width={320}
+            height={320}
+            className="absolute size-full rounded-full object-cover object-center"
+          />
+        ) : null}
+        <div className="absolute bottom-2 right-2 translate-y-2 opacity-0 transition duration-300 group-hover:translate-y-0 group-hover:opacity-100">
+          <PlayerButton className="shadow-player-button" />
         </div>
       </div>
-      <div className="flex flex-col">
-        <p className="overflow-hidden text-ellipsis text-nowrap font-medium">
+      <div className="flex flex-col items-start">
+        <p className="overflow-hidden text-ellipsis text-nowrap font-bold">
           {artist.name}
         </p>
-        <p className="text-sm text-tertiary">Artist</p>
+        <p className="text-sm font-medium text-tertiary">Artist</p>
       </div>
     </div>
   )

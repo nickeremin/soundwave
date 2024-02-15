@@ -2,6 +2,7 @@ import { cookies } from "next/headers"
 import axios, { type AxiosError, type AxiosRequestConfig } from "axios"
 
 import { env } from "@/shared/components/env.mjs"
+import { catchAxiosError } from "@/shared/lib/utils"
 
 export async function getSpotifyAccessToken() {
   const options: AxiosRequestConfig = {
@@ -29,12 +30,12 @@ export async function getSpotifyAccessToken() {
       cookieStore.set(env.SPOTIFY_ACCESS_TOKEN_KEY, token)
     }
   } catch (error) {
-    console.log("getSpotifyAccessToken error")
+    catchAxiosError(error)
   }
 }
 
 export const spotifyApiAxios = axios.create({
-  baseURL: "https://api.spotify.com/v1",
+  baseURL: env.SPOTIFY_API_BASE_URL,
   withCredentials: true,
 })
 
@@ -51,12 +52,14 @@ spotifyApiAxios.interceptors.request.use(
 )
 
 spotifyApiAxios.interceptors.response.use(
-  function (res) {
-    return res
+  function (config) {
+    return config
   },
   async function (error: AxiosError) {
+    const originalRequest = error.config
     if (error.response?.status === 401) {
       await getSpotifyAccessToken()
+      if (originalRequest) return spotifyApiAxios.request(originalRequest)
     }
   }
 )

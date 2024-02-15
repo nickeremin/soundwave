@@ -1,6 +1,5 @@
 import * as z from "zod"
 
-import { Track } from "@/shared/types/track"
 import { catchAxiosError } from "@/shared/lib/utils"
 import { trackSchema } from "@/shared/lib/validations/track"
 import { publicProcedure, router } from "@/shared/trpc/trpc"
@@ -11,7 +10,7 @@ export const trackRouter = router({
     .input(z.string())
     .query(async ({ input: trackId }) => {
       try {
-        const { data } = await spotifyApiAxios.get<Track>(`/tracks/${trackId}`)
+        const { data } = await spotifyApiAxios.get(`/tracks/${trackId}`)
         const track = trackSchema.parse(data)
         return track
       } catch (error) {
@@ -38,8 +37,8 @@ export const trackRouter = router({
             seed_genres: input.seedGenres,
           },
         })
-
-        return data
+        const tracks = trackSchema.array().parse(data.tracks)
+        return tracks
       } catch (error) {
         catchAxiosError(error)
       }

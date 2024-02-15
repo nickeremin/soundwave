@@ -6,7 +6,6 @@ import { usePathname, useRouter } from "next/navigation"
 import { useClerk, useUser } from "@clerk/nextjs"
 import { motion, type Variants } from "framer-motion"
 
-import { ThemeSelectMobile } from "@/entities/theme"
 import { LucideIcon } from "@/shared/components/icons"
 import {
   Accordion,
@@ -203,7 +202,6 @@ function AuthorizedMenuContent() {
         </Link>
         <MenuListItem custom={5} className="justify-between">
           Тема
-          <ThemeSelectMobile />
         </MenuListItem>
         <MenuListItem custom={6}>
           <button

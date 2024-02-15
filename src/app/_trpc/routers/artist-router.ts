@@ -3,7 +3,10 @@ import * as z from "zod"
 import { type Artist } from "@/shared/types/artist"
 import { catchAxiosError } from "@/shared/lib/utils"
 import { albumShortSchema } from "@/shared/lib/validations/album"
-import { artistSchema } from "@/shared/lib/validations/artist"
+import {
+  artistAlbumsSchema,
+  artistSchema,
+} from "@/shared/lib/validations/artist"
 import { publicProcedure, router } from "@/shared/trpc/trpc"
 import { spotifyApiAxios } from "@/app/_axios"
 
@@ -58,6 +61,19 @@ export const artistRouter = router({
         )
         const relatedArtists = artistSchema.array().parse(data.artists)
         return relatedArtists
+      } catch (error) {
+        catchAxiosError(error)
+      }
+    }),
+  getArtistAlbums: publicProcedure
+    .input(z.string())
+    .query(async ({ input: artistId }) => {
+      try {
+        const { data } = await spotifyApiAxios.get(
+          `/artists/${artistId}/albums`
+        )
+        const albums = artistAlbumsSchema.parse(data)
+        return albums
       } catch (error) {
         catchAxiosError(error)
       }

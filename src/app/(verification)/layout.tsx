@@ -1,10 +1,6 @@
 import React from "react"
 
-import {
-  SiteFooter,
-  // StarsBackground,
-  VerificationHeader,
-} from "@/widgets/layout"
+import { VerificationHeader } from "@/widgets/layout"
 
 interface VerificationLayoutProps {
   children: React.ReactNode
@@ -20,7 +16,6 @@ function VerificationLayout({ children }: VerificationLayoutProps) {
         </main>
         {/* <StarsBackground /> */}
       </div>
-      <SiteFooter />
     </div>
   )
 }

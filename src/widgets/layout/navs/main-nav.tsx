@@ -29,7 +29,7 @@ function MainNav() {
           <Link href="/">
             <li
               className={cn(
-                "flex h-12 items-center gap-3 rounded-2xl px-3 transition hover:bg-accent hover:text-primary",
+                "flex h-12 items-center gap-3 rounded-md px-3 transition hover:bg-accent hover:text-primary",
                 pathname === "/" && "text-primary"
               )}
             >
@@ -44,7 +44,7 @@ function MainNav() {
           <Link href="/search">
             <li
               className={cn(
-                "flex h-12 items-center gap-3 rounded-2xl px-3 transition hover:bg-accent hover:text-primary",
+                "flex h-12 items-center gap-3 rounded-md px-3 transition hover:bg-accent hover:text-primary",
                 pathname.includes("/search") && "text-primary"
               )}
             >

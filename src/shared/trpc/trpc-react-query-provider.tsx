@@ -6,22 +6,31 @@ import { httpBatchLink } from "@trpc/client"
 
 import { trpc } from "@/shared/trpc/client"
 
-import { transformer } from "../../trpc/transformer"
+import { transformer } from "./transformer"
 
 interface TRPCQueryProviderProps {
   children: React.ReactNode
 }
 
 const TRPCReactQueryProvider = ({ children }: TRPCQueryProviderProps) => {
-  const [queryClient] = React.useState(() => new QueryClient({}))
+  const [queryClient] = React.useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            refetchOnWindowFocus: false,
+          },
+        },
+      })
+  )
   const [trpcClient] = React.useState(() =>
     trpc.createClient({
       links: [
         httpBatchLink({
+          transformer: transformer,
           url: "http://localhost:3000/api/trpc",
         }),
       ],
-      transformer,
     })
   )
   return (

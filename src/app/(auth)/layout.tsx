@@ -1,7 +1,7 @@
 import React from "react"
 import Image from "next/image"
 
-import { AuthHeader, SiteFooter } from "@/widgets/layout"
+import { AuthHeader } from "@/widgets/layout"
 import { AspectRatio } from "@/shared/components/ui/aspect-ratio"
 import { GradientText } from "@/shared/components/ui/gradient-text"
 
@@ -44,7 +44,7 @@ function AuthLayout({ children }: AuthLayoutProps) {
           {children}
         </main>
       </div>
-      <SiteFooter />
+      {/* <SiteFooter /> */}
     </>
   )
 }

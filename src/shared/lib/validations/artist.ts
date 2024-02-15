@@ -19,3 +19,26 @@ export const artistShortSchema = artistSchema.pick({
   name: true,
   type: true,
 })
+
+export const artistAlbumSchema = z.object({
+  album_type: z.enum([
+    "album",
+    "single",
+    "compilation",
+    "ALBUM",
+    "SINGLE",
+    "COMPILATION",
+  ]),
+  total_tracks: z.number(),
+  id: z.string(),
+  images: imageSchema.array(),
+  name: z.string(),
+  release_date: z.string(),
+  type: z.enum(["album"]),
+  artists: artistShortSchema.array(),
+})
+
+export const artistAlbumsSchema = z.object({
+  total: z.number(),
+  items: artistAlbumSchema.array(),
+})

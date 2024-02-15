@@ -9,7 +9,7 @@ import {
   SearchInput,
   UserNav,
 } from "@/features/nav"
-import { useSearchContext } from "@/features/nav/search-context"
+import { useSearchContext } from "@/features/search/search-context"
 import { Wrapper } from "@/shared/components/ui/wrapper"
 
 function SearchHeader() {

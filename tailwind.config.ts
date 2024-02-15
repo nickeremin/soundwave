@@ -112,6 +112,7 @@ const config = {
         "border-l": "inset 1px 0 0 0 rgb(var(--border))",
         "image-sm": "0 8px 24px rgba(0,0,0,.5)",
         "image-lg": "0 4px 60px rgba(0,0,0,.5)",
+        "player-button": "0 8px 8px rgba(0,0,0,.3)",
         popover:
           "0 0 0 1px hsl(var(--border)), 0px 1px 1px rgba(0,0,0,.02), 0px 4px 8px -4px rgba(0,0,0,.04), 0px 16px 24px -8px rgba(0,0,0,.06)",
       },
