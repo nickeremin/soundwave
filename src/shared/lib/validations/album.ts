@@ -50,3 +50,10 @@ export const albumShortSchema = albumSchema.omit({
   label: true,
   popularity: true,
 })
+
+export const iterableAlbumSchema = z.object({
+  next: z.string().nullable(),
+  previous: z.string().nullable(),
+  total: z.number(),
+  items: albumShortSchema.array(),
+})

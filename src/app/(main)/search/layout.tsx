@@ -15,8 +15,8 @@ function SearchLayout({ children }: SearchLayoutProps) {
         <Wrapper as="header" variant="header" className="flex-col">
           <SearchHeader key="search-header" />
         </Wrapper>
+        {children}
       </div>
-      {children}
     </SearchContextProvider>
   )
 }

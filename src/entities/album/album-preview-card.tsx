@@ -6,15 +6,26 @@ import { ArtistAlbum } from "@/shared/types/album"
 import PlayerButton from "@/features/player/player-button"
 import { getImageUrl } from "@/shared/lib/utils"
 
+import ArtistLinksNames from "../artist/artist-link-names"
+
 interface AlbumPreviewCardProps {
   album: ArtistAlbum
+  withType?: boolean
+  withArtists?: boolean
 }
 
-function AlbumPreviewCard({ album }: AlbumPreviewCardProps) {
+function AlbumPreviewCard({
+  album,
+  withArtists,
+  withType,
+}: AlbumPreviewCardProps) {
   const imageUrl = getImageUrl(album.images)
+  const releaseDate = format(album.release_date, "yyyy")
+  const albumType =
+    album.album_type[0]?.toUpperCase() + album.album_type.slice(1).toLowerCase()
 
   return (
-    <div className="group flex flex-col gap-6 rounded-lg bg-muted p-4 pb-8 transition hover:bg-accent">
+    <div className="group flex flex-col gap-4 rounded-lg bg-muted p-4 transition hover:bg-accent">
       <div className="relative w-full rounded-md bg-accent pb-[100%] shadow-image-sm">
         {imageUrl ? (
           <Image
@@ -29,15 +40,13 @@ function AlbumPreviewCard({ album }: AlbumPreviewCardProps) {
           <PlayerButton className="shadow-player-button" />
         </div>
       </div>
-      <div className="flex flex-col items-start">
-        <p className="overflow-hidden text-ellipsis text-nowrap font-bold">
-          {album.name}
-        </p>
-        <p className="text-sm font-medium text-tertiary">
-          {format(album.release_date, "yyyy")} •{" "}
-          {album.album_type[0]?.toUpperCase() +
-            album.album_type.slice(1).toLowerCase()}
-        </p>
+      <div className="flex flex-col items-start gap-1">
+        <p className="line-clamp-1 font-bold">{album.name}</p>
+        <div className="line-clamp-2 text-sm text-tertiary">
+          <span className="after:mx-1 after:content-['•']">{releaseDate}</span>
+          {withType && <span>{albumType}</span>}
+          {withArtists && <ArtistLinksNames artists={album.artists} />}
+        </div>
       </div>
     </div>
   )

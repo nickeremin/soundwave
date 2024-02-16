@@ -42,3 +42,10 @@ export const artistAlbumsSchema = z.object({
   total: z.number(),
   items: artistAlbumSchema.array(),
 })
+
+export const iterableArtistSchema = z.object({
+  next: z.string().nullable(),
+  previous: z.string().nullable(),
+  total: z.number(),
+  items: artistSchema.array(),
+})

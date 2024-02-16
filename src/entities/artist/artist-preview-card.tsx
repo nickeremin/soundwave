@@ -30,9 +30,7 @@ function ArtistPreviewCard({ artist }: ArtistPreviewCardProps) {
         </div>
       </div>
       <div className="flex flex-col items-start">
-        <p className="overflow-hidden text-ellipsis text-nowrap font-bold">
-          {artist.name}
-        </p>
+        <p className="line-clamp-1 font-bold">{artist.name}</p>
         <p className="text-sm font-medium text-tertiary">Artist</p>
       </div>
     </div>

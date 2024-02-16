@@ -14,18 +14,20 @@ function ArtistLinksNames<TArtist extends ArtistShort>({
   className,
 }: ArtistNamesLinksProps<TArtist>) {
   return (
-    <p
-      className={cn("flex gap-1 text-sm font-medium text-tertiary", className)}
-    >
+    <React.Fragment>
       {artists.map((artist, i) => (
-        <span key={artist.id}>
-          <Link href={`/artist/${artist.id}`} className="hover:underline">
+        <React.Fragment key={artist.id}>
+          <Link
+            key={artist.id}
+            href={`/artist/${artist.id}`}
+            className={cn("hover:underline", className)}
+          >
             {artist.name}
           </Link>
-          {i !== artists.length - 1 && ","}
-        </span>
+          {i !== artists.length - 1 && ", "}
+        </React.Fragment>
       ))}
-    </p>
+    </React.Fragment>
   )
 }
 

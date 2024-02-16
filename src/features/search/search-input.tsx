@@ -1,7 +1,7 @@
 "use client"
 
 import * as React from "react"
-import { useDebounce } from "usehooks-ts"
+import { useDebounceValue } from "usehooks-ts"
 
 import { LucideIcon } from "@/shared/components/icons"
 import { Button } from "@/shared/components/ui/button"
@@ -9,11 +9,12 @@ import { cn } from "@/shared/lib/utils"
 
 import { useSearchContext } from "./search-context"
 
-interface SearchInputProps extends React.HtmlHTMLAttributes<HTMLDivElement> {}
-
-function SearchInput({ className, ...props }: SearchInputProps) {
+function SearchInput({
+  className,
+  ...props
+}: React.HtmlHTMLAttributes<HTMLDivElement>) {
   const { search, setSearch } = useSearchContext()
-  const debouncedValue = useDebounce(search)
+  const [debouncedValue] = useDebounceValue(search, 500)
   const inputRef = React.useRef<HTMLInputElement | null>(null)
 
   return (
@@ -41,13 +42,13 @@ function SearchInput({ className, ...props }: SearchInputProps) {
         spellCheck="false"
         type="search"
         placeholder="What do you want to listen to?"
-        value={search}
+        value={search ?? ""}
         onChange={(e) => {
           setSearch(e.target.value)
         }}
         className="inline-flex size-full bg-transparent px-3 text-base placeholder:text-muted-foreground focus-visible:outline-none"
       />
-      {search.length > 0 && (
+      {search && search.length > 0 && (
         <span className="-ml-3 flex flex-col items-center justify-center pr-1">
           <Button
             variant="none"

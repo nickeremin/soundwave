@@ -2,13 +2,13 @@
 
 import React from "react"
 
-import AlbumTracks from "@/widgets/album/album-tracks"
-import ArtistPopularAlbums from "@/widgets/artist/artist-popular-albums"
-import RelatedArtists from "@/widgets/artist/related-artists"
 import MainFooter from "@/widgets/layout/footers/main-footer"
-import RecommendedTracks from "@/widgets/track/recommended-tracks"
-import TrackContextProvider from "@/widgets/track/track-context-provider"
-import TrackDetails from "@/widgets/track/track-details"
+import AlbumTracks from "@/widgets/pages/album/album-tracks"
+import ArtistPopularAlbums from "@/widgets/pages/artist/artist-popular-albums"
+import RelatedArtists from "@/widgets/pages/artist/related-artists"
+import RecommendedTracks from "@/widgets/pages/track/recommended-tracks"
+import TrackContextProvider from "@/widgets/pages/track/track-context-provider"
+import TrackDetails from "@/widgets/pages/track/track-details"
 import { trpc } from "@/shared/trpc/client"
 
 interface TrackPageProps {

@@ -3,7 +3,7 @@ import React from "react"
 import { useLayoutContext } from "@/widgets/layout/layout-context"
 
 export function useGridColumns() {
-  const [columns, setColumns] = React.useState<number>(3)
+  const [columns, setColumns] = React.useState<number>(0)
   const layoutRef = useLayoutContext()
 
   function setColumnsCount(width: number) {
