@@ -38,14 +38,14 @@ function SearchContextProvider({ children }: SearchContextProviderProps) {
     setSearch(query)
   }, [])
 
-  React.useEffect(() => {
-    const newSearchParams = new URLSearchParams(searchParams)
+  // React.useEffect(() => {
+  //   const newSearchParams = new URLSearchParams(searchParams)
 
-    if (search) newSearchParams.set("query", search)
-    else newSearchParams.delete("query")
+  //   if (search) newSearchParams.set("query", search)
+  //   else newSearchParams.delete("query")
 
-    router.push(`${pathname}?${newSearchParams.toString()}`)
-  }, [debouncedValue])
+  //   router.push(`${pathname}?${newSearchParams.toString()}`)
+  // }, [debouncedValue])
 
   return (
     <SearchContext.Provider

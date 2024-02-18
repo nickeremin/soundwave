@@ -3,8 +3,6 @@
 import React from "react"
 import { useSearchParams } from "next/navigation"
 
-import SearchTrackSubheader from "@/widgets/layout/headers/search/search-track-subheader"
-import TrackList from "@/entities/track/track-list"
 import { Button } from "@/shared/components/ui/button"
 import { trpc } from "@/shared/trpc/client"
 
