@@ -3,16 +3,16 @@
 import React from "react"
 
 import { Artist } from "@/shared/types/artist"
+import { useLayoutContext } from "@/widgets/layout/layout-context"
 import ArtistPreviewCard from "@/entities/artist/artist-preview-card"
 import ArtistPreviewCardLoading from "@/entities/artist/artist-preview-card-loading"
-import { useGridColumns } from "@/shared/lib/hooks/use-grid-columns"
 
 interface ArtistPreviewListProps {
   artists: Artist[] | undefined
 }
 
 function ArtistPreviewList({ artists }: ArtistPreviewListProps) {
-  const columns = useGridColumns()
+  const { columns } = useLayoutContext()
 
   return (
     <div

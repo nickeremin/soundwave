@@ -1,12 +1,10 @@
 import React from "react"
 
 export type LayoutContextData = {
-  leftBarWidth: number | undefined
-  mainContainerWidth: number | undefined
+  columns: number
 }
 
-export const LayoutContext =
-  React.createContext<React.MutableRefObject<LayoutContextData> | null>(null)
+export const LayoutContext = React.createContext<LayoutContextData | null>(null)
 
 export function useLayoutContext() {
   const context = React.useContext(LayoutContext)

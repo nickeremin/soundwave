@@ -3,15 +3,15 @@
 import React from "react"
 
 import MainFooter from "@/widgets/layout/footers/main-footer"
+import { useLayoutContext } from "@/widgets/layout/layout-context"
 import PreviewSearchAlbums from "@/widgets/pages/search/preview-search-albums"
 import PreviewSearchArtists from "@/widgets/pages/search/preview-search-artists"
 import PreviewSearchTracks from "@/widgets/pages/search/preview-search-tracks"
-import { useGridColumns } from "@/shared/lib/hooks/use-grid-columns"
 import { useSearch } from "@/shared/lib/hooks/use-search"
 import { trpc } from "@/shared/trpc/client"
 
 function SearchPage() {
-  const columns = useGridColumns()
+  const { columns } = useLayoutContext()
   const query = useSearch()
   const { data } = trpc.searchRouter.search.useQuery(
     {

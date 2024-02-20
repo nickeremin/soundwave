@@ -3,9 +3,9 @@
 import React from "react"
 
 import { Album, AlbumShort } from "@/shared/types/album"
+import { useLayoutContext } from "@/widgets/layout/layout-context"
 import AlbumPreviewCard from "@/entities/album/album-preview-card"
 import AlbumPreviewCardLoading from "@/entities/album/album-preview-card-loading"
-import { useGridColumns } from "@/shared/lib/hooks/use-grid-columns"
 
 interface AlbumPreviewListProps<TAlbum> {
   albums: TAlbum[] | undefined
@@ -14,7 +14,7 @@ interface AlbumPreviewListProps<TAlbum> {
 function AlbumPreviewList<TAlbum extends AlbumShort>({
   albums,
 }: AlbumPreviewListProps<TAlbum>) {
-  const columns = useGridColumns()
+  const { columns } = useLayoutContext()
 
   return (
     <div

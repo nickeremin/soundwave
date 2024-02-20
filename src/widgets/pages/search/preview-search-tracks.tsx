@@ -4,25 +4,26 @@ import React from "react"
 import Image from "next/image"
 
 import { Track } from "@/shared/types/track"
+import { useLayoutContext } from "@/widgets/layout/layout-context"
 import PlayerButton from "@/features/player/player-button"
 import ArtistLinksNames from "@/entities/artist/artist-link-names"
 import TrackList from "@/entities/track/track-list"
-import { useGridColumns } from "@/shared/lib/hooks/use-grid-columns"
 import { cn, getImageUrl } from "@/shared/lib/utils"
-import { trpc } from "@/shared/trpc/client"
 
 interface PreviewSearchTracksProps {
   tracks: Track[]
 }
 
 function PreviewSearchTracks({ tracks }: PreviewSearchTracksProps) {
-  const columns = useGridColumns()
+  const { columns } = useLayoutContext()
 
   if (tracks.length === 0) return null
 
   const topTrack = tracks[0]!
   const trackName = topTrack.name
   const imageUrl = getImageUrl(topTrack.album.images)
+
+  console.log(columns)
 
   return (
     <React.Fragment>
