@@ -1,10 +1,12 @@
+"use client"
+
 import React from "react"
 import { HTMLMotionProps, motion } from "framer-motion"
 
 import { LucideIcon } from "@/shared/components/icons"
 import { cn } from "@/shared/lib/utils"
 
-function PlayerButton({ className, ...props }: HTMLMotionProps<"button">) {
+function PlayButton({ className, ...props }: HTMLMotionProps<"button">) {
   return (
     <motion.button
       whileHover={{
@@ -14,7 +16,7 @@ function PlayerButton({ className, ...props }: HTMLMotionProps<"button">) {
         scale: 1,
       }}
       className={cn(
-        "relative inline-flex size-14 items-center justify-center rounded-full bg-blue",
+        "relative inline-flex size-12 items-center justify-center rounded-full bg-pink",
         className
       )}
       {...props}
@@ -22,14 +24,10 @@ function PlayerButton({ className, ...props }: HTMLMotionProps<"button">) {
       <LucideIcon
         name="Play"
         fill="currentColor"
-        className="size-6 translate-x-0.5"
+        className="size-6 translate-x-0.5 text-black"
       />
     </motion.button>
-
-    // <motion.button>
-
-    // </motion.button>
   )
 }
 
-export default PlayerButton
+export default PlayButton

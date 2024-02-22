@@ -2,7 +2,7 @@
 
 import React from "react"
 
-import { Album, AlbumShort } from "@/shared/types/album"
+import { AlbumShort } from "@/shared/types/album"
 import { useLayoutContext } from "@/widgets/layout/layout-context"
 import AlbumPreviewCard from "@/entities/album/album-preview-card"
 import AlbumPreviewCardLoading from "@/entities/album/album-preview-card-loading"

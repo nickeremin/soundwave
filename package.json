@@ -33,6 +33,7 @@
     "@trpc/react-query": "11.0.0-next-beta.284",
     "@trpc/server": "11.0.0-next-beta.284",
     "axios": "^1.6.7",
+    "axios-cache-interceptor": "^1.5.1",
     "chroma-js": "^2.4.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",

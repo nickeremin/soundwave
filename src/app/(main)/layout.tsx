@@ -3,17 +3,14 @@
 import React from "react"
 
 import { MainNav } from "@/widgets/layout"
-import {
-  LayoutContext,
-  LayoutContextData,
-} from "@/widgets/layout/layout-context"
+import { LayoutContext } from "@/widgets/layout/layout-context"
 import { ScrollArea } from "@/shared/components/ui/scroll-area"
 
 interface MainLayoutProps {
   children: React.ReactNode
 }
 
-function PublicLayout({ children }: MainLayoutProps) {
+function MainLayout({ children }: MainLayoutProps) {
   const [columns, setColumns] = React.useState(0)
 
   const layoutRef = React.useRef<{
@@ -70,14 +67,10 @@ function PublicLayout({ children }: MainLayoutProps) {
           className="h-[calc(100vh-16px)] rounded-lg bg-background-100"
         >
           {children}
-          {/* <MainHeader />
-        <main className="relative flex flex-col px-6">
-          <div className="relative flex flex-col">{children}</div>
-        </main> */}
         </ScrollArea>
       </div>
     </LayoutContext.Provider>
   )
 }
 
-export default PublicLayout
+export default MainLayout

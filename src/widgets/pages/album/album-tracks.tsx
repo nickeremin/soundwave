@@ -23,14 +23,14 @@ function AlbumTracks({ albumId }: AlbumTracks) {
   return (
     <div className="flex flex-col px-6">
       <div className="relative mb-px flex cursor-pointer items-center gap-3 overflow-hidden rounded-t-md bg-muted transition hover:bg-accent">
-        <div className="size-20">
+        <div className="relative size-20 bg-accent">
           {imageUrl ? (
             <Image
               src={imageUrl}
               alt=""
               height={160}
               width={160}
-              className="size-full object-cover object-center"
+              className="absolute size-full object-cover object-center"
             />
           ) : null}
         </div>
@@ -44,14 +44,14 @@ function AlbumTracks({ albumId }: AlbumTracks) {
         </div>
       </div>
       <AlbumTrackList tracks={album.tracks.items} />
-      <div className="mt-6 flex flex-col items-start font-medium">
-        <p className="mb-1 text-sm text-secondary">
+      <div className="mt-6 flex flex-col items-start font-medium text-tertiary">
+        <span className="mb-1 text-sm">
           {format(album.release_date, "MMMM d, yyyy")}
-        </p>
+        </span>
         {album.copyrights.map((copyright, i) => (
-          <p key={i} className="text-xs text-tertiary">
+          <span key={i} className="text-xs">
             &copy; {copyright.text}
-          </p>
+          </span>
         ))}
       </div>
     </div>

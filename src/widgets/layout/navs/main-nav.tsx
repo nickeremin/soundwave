@@ -56,7 +56,7 @@ function MainNav() {
       </ul>
       <ul className="flex flex-1 flex-col rounded-lg bg-background-100 px-3 py-2">
         <div className="flex flex-col font-semibold text-tertiary">
-          <li className="flex h-12 items-center gap-3 rounded-2xl px-3 transition hover:bg-accent hover:text-primary">
+          <li className="flex h-12 items-center gap-3 rounded-md px-3 transition hover:bg-accent hover:text-primary">
             <LucideIcon name="Disc3" strokeWidth={2} className="size-6" />
             Your Library
           </li>

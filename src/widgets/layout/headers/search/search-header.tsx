@@ -1,10 +1,7 @@
 "use client"
 
 import React from "react"
-import {
-  useSelectedLayoutSegment,
-  useSelectedLayoutSegments,
-} from "next/navigation"
+import { useSelectedLayoutSegment } from "next/navigation"
 import { SignedIn, SignedOut } from "@clerk/nextjs"
 
 import {

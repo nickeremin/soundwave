@@ -6,14 +6,14 @@ import chroma from "chroma-js"
 import { format } from "date-fns"
 import { type FastAverageColorResult } from "fast-average-color"
 
+import { useLayoutContext } from "@/widgets/layout/layout-context"
 import { LogInSignUpButtons } from "@/features/nav"
-import PlayerButton from "@/features/player/player-button"
+import PlayerButton from "@/features/player/play-button"
 import AddFavoriteTrackButton from "@/features/track/add-favorite-track-button"
 import TrackMenuButton from "@/features/track/track-menu-button"
 import TrackArtistLinkCard from "@/entities/artist/track-artist-link-card"
 import TrackArtistLinkCardLoading from "@/entities/artist/track-artist-link-card-loading"
 import TrackMainArtistLink from "@/entities/artist/track-main-artist-link"
-import { useGridColumns } from "@/shared/lib/hooks/use-grid-columns"
 import {
   formatTimeDuration,
   getAverageColor,
@@ -31,7 +31,7 @@ function TrackDetails({ trackId }: TrackDetails) {
   const timer = React.useRef({
     start: Date.now(),
   })
-  const columns = useGridColumns()
+  const { columns } = useLayoutContext()
   const { setIsVisible } = useTrackContext()
 
   const [backgroundColor, setBackgroundColor] =
@@ -114,10 +114,10 @@ function TrackDetails({ trackId }: TrackDetails) {
         className="absolute z-[-1] h-[240px] w-full bg-gradient-to-b from-black/60 to-background-100 "
       />
       <div className="flex flex-col gap-6 px-6 pt-6">
-        <div className="flex items-center">
-          <PlayerButton className="mr-6" />
-          <AddFavoriteTrackButton className="mr-3" />
-          <TrackMenuButton />
+        <div className="flex items-center gap-6">
+          <PlayerButton className="size-14" />
+          <AddFavoriteTrackButton className="size-10" />
+          <TrackMenuButton className="size-8" />
         </div>
         <div
           style={{

@@ -8,8 +8,6 @@ import { iterableTrackSchema } from "@/shared/lib/validations/track"
 import { publicProcedure, router } from "@/shared/trpc/trpc"
 import { spotifyApiAxios } from "@/app/_axios"
 
-const values = ["one", "two", "third", "fourth", "fith"]
-
 export const searchRouter = router({
   search: publicProcedure
     .input(
@@ -106,15 +104,29 @@ export const searchRouter = router({
     )
     .query(async ({ input }) => {
       try {
-        const { q } = input
+        const { q, cursor } = input
+
+        const nextUrl = new URL(cursor ?? `${env.SPOTIFY_API_BASE_URL}/search`)
+        const limit = nextUrl.searchParams.get("limit")
+        const offset = nextUrl.searchParams.get("offset")
+
         const { data } = await spotifyApiAxios.get("/search", {
           params: {
             q,
             type: "album",
+            limit,
+            offset,
           },
         })
-        const albums = iterableAlbumSchema.parse(data.albums)
-        return albums
+
+        const albumData = iterableAlbumSchema.parse(data.albums)
+
+        const nextCursor = albumData.next
+
+        return {
+          albums: albumData.items,
+          nextCursor,
+        }
       } catch (error) {
         catchAxiosError(error)
       }
@@ -129,15 +141,29 @@ export const searchRouter = router({
     )
     .query(async ({ input }) => {
       try {
-        const { q } = input
+        const { q, cursor } = input
+
+        const nextUrl = new URL(cursor ?? `${env.SPOTIFY_API_BASE_URL}/search`)
+        const limit = nextUrl.searchParams.get("limit")
+        const offset = nextUrl.searchParams.get("offset")
+
         const { data } = await spotifyApiAxios.get("/search", {
           params: {
             q,
             type: "artist",
+            limit,
+            offset,
           },
         })
-        const artists = iterableArtistSchema.parse(data.artists)
-        return artists
+
+        const artistData = iterableArtistSchema.parse(data.artists)
+
+        const nextCursor = artistData.next
+
+        return {
+          artists: artistData.items,
+          nextCursor,
+        }
       } catch (error) {
         catchAxiosError(error)
       }

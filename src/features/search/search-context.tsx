@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react"
-import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import { useSearchParams } from "next/navigation"
 import { useDebounceValue } from "usehooks-ts"
 
 type SearchContextData = {
@@ -27,8 +27,6 @@ interface SearchContextProviderProps {
 }
 
 function SearchContextProvider({ children }: SearchContextProviderProps) {
-  const router = useRouter()
-  const pathname = usePathname()
   const searchParams = useSearchParams()
   const [search, setSearch] = React.useState<string | null>(null)
   const [debouncedValue] = useDebounceValue(search, 500)
@@ -37,15 +35,6 @@ function SearchContextProvider({ children }: SearchContextProviderProps) {
     const query = searchParams.get("query")
     setSearch(query)
   }, [])
-
-  // React.useEffect(() => {
-  //   const newSearchParams = new URLSearchParams(searchParams)
-
-  //   if (search) newSearchParams.set("query", search)
-  //   else newSearchParams.delete("query")
-
-  //   router.push(`${pathname}?${newSearchParams.toString()}`)
-  // }, [debouncedValue])
 
   return (
     <SearchContext.Provider

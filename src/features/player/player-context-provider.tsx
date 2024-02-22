@@ -5,6 +5,8 @@ import React from "react"
 type PlayerContextData = {
   activeTrackId: string | null
   setActiveTrackId: React.Dispatch<React.SetStateAction<string | null>>
+  playingTrackId: string | null
+  setPlayingTrackId: React.Dispatch<React.SetStateAction<string | null>>
 }
 
 const PlayerContext = React.createContext<PlayerContextData | null>(null)
@@ -25,9 +27,19 @@ interface PlayerContextProviderProps {
 
 function PlayerContextProvider({ children }: PlayerContextProviderProps) {
   const [activeTrackId, setActiveTrackId] = React.useState<string | null>(null)
+  const [playingTrackId, setPlayingTrackId] = React.useState<string | null>(
+    null
+  )
 
   return (
-    <PlayerContext.Provider value={{ activeTrackId, setActiveTrackId }}>
+    <PlayerContext.Provider
+      value={{
+        activeTrackId,
+        setActiveTrackId,
+        playingTrackId,
+        setPlayingTrackId,
+      }}
+    >
       {children}
     </PlayerContext.Provider>
   )

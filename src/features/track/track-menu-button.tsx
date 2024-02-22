@@ -14,12 +14,12 @@ function TrackMenuButton({ className, ...props }: HTMLMotionProps<"button">) {
         scale: 1,
       }}
       className={cn(
-        "relative inline-flex size-12 items-center justify-center rounded-full",
+        "relative inline-flex size-5 items-center justify-center rounded-full",
         className
       )}
       {...props}
     >
-      <LucideIcon name="MoreHorizontal" className="size-8 text-secondary" />
+      <LucideIcon name="MoreHorizontal" className="size-full transition" />
     </motion.button>
   )
 }

@@ -2,9 +2,8 @@ import React from "react"
 import Image from "next/image"
 
 import { Artist } from "@/shared/types/artist"
-import PlayerButton from "@/features/player/player-button"
-import { Button } from "@/shared/components/ui/button"
-import { cn, getImageUrl } from "@/shared/lib/utils"
+import PlayerButton from "@/features/player/play-button"
+import { getImageUrl } from "@/shared/lib/utils"
 
 interface ArtistPreviewCardProps {
   artist: Artist

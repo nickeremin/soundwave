@@ -16,13 +16,16 @@ function AddFavoriteTrackButton({
       whileTap={{
         scale: 1,
       }}
+      onClick={(e) => {
+        e.stopPropagation()
+      }}
       className={cn(
-        "relative inline-flex size-12 items-center justify-center rounded-full",
+        "relative inline-flex size-5 items-center justify-center rounded-full",
         className
       )}
       {...props}
     >
-      <LucideIcon name="Heart" className="size-9 text-secondary" />
+      <LucideIcon name="Heart" className="size-full transition" />
     </motion.button>
   )
 }

@@ -17,10 +17,10 @@ function TrackWrapper({ trackId, className, children }: TrackWrapperProps) {
 
   return (
     <div
+      aria-selected={activeTrackId === trackId}
       onClick={() => setActiveTrackId(trackId)}
       className={cn(
-        "cursor-pointer rounded transition hover:bg-accent",
-        activeTrackId === trackId && "bg-focus hover:bg-focus",
+        "cursor-pointer rounded hover:bg-accent aria-[selected=true]:bg-focus aria-[selected=true]:text-secondary",
         className
       )}
     >

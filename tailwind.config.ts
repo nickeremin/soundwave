@@ -24,6 +24,7 @@ const config = {
         yellow: "rgb(var(--yellow-color))",
         green: "rgb(var(--green-color))",
         mint: "rgb(var(--mint-color))",
+        cyan: "rgb(var(--cyan-color))",
         blue: "rgb(var(--blue-color))",
         purple: "rgb(var(--purple-color))",
         pink: "rgb(var(--pink-color))",

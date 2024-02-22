@@ -1,13 +1,48 @@
+"use client"
+
 import React from "react"
+import { useSearchParams } from "next/navigation"
 
-interface SearchAlbumsPageProps {
-  params: {
-    search: string
-  }
-}
+import { useLayoutContext } from "@/widgets/layout/layout-context"
+import AlbumPreviewCard from "@/entities/album/album-preview-card"
+import { trpc } from "@/shared/trpc/client"
 
-function SearchAlbumsPage({ params: { search } }: SearchAlbumsPageProps) {
-  return <div>SearchAlbumsPage</div>
+function SearchAlbumsPage() {
+  const searchParams = useSearchParams()
+  const query = searchParams.get("query")
+
+  const { columns } = useLayoutContext()
+
+  const { data } = trpc.searchRouter.searchAlbums.useInfiniteQuery(
+    {
+      q: query!,
+    },
+    {
+      enabled: !!query,
+      getNextPageParam: (lastPage) => lastPage?.nextCursor,
+    }
+  )
+
+  if (!data) return null
+
+  return (
+    <main>
+      <div className="px-6 py-3">
+        <div
+          style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}
+          className="grid gap-8"
+        >
+          {data.pages.map((page, i) => (
+            <React.Fragment key={i}>
+              {page?.albums.map((album, j) => (
+                <AlbumPreviewCard key={j} album={album} withArtists />
+              ))}
+            </React.Fragment>
+          ))}
+        </div>
+      </div>
+    </main>
+  )
 }
 
 export default SearchAlbumsPage

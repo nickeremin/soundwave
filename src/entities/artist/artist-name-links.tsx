@@ -9,7 +9,7 @@ interface ArtistNamesLinksProps<TArtist> {
   className?: string
 }
 
-function ArtistLinksNames<TArtist extends ArtistShort>({
+function ArtistNameLinks<TArtist extends ArtistShort>({
   artists,
   className,
 }: ArtistNamesLinksProps<TArtist>) {
@@ -31,4 +31,4 @@ function ArtistLinksNames<TArtist extends ArtistShort>({
   )
 }
 
-export default ArtistLinksNames
+export default ArtistNameLinks

@@ -1,5 +1,7 @@
+"use server"
+
 import { cookies } from "next/headers"
-import axios, { type AxiosError, type AxiosRequestConfig } from "axios"
+import Axios, { type AxiosError, type AxiosRequestConfig } from "axios"
 
 import { env } from "@/shared/components/env.mjs"
 import { catchAxiosError } from "@/shared/lib/utils"
@@ -22,7 +24,7 @@ export async function getSpotifyAccessToken() {
   }
 
   try {
-    const { data } = await axios.request(options)
+    const { data } = await Axios.request(options)
     const token = data.access_token
 
     if (token !== null) {
@@ -34,10 +36,12 @@ export async function getSpotifyAccessToken() {
   }
 }
 
-export const spotifyApiAxios = axios.create({
+export const spotifyApiAxios = Axios.create({
   baseURL: env.SPOTIFY_API_BASE_URL,
   withCredentials: true,
 })
+
+//export const spotifyApiAxios = setupCache(axios)
 
 spotifyApiAxios.interceptors.request.use(
   function (config) {

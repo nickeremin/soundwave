@@ -2,16 +2,11 @@ import React from "react"
 import Image from "next/image"
 import Link from "next/link"
 
-// import Image from "next/image"
-// import { format } from "date-fns"
-
 import { Track } from "@/shared/types/track"
 import TrackWrapper from "@/features/player/track-wrapper"
 import { formatTimeDuration, getImageUrl } from "@/shared/lib/utils"
 
-import ArtistLinksNames from "../artist/artist-link-names"
-
-// import { AspectRatio } from "@/shared/components/ui/aspect-ratio"
+import ArtistLinksNames from "../artist/artist-name-links"
 
 interface TrackListProps {
   tracks: Track[]
@@ -24,30 +19,35 @@ function TrackList({ tracks }: TrackListProps) {
         const imageUrl = getImageUrl(track.album.images)
 
         return (
-          <TrackWrapper key={track.id} trackId={track.id}>
-            <li className="flex cursor-pointer items-center gap-3 rounded p-2 text-sm font-medium leading-tight text-tertiary">
-              <div className="relative size-10 overflow-hidden rounded-md bg-muted shadow-image-sm">
+          <TrackWrapper
+            key={track.id}
+            trackId={track.id}
+            className="text-sm font-medium text-tertiary hover:text-secondary"
+          >
+            <li className="flex h-14 items-center gap-3 rounded px-2">
+              <div className="relative size-10 rounded bg-accent shadow-image-sm">
                 {imageUrl ? (
                   <Image
                     src={imageUrl}
                     alt=""
-                    width={160}
-                    height={160}
-                    className="object-cover"
+                    width={80}
+                    height={80}
+                    className="absolute size-full rounded object-cover object-center"
                   />
                 ) : null}
               </div>
               <div className="flex flex-1 flex-col items-start">
-                <Link href={`/track/${track.id}`}>
-                  <p className="line-clamp-1 w-fit text-base leading-tight text-primary decoration-2 hover:underline">
-                    {track.name}
-                  </p>
+                <Link
+                  href={`/track/${track.id}`}
+                  className="line-clamp-1 text-base font-bold leading-tight text-primary hover:underline"
+                >
+                  {track.name}
                 </Link>
-                <div className="overflow-hidden text-ellipsis whitespace-nowrap">
+                <p className="line-clamp-1">
                   <ArtistLinksNames artists={track.artists} />
-                </div>
+                </p>
               </div>
-              <p>{formatTimeDuration(track.duration_ms)}</p>
+              <span>{formatTimeDuration(track.duration_ms)}</span>
             </li>
           </TrackWrapper>
         )

@@ -10,6 +10,7 @@
     --yellow-color: 255 214 10;
     --green-color: 48 209 88;
     --mint-color: 99 230 226;
+    --cyan-color: 100 210 255;
     --blue-color: 10 132 255;
     --purple-color: 191 90 242;
     --pink-color: 255 55 95;
@@ -37,6 +38,7 @@
     --ds-background-200: 0 0 0;
     --link-color: 41 151 255;
     --focus-color: 82 168 255;
+    --blue-accent: 10 132 255;
 
     /* Components Colors */
     --background: 0 0 0;
@@ -81,7 +83,7 @@
 
 @layer base {
   * {
-    @apply border-border decoration-2 decoration-current;
+    @apply border-border decoration-current decoration-[1.6px];
   }
 
   html {
@@ -110,7 +112,7 @@
   }
 
   .link-hover {
-    @apply border-b border-b-transparent hover:border-b-current
+    @apply border-b border-b-transparent hover:border-b-current;
   }
 }
 
