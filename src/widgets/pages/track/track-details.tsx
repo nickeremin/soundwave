@@ -7,10 +7,10 @@ import { format } from "date-fns"
 import { type FastAverageColorResult } from "fast-average-color"
 
 import { useLayoutContext } from "@/widgets/layout/layout-context"
+import AddFavoriteTrackButton from "@/features/favorite/add-favorite-track-button"
+import TrackMenuButton from "@/features/menu/track-menu-button"
 import { LogInSignUpButtons } from "@/features/nav"
 import PlayerButton from "@/features/player/play-button"
-import AddFavoriteTrackButton from "@/features/track/add-favorite-track-button"
-import TrackMenuButton from "@/features/track/track-menu-button"
 import TrackArtistLinkCard from "@/entities/artist/track-artist-link-card"
 import TrackArtistLinkCardLoading from "@/entities/artist/track-artist-link-card-loading"
 import TrackMainArtistLink from "@/entities/artist/track-main-artist-link"
@@ -54,7 +54,7 @@ function TrackDetails({ trackId }: TrackDetailsProps) {
 
   return (
     <div>
-      <div className="relative flex h-[280px] items-end gap-4 p-6">
+      <div className="relative flex h-[280px] items-end gap-6 p-6">
         <div
           style={{
             backgroundColor: backgroundColor
