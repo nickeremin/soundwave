@@ -23,11 +23,11 @@ import { trpc } from "@/shared/trpc/client"
 
 import { useTrackContext } from "./track-context-provider"
 
-interface TrackDetails {
+interface TrackDetailsProps {
   trackId: string
 }
 
-function TrackDetails({ trackId }: TrackDetails) {
+function TrackDetails({ trackId }: TrackDetailsProps) {
   const timer = React.useRef({
     start: Date.now(),
   })
@@ -47,7 +47,6 @@ function TrackDetails({ trackId }: TrackDetails) {
   if (!track) return null
 
   const trackName = track.name
-  //const trackArtists = track.artists.map((artist) => artist.name).join(", ")
   const trackAlbumName = track.album.name
   const trackDate = format(new Date(track.album.release_date ?? 0), "yyyy")
   const trackDuration = formatTimeDuration(track.duration_ms)
@@ -116,7 +115,7 @@ function TrackDetails({ trackId }: TrackDetails) {
       <div className="flex flex-col gap-6 px-6 pt-6">
         <div className="flex items-center gap-6">
           <PlayerButton className="size-14" />
-          <AddFavoriteTrackButton className="size-10" />
+          <AddFavoriteTrackButton className="size-9" />
           <TrackMenuButton className="size-8" />
         </div>
         <div
