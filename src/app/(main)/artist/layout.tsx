@@ -17,7 +17,7 @@ async function ArtistLayout({ children }: ArtistLayoutProps) {
     <PageContextProvider>
       <div className="relative">
         <ArtistHeader />
-        {children}
+        <div className="-mt-16">{children}</div>
       </div>
     </PageContextProvider>
   )

@@ -2,8 +2,11 @@
 
 import React from "react"
 
+import MainFooter from "@/widgets/layout/footers/main-footer"
 import ArtistDetails from "@/widgets/pages/artist/artist-details"
+import ArtistPopularAlbums from "@/widgets/pages/artist/artist-popular-albums"
 import ArtistTopTracks from "@/widgets/pages/artist/artist-top-tracks"
+import RelatedArtists from "@/widgets/pages/artist/related-artists"
 import { trpc } from "@/shared/trpc/client"
 
 interface ArtistPageProps {
@@ -20,10 +23,15 @@ function ArtistPage({ params: { artistId } }: ArtistPageProps) {
   console.log(artist)
 
   return (
-    <main className="relative space-y-10">
-      <ArtistDetails artistId={artistId} />
-      <ArtistTopTracks />
-    </main>
+    <React.Fragment>
+      <main className="relative space-y-10">
+        <ArtistDetails artistId={artistId} />
+        <ArtistTopTracks artistId={artistId} />
+        <ArtistPopularAlbums artist={artist} />
+        <RelatedArtists artistId={artistId} />
+      </main>
+      <MainFooter />
+    </React.Fragment>
   )
 }
 

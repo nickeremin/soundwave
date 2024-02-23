@@ -70,7 +70,7 @@ function ArtistDetails({ artistId }: ArtistDetailsProps) {
           </span>
           <span className="text-base">
             {artist.followers.total.toLocaleString("en", { useGrouping: true })}{" "}
-            followers
+            monthly listeners
           </span>
         </div>
       </div>

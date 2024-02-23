@@ -20,7 +20,7 @@ function ArtistPopularAlbums({ artist }: ArtistPopularAlbumsProps) {
   if (!albums || albums.total === 0) return null
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 px-6">
       <div className="flex items-baseline justify-between font-bold">
         <Link href={"/"} className="text-2xl decoration-2 hover:underline">
           <h2>Popular Albums by {artist.name}</h2>

@@ -26,7 +26,7 @@ function ArtistHeader() {
       // }}
       variant="header"
       as="header"
-      className="absolute  bg-transparent"
+      className="bg-transparent"
     >
       <nav className="flex h-16 w-full items-center justify-between px-6">
         <BackForwardButtons />

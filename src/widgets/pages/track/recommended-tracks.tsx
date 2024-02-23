@@ -16,7 +16,7 @@ function RecommendedTracks({ trackId }: RecommendedTracksProps) {
   })
 
   return (
-    <div className="flex flex-col gap-4 px-6 py-2">
+    <div className="flex flex-col gap-4 px-6">
       <div className="flex flex-col">
         <h2 className="text-2xl font-bold">Recommended</h2>
         <p className="text-sm font-medium text-tertiary">Based on this song</p>

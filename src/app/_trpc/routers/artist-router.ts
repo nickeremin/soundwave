@@ -7,6 +7,7 @@ import {
   artistAlbumsSchema,
   artistSchema,
 } from "@/shared/lib/validations/artist"
+import { trackSchema } from "@/shared/lib/validations/track"
 import { publicProcedure, router } from "@/shared/trpc/trpc"
 import { spotifyApiAxios } from "@/app/_axios"
 
@@ -52,19 +53,6 @@ export const artistRouter = router({
         catchAxiosError(error)
       }
     }),
-  getRelatedArtists: publicProcedure
-    .input(z.string())
-    .query(async ({ input: artistId }) => {
-      try {
-        const { data } = await spotifyApiAxios.get(
-          `/artists/${artistId}/related-artists`
-        )
-        const relatedArtists = artistSchema.array().parse(data.artists)
-        return relatedArtists
-      } catch (error) {
-        catchAxiosError(error)
-      }
-    }),
   getArtistAlbums: publicProcedure
     .input(z.string())
     .query(async ({ input: artistId }) => {
@@ -74,6 +62,37 @@ export const artistRouter = router({
         )
         const albums = artistAlbumsSchema.parse(data)
         return albums
+      } catch (error) {
+        catchAxiosError(error)
+      }
+    }),
+  getArtistTopTracks: publicProcedure
+    .input(z.string())
+    .query(async ({ input: artistId }) => {
+      try {
+        const { data } = await spotifyApiAxios.get(
+          `/artists/${artistId}/top-tracks`,
+          {
+            params: {
+              market: "ES",
+            },
+          }
+        )
+        const tracks = trackSchema.array().parse(data.tracks)
+        return tracks
+      } catch (error) {
+        catchAxiosError(error)
+      }
+    }),
+  getRelatedArtists: publicProcedure
+    .input(z.string())
+    .query(async ({ input: artistId }) => {
+      try {
+        const { data } = await spotifyApiAxios.get(
+          `/artists/${artistId}/related-artists`
+        )
+        const relatedArtists = artistSchema.array().parse(data.artists)
+        return relatedArtists
       } catch (error) {
         catchAxiosError(error)
       }
