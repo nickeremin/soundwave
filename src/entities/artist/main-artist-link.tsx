@@ -12,7 +12,7 @@ interface TrackMainArtistLinkProps {
   artist: ArtistShort
 }
 
-function TrackMainArtistLink({ artist }: TrackMainArtistLinkProps) {
+function MainArtistLink({ artist }: TrackMainArtistLinkProps) {
   const { data } = trpc.artistRouter.getArtist.useQuery(artist.id)
 
   const imageUrl = getImageUrl(data?.images)
@@ -39,4 +39,4 @@ function TrackMainArtistLink({ artist }: TrackMainArtistLinkProps) {
   )
 }
 
-export default TrackMainArtistLink
+export default MainArtistLink

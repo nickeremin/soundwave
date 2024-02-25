@@ -3,32 +3,38 @@
 import React from "react"
 import Image from "next/image"
 import chroma from "chroma-js"
+import { format } from "date-fns"
 
-import { useLayoutContext } from "@/widgets/layout/layout-context"
 import { usePageContext } from "@/widgets/providers/page-context-provider"
-import FollowArtistButton from "@/features/favorite/follow-artist-button"
-import ArtistMenuButton from "@/features/menu/artist-menu-button"
+import AddFavoriteAlbumButton from "@/features/favorite/add-favorite-album-button"
+import AlbumMenuButton from "@/features/menu/album-menu-button"
 import PlayButton from "@/features/player/play-button"
-import { LucideIcon } from "@/shared/components/icons"
+import MainArtistLink from "@/entities/artist/main-artist-link"
 import { getAverageColor, getImageUrl } from "@/shared/lib/utils"
 import { trpc } from "@/shared/trpc/client"
 
-interface ArtistDetailsProps {
-  artistId: string
+interface AlbumDetailsProps {
+  albumId: string
 }
 
-function ArtistDetails({ artistId }: ArtistDetailsProps) {
-  const { setIsVisible, backgroundColor, setBackgroundColor } = usePageContext()
+function AlbumDetails({ albumId }: AlbumDetailsProps) {
+  const { backgroundColor, setIsVisible, setBackgroundColor } = usePageContext()
+  const { data: album } = trpc.albumRouter.getAlbum.useQuery(albumId)
 
-  const { data: artist } = trpc.artistRouter.getArtist.useQuery({ artistId })
+  if (!album) return null
 
-  if (!artist) return null
-
-  const imageUrl = getImageUrl(artist.images)
+  const imageUrl = getImageUrl(album.images)
+  const albumDate = format(new Date(album.release_date ?? 0), "yyyy")
+  const albumDuration = format(
+    new Date(
+      album.tracks.items.reduce((prev, cur) => prev + cur.duration_ms, 0)
+    ),
+    "m 'min' ss 'sec'"
+  )
 
   return (
     <div>
-      <div className="relative flex h-[340px] items-end gap-6 p-6">
+      <div className="relative flex h-[344px] items-end gap-6 p-6">
         <div
           style={{
             backgroundColor: backgroundColor
@@ -39,7 +45,7 @@ function ArtistDetails({ artistId }: ArtistDetailsProps) {
           }}
           className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50 "
         />
-        <div className="relative size-[clamp(128px,128px_+_(100vw-320px-600px)/424*104,232px)] shrink-0 rounded-full bg-accent shadow-image-lg">
+        <div className="relative size-[clamp(128px,128px_+_(100vw-320px-600px)/424*104,232px)] shrink-0 rounded-md bg-accent shadow-image-lg">
           {imageUrl ? (
             <Image
               src={imageUrl}
@@ -52,26 +58,24 @@ function ArtistDetails({ artistId }: ArtistDetailsProps) {
                 setBackgroundColor(color)
                 setIsVisible(true)
               }}
-              className="size-full rounded-full object-cover object-center"
+              className="size-full rounded-md object-cover object-center"
             />
           ) : null}
         </div>
         <div className="relative flex flex-col items-start text-sm font-medium">
-          <div className="flex items-center gap-2">
-            <span>
-              <LucideIcon name="BadgeCheck" fill="#0a84ff" className="size-7" />
-            </span>{" "}
-            <span>Verified Artist</span>
-          </div>
-          <span className="mb-2 line-clamp-3">
+          <span>Album</span>
+          <span className="mb-2 mt-2 line-clamp-3">
             <h1 className="text-[4rem] font-black leading-tight">
-              {artist.name}
+              {album.name}
             </h1>
           </span>
-          <span className="text-base">
-            {artist.followers.total.toLocaleString("en", { useGrouping: true })}{" "}
-            monthly listeners
-          </span>
+          <div className="flex flex-wrap items-center [&>*:not(:first-child)]:before:mx-1 [&>*:not(:first-child)]:before:content-['•']">
+            <MainArtistLink artist={album.artists[0]!} />
+            <span>{albumDate}</span>
+            <span>
+              {album.total_tracks} songs, {albumDuration}
+            </span>
+          </div>
         </div>
       </div>
       <div
@@ -87,12 +91,12 @@ function ArtistDetails({ artistId }: ArtistDetailsProps) {
       <div className="flex flex-col gap-6 px-6 pt-6">
         <div className="flex items-center gap-8">
           <PlayButton className="size-14" />
-          <FollowArtistButton />
-          <ArtistMenuButton />
+          <AddFavoriteAlbumButton />
+          <AlbumMenuButton />
         </div>
       </div>
     </div>
   )
 }
 
-export default ArtistDetails
+export default AlbumDetails

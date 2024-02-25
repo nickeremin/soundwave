@@ -1,59 +1,33 @@
 "use client"
 
 import React from "react"
-import Image from "next/image"
-import Link from "next/link"
-import { format } from "date-fns"
 
-import AlbumTrackList from "@/entities/track/album-track-list"
-import { getImageUrl } from "@/shared/lib/utils"
+import TrackList from "@/entities/track/track-list"
+import { LucideIcon } from "@/shared/components/icons"
 import { trpc } from "@/shared/trpc/client"
 
-interface AlbumTracks {
+interface AlbumTracksProps {
   albumId: string
 }
 
-function AlbumTracks({ albumId }: AlbumTracks) {
-  const { data: album } = trpc.albumRouter.getAlbum.useQuery(albumId)
+function AlbumTracks({ albumId }: AlbumTracksProps) {
+  const { data: albumTracks } =
+    trpc.albumRouter.getAlbumTracks.useQuery(albumId)
 
-  if (!album) return null
-
-  const imageUrl = getImageUrl(album.images)
+  if (!albumTracks) return null
 
   return (
-    <div className="flex flex-col px-6">
-      <div className="relative mb-px flex cursor-pointer items-center gap-3 overflow-hidden rounded-t-md bg-muted transition hover:bg-accent">
-        <div className="relative size-20 bg-accent">
-          {imageUrl ? (
-            <Image
-              src={imageUrl}
-              alt=""
-              height={160}
-              width={160}
-              className="absolute size-full object-cover object-center"
-            />
-          ) : null}
-        </div>
-        <div className="flex flex-col items-start">
-          <span className="text-xs font-medium text-tertiary">
-            From the album
+    <div className="px-6">
+      <div className="sticky top-16 mb-2 grid h-10 grid-cols-[16px_minmax(120px,4fr)_minmax(120px,1fr)] gap-4 border-b  px-4 text-sm font-medium leading-none text-secondary">
+        <div className="flex items-center justify-self-end text-base">#</div>
+        <div className="flex items-center">Title</div>
+        <div className="flex items-center justify-self-end">
+          <span className="mr-9">
+            <LucideIcon name="Clock" className="size-[18px]" />
           </span>
-          <Link href={"/"} className="font-bold hover:underline">
-            <span>{album.name}</span>
-          </Link>
         </div>
       </div>
-      <AlbumTrackList tracks={album.tracks.items} />
-      <div className="mt-6 flex flex-col items-start font-medium text-tertiary">
-        <span className="mb-1 text-sm">
-          {format(album.release_date, "MMMM d, yyyy")}
-        </span>
-        {album.copyrights.map((copyright, i) => (
-          <span key={i} className="text-xs">
-            &copy; {copyright.text}
-          </span>
-        ))}
-      </div>
+      <TrackList tracks={[]} />
     </div>
   )
 }

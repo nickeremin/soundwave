@@ -1,8 +1,6 @@
 import * as z from "zod"
 
-import { albumSchema, albumShortSchema } from "../lib/validations/album"
-import { artistAlbumSchema } from "../lib/validations/artist"
+import { albumSchema, simplifiedAlbumSchema } from "../lib/validations/album"
 
-export type Album = z.infer<typeof albumSchema>
-export type AlbumShort = z.infer<typeof albumShortSchema>
-export type ArtistAlbum = z.infer<typeof artistAlbumSchema>
+export type AlbumObject = z.infer<typeof albumSchema>
+export type SimplifiedAlbumObject = z.infer<typeof simplifiedAlbumSchema>

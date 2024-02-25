@@ -1,7 +1,6 @@
 import * as z from "zod"
 
-import { albumTrackSchema } from "../lib/validations/album"
-import { trackSchema } from "../lib/validations/track"
+import { simplifiedTrackSchema, trackSchema } from "../lib/validations/track"
 
-export type Track = z.infer<typeof trackSchema>
-export type AlbumTrack = z.infer<typeof albumTrackSchema>
+export type TrackObject = z.infer<typeof trackSchema>
+export type SimplifiedTrackObject = z.infer<typeof simplifiedTrackSchema>

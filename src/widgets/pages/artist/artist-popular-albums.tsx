@@ -15,9 +15,14 @@ interface ArtistPopularAlbumsProps {
 
 function ArtistPopularAlbums({ artist }: ArtistPopularAlbumsProps) {
   const { columns } = useLayoutContext()
-  const { data: albums } = trpc.artistRouter.getArtistAlbums.useQuery(artist.id)
-
-  if (!albums || albums.total === 0) return null
+  const { data } = trpc.artistRouter.getArtistAlbums.useInfiniteQuery(
+    {
+      artistId: artist.id,
+    },
+    {
+      getNextPageParam: (lastPage) => lastPage?.nextCursor,
+    }
+  )
 
   return (
     <div className="flex flex-col gap-2 px-6">
@@ -35,11 +40,17 @@ function ArtistPopularAlbums({ artist }: ArtistPopularAlbumsProps) {
         }}
         className="grid gap-6"
       >
-        {albums
-          ? albums.items
-              .slice(0, columns)
-              .map((album) => (
-                <AlbumPreviewCard key={album.id} album={album} withType />
+        {data
+          ? data?.pages
+              .slice(0, 1)
+              .map((page, i) => (
+                <React.Fragment key={i}>
+                  {page?.artistAlbums
+                    .slice(0, columns)
+                    .map((album) => (
+                      <AlbumPreviewCard key={album.id} album={album} withType />
+                    ))}
+                </React.Fragment>
               ))
           : Array.from({ length: columns }, (_, i) => i).map((_, i) => (
               <AlbumPreviewCardLoading key={i} />

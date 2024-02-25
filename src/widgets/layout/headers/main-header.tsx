@@ -9,17 +9,15 @@ import { cn } from "@/shared/lib/utils"
 
 function MainHeader({ className }: React.HTMLAttributes<HTMLElement>) {
   return (
-    <Wrapper variant="header" as="header" className={className}>
+    <Wrapper
+      variant="header"
+      as="header"
+      className={cn("backdrop-blur-xl backdrop-saturate-200", className)}
+    >
       <nav className="flex h-16 w-full items-center justify-between px-6">
         <BackForwardButtons />
         <SignedIn>
           <div className="flex items-center gap-3">
-            {/* <Link
-              href="/contact"
-              className="px-1 py-0.5 font-medium text-tertiary transition-colors hover:text-primary"
-            >
-              Contact
-            </Link> */}
             <UserNav />
           </div>
         </SignedIn>

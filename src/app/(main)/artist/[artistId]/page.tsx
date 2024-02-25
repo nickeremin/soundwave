@@ -16,7 +16,7 @@ interface ArtistPageProps {
 }
 
 function ArtistPage({ params: { artistId } }: ArtistPageProps) {
-  const { data: artist } = trpc.artistRouter.getArtist.useQuery(artistId)
+  const { data: artist } = trpc.artistRouter.getArtist.useQuery({ artistId })
 
   if (!artist) return null
 

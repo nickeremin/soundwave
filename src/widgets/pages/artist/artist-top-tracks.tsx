@@ -13,8 +13,9 @@ interface ArtistTopTracksProps {
 
 function ArtistTopTracks({ artistId }: ArtistTopTracksProps) {
   const [isExpanded, setIsExpanded] = React.useState(false)
-  const { data: tracks } =
-    trpc.artistRouter.getArtistTopTracks.useQuery(artistId)
+  const { data: tracks } = trpc.artistRouter.getArtistTopTracks.useQuery({
+    artistId,
+  })
 
   console.log({ topTracks: tracks })
 
@@ -36,7 +37,7 @@ function ArtistTopTracks({ artistId }: ArtistTopTracksProps) {
           onClick={() => {
             setIsExpanded((isExpanded) => !isExpanded)
           }}
-          className="ml-2 mt-2 text-sm font-bold text-tertiary  hover:underline"
+          className="ml-2 mt-2 text-sm font-bold text-secondary  hover:underline"
         >
           {isExpanded ? "Collapse" : "Show more"}
         </Button>

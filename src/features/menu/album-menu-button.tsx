@@ -4,7 +4,7 @@ import { motion, type HTMLMotionProps } from "framer-motion"
 import { LucideIcon } from "@/shared/components/icons"
 import { cn } from "@/shared/lib/utils"
 
-function ArtistMenuButton({ className, ...props }: HTMLMotionProps<"button">) {
+function AlbumMenuButton({ className, ...props }: HTMLMotionProps<"button">) {
   return (
     <motion.button
       whileHover={{
@@ -24,4 +24,4 @@ function ArtistMenuButton({ className, ...props }: HTMLMotionProps<"button">) {
   )
 }
 
-export default ArtistMenuButton
+export default AlbumMenuButton

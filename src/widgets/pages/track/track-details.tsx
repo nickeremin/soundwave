@@ -11,9 +11,9 @@ import AddFavoriteTrackButton from "@/features/favorite/add-favorite-track-butto
 import TrackMenuButton from "@/features/menu/track-menu-button"
 import { LogInSignUpButtons } from "@/features/nav"
 import PlayerButton from "@/features/player/play-button"
+import MainArtistLink from "@/entities/artist/main-artist-link"
 import TrackArtistLinkCard from "@/entities/artist/track-artist-link-card"
 import TrackArtistLinkCardLoading from "@/entities/artist/track-artist-link-card-loading"
-import TrackMainArtistLink from "@/entities/artist/track-main-artist-link"
 import {
   formatTimeDuration,
   getAverageColor,
@@ -47,7 +47,7 @@ function TrackDetails({ trackId }: TrackDetailsProps) {
   if (!track) return null
 
   const trackName = track.name
-  const trackAlbumName = track.album.name
+  const albumName = track.album.name
   const trackDate = format(new Date(track.album.release_date ?? 0), "yyyy")
   const trackDuration = formatTimeDuration(track.duration_ms)
   const imageUrl = getImageUrl(track.album.images)
@@ -95,8 +95,8 @@ function TrackDetails({ trackId }: TrackDetailsProps) {
             </h1>
           </div>
           <div className="flex flex-wrap items-center [&>*:not(:first-child)]:before:mx-1 [&>*:not(:first-child)]:before:content-['•']">
-            <TrackMainArtistLink artist={track.artists[0]!} />
-            <span>{trackAlbumName}</span>
+            <MainArtistLink artist={track.artists[0]!} />
+            <span>{albumName}</span>
             <span>{trackDate}</span>
             <span>{trackDuration}</span>
           </div>
@@ -113,7 +113,7 @@ function TrackDetails({ trackId }: TrackDetailsProps) {
         className="absolute z-[-1] h-[240px] w-full bg-gradient-to-b from-black/60 to-background-100 "
       />
       <div className="flex flex-col gap-6 px-6 pt-6">
-        <div className="flex items-center gap-6">
+        <div className="flex items-center gap-8">
           <PlayerButton className="size-14" />
           <AddFavoriteTrackButton className="size-9" />
           <TrackMenuButton className="size-8" />

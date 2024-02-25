@@ -9,7 +9,7 @@ function FollowArtistButton() {
     <Button
       variant="none"
       size="none"
-      className="h-10 rounded-full px-6 font-bold leading-none ring-2 ring-primary hover:text-pink hover:ring-pink"
+      className="h-9 rounded-full px-4 text-sm font-bold leading-none ring-2 ring-primary hover:text-pink hover:ring-pink"
     >
       Follow
     </Button>

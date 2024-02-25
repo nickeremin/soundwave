@@ -15,7 +15,7 @@ interface RelatedArtistsProps {
 function RelatedArtists({ artistId }: RelatedArtistsProps) {
   const { columns } = useLayoutContext()
   const { data: relatedArtists } =
-    trpc.artistRouter.getRelatedArtists.useQuery(artistId)
+    trpc.artistRouter.getArtistRelatedArtists.useQuery({ artistId })
 
   if (!relatedArtists) {
     return <p>Loading...</p>

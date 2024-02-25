@@ -5,9 +5,10 @@ import { format } from "date-fns"
 import { FastAverageColor } from "fast-average-color"
 import { toast } from "sonner"
 import { twMerge } from "tailwind-merge"
+import { v4 } from "uuid"
 import * as z from "zod"
 
-import { Image } from "../types/image"
+import { type ImageObject } from "../types/image"
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
@@ -17,7 +18,7 @@ export function formatTimeDuration(ms: number | undefined) {
   return format(new Date(ms ?? 0), "m:ss")
 }
 
-export function getImageUrl(images: Image[] | undefined) {
+export function getImageUrl(images: ImageObject[] | undefined) {
   const image = images?.[0]
   return image?.url
 }
@@ -26,6 +27,11 @@ export function getAverageColor(image: HTMLImageElement) {
   const fac = new FastAverageColor()
   const color = fac.getColor(image)
   return color
+}
+
+export function generateId() {
+  const id = v4()
+  return id
 }
 
 export function catchError(error: unknown) {

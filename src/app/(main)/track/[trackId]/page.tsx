@@ -3,9 +3,9 @@
 import React from "react"
 
 import MainFooter from "@/widgets/layout/footers/main-footer"
-import AlbumTracks from "@/widgets/pages/album/album-tracks"
 import ArtistPopularAlbums from "@/widgets/pages/artist/artist-popular-albums"
 import RelatedArtists from "@/widgets/pages/artist/related-artists"
+import AlbumTracks from "@/widgets/pages/track/album-tracks"
 import RecommendedTracks from "@/widgets/pages/track/recommended-tracks"
 import TrackContextProvider from "@/widgets/pages/track/track-context-provider"
 import TrackDetails from "@/widgets/pages/track/track-details"

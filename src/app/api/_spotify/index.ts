@@ -1,5 +1,3 @@
-"use server"
-
 import { cookies } from "next/headers"
 import Axios, { type AxiosError, type AxiosRequestConfig } from "axios"
 
@@ -36,14 +34,14 @@ export async function getSpotifyAccessToken() {
   }
 }
 
-export const spotifyApiAxios = Axios.create({
+export const spotifyApi = Axios.create({
   baseURL: env.SPOTIFY_API_BASE_URL,
   withCredentials: true,
 })
 
-//export const spotifyApiAxios = setupCache(axios)
+//export const spotifyApi = setupCache(axios)
 
-spotifyApiAxios.interceptors.request.use(
+spotifyApi.interceptors.request.use(
   function (config) {
     const cookieStore = cookies()
     const accessToken = cookieStore.get(env.SPOTIFY_ACCESS_TOKEN_KEY)
@@ -55,7 +53,7 @@ spotifyApiAxios.interceptors.request.use(
   }
 )
 
-spotifyApiAxios.interceptors.response.use(
+spotifyApi.interceptors.response.use(
   function (config) {
     return config
   },
@@ -63,7 +61,7 @@ spotifyApiAxios.interceptors.response.use(
     const originalRequest = error.config
     if (error.response?.status === 401) {
       await getSpotifyAccessToken()
-      if (originalRequest) return spotifyApiAxios.request(originalRequest)
+      if (originalRequest) return spotifyApi.request(originalRequest)
     }
   }
 )

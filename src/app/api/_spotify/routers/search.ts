@@ -1,54 +1,46 @@
-import * as z from "zod"
+import { z } from "zod"
 
 import { env } from "@/shared/components/env.mjs"
 import { catchAxiosError } from "@/shared/lib/utils"
-import { iterableAlbumSchema } from "@/shared/lib/validations/album"
-import { iterableArtistSchema } from "@/shared/lib/validations/artist"
-import { iterableTrackSchema } from "@/shared/lib/validations/track"
+import { simplifiedAlbumsSchema } from "@/shared/lib/validations/album"
+import { artistsSchema } from "@/shared/lib/validations/artist"
+import { tracksSchema } from "@/shared/lib/validations/track"
 import { publicProcedure, router } from "@/shared/trpc/trpc"
-import { spotifyApiAxios } from "@/app/_axios"
+
+import { spotifyApi } from ".."
 
 export const searchRouter = router({
   search: publicProcedure
     .input(
       z.object({
         q: z.string(),
-        // type: z
-        //   .enum([
-        //     "album",
-        //     "artist",
-        //     "playlist",
-        //     "track",
-        //     "show",
-        //     "episode",
-        //     "audiobook",
-        //   ])
-        //   .array(),
-        //cursor: z.string().nullish(),
+        type: z
+          .enum([
+            "album",
+            "artist",
+            "playlist",
+            "track",
+            "show",
+            "episode",
+            "audiobook",
+          ])
+          .array(),
       })
     )
-    .query(async ({ input }) => {
+    .query(async ({ input: { q, type } }) => {
       try {
-        const { q } = input
-
-        // const url = new URL(cursor ?? env.SPOTIFY_API_BASE_URL)
-        // const offset = url.searchParams.get("offset")
-        // const limit = url.searchParams.get("limit")
-
-        const { data } = await spotifyApiAxios.get("/search", {
+        const { data } = await spotifyApi.get("/search", {
           params: {
             q,
-            type: "track,artist,album",
-            // limit,
-            // offset,
+            type: type.join(","),
           },
         })
 
         const searchData = z
           .object({
-            tracks: iterableTrackSchema,
-            artists: iterableArtistSchema,
-            albums: iterableAlbumSchema,
+            tracks: tracksSchema,
+            artists: artistsSchema,
+            albums: simplifiedAlbumsSchema,
           })
           .parse(data)
 
@@ -61,19 +53,16 @@ export const searchRouter = router({
     .input(
       z.object({
         q: z.string(),
-        limit: z.number().optional(),
         cursor: z.string().nullish(),
       })
     )
-    .query(async ({ input }) => {
+    .query(async ({ input: { q, cursor } }) => {
       try {
-        const { q, cursor } = input
-
         const nextUrl = new URL(cursor ?? `${env.SPOTIFY_API_BASE_URL}/search`)
         const limit = nextUrl.searchParams.get("limit")
         const offset = nextUrl.searchParams.get("offset")
 
-        const { data } = await spotifyApiAxios.get("/search", {
+        const { data } = await spotifyApi.get("/search", {
           params: {
             q,
             type: "track",
@@ -82,49 +71,12 @@ export const searchRouter = router({
           },
         })
 
-        const trackData = iterableTrackSchema.parse(data.tracks)
+        const tracks = tracksSchema.parse(data.tracks)
 
-        const nextCursor = trackData.next
-
-        return {
-          tracks: trackData.items,
-          nextCursor,
-        }
-      } catch (error) {
-        catchAxiosError(error)
-      }
-    }),
-  searchAlbums: publicProcedure
-    .input(
-      z.object({
-        q: z.string(),
-        limit: z.number().optional(),
-        cursor: z.string().nullish(),
-      })
-    )
-    .query(async ({ input }) => {
-      try {
-        const { q, cursor } = input
-
-        const nextUrl = new URL(cursor ?? `${env.SPOTIFY_API_BASE_URL}/search`)
-        const limit = nextUrl.searchParams.get("limit")
-        const offset = nextUrl.searchParams.get("offset")
-
-        const { data } = await spotifyApiAxios.get("/search", {
-          params: {
-            q,
-            type: "album",
-            limit,
-            offset,
-          },
-        })
-
-        const albumData = iterableAlbumSchema.parse(data.albums)
-
-        const nextCursor = albumData.next
+        const nextCursor = tracks.next
 
         return {
-          albums: albumData.items,
+          tracks: tracks.items,
           nextCursor,
         }
       } catch (error) {
@@ -135,19 +87,16 @@ export const searchRouter = router({
     .input(
       z.object({
         q: z.string(),
-        limit: z.number().optional(),
         cursor: z.string().nullish(),
       })
     )
-    .query(async ({ input }) => {
+    .query(async ({ input: { q, cursor } }) => {
       try {
-        const { q, cursor } = input
-
         const nextUrl = new URL(cursor ?? `${env.SPOTIFY_API_BASE_URL}/search`)
         const limit = nextUrl.searchParams.get("limit")
         const offset = nextUrl.searchParams.get("offset")
 
-        const { data } = await spotifyApiAxios.get("/search", {
+        const { data } = await spotifyApi.get("/search", {
           params: {
             q,
             type: "artist",
@@ -156,12 +105,46 @@ export const searchRouter = router({
           },
         })
 
-        const artistData = iterableArtistSchema.parse(data.artists)
+        const artists = artistsSchema.parse(data.artists)
 
-        const nextCursor = artistData.next
+        const nextCursor = artists.next
 
         return {
-          artists: artistData.items,
+          artists: artists.items,
+          nextCursor,
+        }
+      } catch (error) {
+        catchAxiosError(error)
+      }
+    }),
+  searchAlbums: publicProcedure
+    .input(
+      z.object({
+        q: z.string(),
+        cursor: z.string().nullish(),
+      })
+    )
+    .query(async ({ input: { q, cursor } }) => {
+      try {
+        const nextUrl = new URL(cursor ?? `${env.SPOTIFY_API_BASE_URL}/search`)
+        const limit = nextUrl.searchParams.get("limit")
+        const offset = nextUrl.searchParams.get("offset")
+
+        const { data } = await spotifyApi.get("/search", {
+          params: {
+            q,
+            type: "album",
+            limit,
+            offset,
+          },
+        })
+
+        const albums = simplifiedAlbumsSchema.parse(data.albums)
+
+        const nextCursor = albums.next
+
+        return {
+          albums: albums.items,
           nextCursor,
         }
       } catch (error) {

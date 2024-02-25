@@ -4,7 +4,10 @@ import { motion, type HTMLMotionProps } from "framer-motion"
 import { LucideIcon } from "@/shared/components/icons"
 import { cn } from "@/shared/lib/utils"
 
-function ArtistMenuButton({ className, ...props }: HTMLMotionProps<"button">) {
+function AddFavoriteAlbumButton({
+  className,
+  ...props
+}: HTMLMotionProps<"button">) {
   return (
     <motion.button
       whileHover={{
@@ -13,15 +16,18 @@ function ArtistMenuButton({ className, ...props }: HTMLMotionProps<"button">) {
       whileTap={{
         scale: 1,
       }}
+      onClick={(e) => {
+        e.stopPropagation()
+      }}
       className={cn(
-        "relative inline-flex size-8 items-center justify-center rounded-full",
+        "relative inline-flex size-9 items-center justify-center rounded-full",
         className
       )}
       {...props}
     >
-      <LucideIcon name="MoreHorizontal" className="size-full transition" />
+      <LucideIcon name="Heart" className="size-full transition" />
     </motion.button>
   )
 }
 
-export default ArtistMenuButton
+export default AddFavoriteAlbumButton

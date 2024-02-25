@@ -1,6 +1,6 @@
 import * as z from "zod"
 
-import { artistShortSchema } from "./artist"
+import { simplifiedArtistSchema } from "./artist"
 import { imageSchema } from "./image"
 
 export const trackSchema = z.object({
@@ -18,22 +18,35 @@ export const trackSchema = z.object({
     images: imageSchema.array(),
     name: z.string(),
     release_date: z.string(),
-    type: z.enum(["album"]),
-    artists: artistShortSchema.array(),
+    artists: simplifiedArtistSchema.array(),
   }),
-  artists: artistShortSchema.array(),
+  artists: simplifiedArtistSchema.array(),
   duration_ms: z.number(),
   id: z.string(),
   name: z.string(),
   popularity: z.number(),
   track_number: z.number(),
-  type: z.enum(["track"]),
   preview_url: z.string().nullable(),
 })
 
-export const iterableTrackSchema = z.object({
+export const simplifiedTrackSchema = z.object({
+  artists: simplifiedArtistSchema.array(),
+  duration_ms: z.number(),
+  id: z.string(),
+  name: z.string(),
+  track_number: z.number(),
+})
+
+export const tracksSchema = z.object({
   next: z.string().nullable(),
   previous: z.string().nullable(),
   total: z.number(),
   items: trackSchema.array(),
+})
+
+export const simplifiedTracksSchema = z.object({
+  next: z.string().nullable(),
+  previous: z.string().nullable(),
+  total: z.number(),
+  items: simplifiedTrackSchema.array(),
 })

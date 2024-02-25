@@ -1,6 +1,6 @@
 import * as z from "zod"
 
-import { artistSchema, artistShortSchema } from "../lib/validations/artist"
+import { artistSchema, simplifiedArtistSchema } from "../lib/validations/artist"
 
-export type Artist = z.infer<typeof artistSchema>
-export type ArtistShort = z.infer<typeof artistShortSchema>
+export type ArtistObject = z.infer<typeof artistSchema>
+export type SimplifiedArtistObject = z.infer<typeof simplifiedArtistSchema>
