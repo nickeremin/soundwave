@@ -15,7 +15,7 @@ interface AlbumPageProps {
 }
 
 function AlbumPage({ params: { albumId } }: AlbumPageProps) {
-  const { data: album } = trpc.albumRouter.getAlbum.useQuery(albumId)
+  const { data: album } = trpc.albumRouter.getAlbum.useQuery({ albumId })
 
   if (!album) return null
 

@@ -18,7 +18,7 @@ interface TrackPageProps {
 }
 
 function TrackPage({ params: { trackId } }: TrackPageProps) {
-  const { data: track } = trpc.trackRouter.getTrack.useQuery(trackId)
+  const { data: track } = trpc.trackRouter.getTrack.useQuery({ trackId })
 
   if (!track) return null
 

@@ -8,6 +8,13 @@
       "when": 1708883129031,
       "tag": "0000_early_excalibur",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1709037525601,
+      "tag": "0001_simple_thanos",
+      "breakpoints": true
     }
   ]
 }

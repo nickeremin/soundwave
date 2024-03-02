@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 }
 
 interface ArtistLayoutProps {
-  children: React.ReactNode
+  children?: React.ReactNode
 }
 
 async function ArtistLayout({ children }: ArtistLayoutProps) {

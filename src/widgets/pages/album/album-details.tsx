@@ -19,7 +19,7 @@ interface AlbumDetailsProps {
 
 function AlbumDetails({ albumId }: AlbumDetailsProps) {
   const { backgroundColor, setIsVisible, setBackgroundColor } = usePageContext()
-  const { data: album } = trpc.albumRouter.getAlbum.useQuery(albumId)
+  const { data: album } = trpc.albumRouter.getAlbum.useQuery({ albumId })
 
   if (!album) return null
 

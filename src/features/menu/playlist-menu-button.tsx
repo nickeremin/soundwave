@@ -3,6 +3,7 @@
 import React from "react"
 import { motion, type HTMLMotionProps } from "framer-motion"
 
+import { useEditPlaylistDetailsContext } from "@/widgets/providers/edit-playlist-details-provider"
 import { LucideIcon } from "@/shared/components/icons"
 import {
   DropdownMenu,
@@ -11,19 +12,23 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/shared/components/ui/dropdown-menu"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/shared/components/ui/popover"
 import { cn } from "@/shared/lib/utils"
 
-function AlbumMenuButton({ className, ...props }: HTMLMotionProps<"button">) {
+function PlaylistMenuButton({
+  className,
+  ...props
+}: HTMLMotionProps<"button">) {
+  // const { toggleOpen } = useEditPlaylistDetailsContext()
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <motion.button
-          // whileHover={{
-          //   scale: 1.1,
-          // }}
-          // whileTap={{
-          //   scale: 1,
-          // }}
           className={cn(
             "relative inline-flex size-10 items-center justify-center rounded-full",
             className
@@ -38,26 +43,6 @@ function AlbumMenuButton({ className, ...props }: HTMLMotionProps<"button">) {
           <DropdownMenuItem className="gap-3">
             <span>
               <LucideIcon
-                name="Plus"
-                strokeWidth={2}
-                className="text-secondary"
-              />
-            </span>
-            Add to playlist
-          </DropdownMenuItem>
-          <DropdownMenuItem className="gap-3">
-            <span>
-              <LucideIcon
-                name="Heart"
-                strokeWidth={2}
-                className="text-secondary"
-              />
-            </span>
-            Add to Your library
-          </DropdownMenuItem>
-          <DropdownMenuItem className="gap-3">
-            <span>
-              <LucideIcon
                 name="ListPlus"
                 strokeWidth={2}
                 className="text-secondary"
@@ -65,18 +50,28 @@ function AlbumMenuButton({ className, ...props }: HTMLMotionProps<"button">) {
             </span>
             Add to queue
           </DropdownMenuItem>
-
           <DropdownMenuSeparator />
 
-          <DropdownMenuItem className="gap-3">
+          <DropdownMenuItem onSelect={() => {}} className="gap-3">
             <span>
               <LucideIcon
-                name="Radio"
+                name="Pencil"
                 strokeWidth={2}
                 className="text-secondary"
               />
             </span>
-            Go to artist radio
+            Edit details
+          </DropdownMenuItem>
+
+          <DropdownMenuItem className="gap-3">
+            <span>
+              <LucideIcon
+                name="MinusCircle"
+                strokeWidth={2}
+                className="text-secondary"
+              />
+            </span>
+            Delete
           </DropdownMenuItem>
         </ul>
       </DropdownMenuContent>
@@ -84,4 +79,4 @@ function AlbumMenuButton({ className, ...props }: HTMLMotionProps<"button">) {
   )
 }
 
-export default AlbumMenuButton
+export default PlaylistMenuButton

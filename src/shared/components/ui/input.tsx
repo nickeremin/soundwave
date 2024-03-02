@@ -11,7 +11,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       <div
         data-shadcnui-input-wrapper
         className={cn(
-          "flex h-9 items-center rounded-md bg-background-100",
+          "flex h-10 items-center rounded bg-background-100",
           className
         )}
       >

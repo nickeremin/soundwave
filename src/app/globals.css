@@ -36,6 +36,7 @@
     /* Custom Colors */
     --ds-background-100: 18 18 23;
     --ds-background-200: 0 0 0;
+    --background-noise: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxwYXRoIGQ9Ik0wIDBoMzAwdjMwMEgweiIgZmlsdGVyPSJ1cmwoI2EpIiBvcGFjaXR5PSIuMDUiLz48L3N2Zz4=");
     --link-color: 41 151 255;
     --focus-color: 82 168 255;
     --blue-accent: 10 132 255;
@@ -84,6 +85,7 @@
 @layer base {
   * {
     @apply border-border decoration-current decoration-[1.6px];
+    scrollbar-color: rgb(var(--focus)) transparent;
   }
 
   html {
@@ -94,6 +96,27 @@
   body {
     @apply bg-background text-primary;
   }
+
+  /* width */
+  /* ::-webkit-scrollbar {
+  
+    background-color: inherit;
+  } */
+
+  /* Track */
+  /* ::-webkit-scrollbar-track {
+    background: inherit;
+  } */
+
+  /* Handle */
+  /* ::-webkit-scrollbar-thumb {
+    background: #888;
+  } */
+
+  /* Handle on hover */
+  /* ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  } */
 }
 
 @layer utilities {
@@ -118,34 +141,36 @@
 
 @layer components {
   /* Button */
-  [data-shadcnui-button]:focus-visible {
+  [data-shadcnui-button="true"]:focus-visible {
     transition: none;
     box-shadow: var(--focus-ring);
   }
 
   /* Input */
-  [data-shadcnui-input]:disabled {
+  [data-shadcnui-input="true"]:disabled {
     color: rgb(var(--muted-foreground));
     background-color: rgb(var(--muted));
     cursor: not-allowed;
   }
 
-  [data-shadcnui-input-wrapper] {
+  [data-shadcnui-input-wrapper="true"] {
     transition: all 0.15s ease-in-out;
     box-shadow: 0 0 0 1px var(--themed-border);
   }
 
-  [data-shadcnui-input-wrapper]:hover {
+  [data-shadcnui-input-wrapper="true"]:hover {
     box-shadow: 0 0 0 1px rgba(var(--tertiary));
   }
 
-  [data-shadcnui-input-wrapper]:focus-within {
+  [data-shadcnui-input-wrapper="true"]:focus-within {
     box-shadow:
       0 0 0 1px rgb(var(--tertiary)),
       0 0 0 4px var(--themed-border-focus);
   }
 
-  [data-shadcnui-input-wrapper]:has([data-shadcnui-input]:disabled) {
+  [data-shadcnui-input-wrapper="true"]:has(
+      [data-shadcnui-input="true"]:disabled
+    ) {
     box-shadow: 0 0 0 1px var(--themed-border);
   }
 

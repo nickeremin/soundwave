@@ -37,10 +37,12 @@ function TrackDetails({ trackId }: TrackDetailsProps) {
   const [backgroundColor, setBackgroundColor] =
     React.useState<FastAverageColorResult | null>(null)
 
-  const { data: track } = trpc.trackRouter.getTrack.useQuery(trackId)
+  const { data: track } = trpc.trackRouter.getTrack.useQuery({ trackId })
   const artistQueries = trpc.useQueries((t) =>
     track
-      ? track.artists.map((artist) => t.artistRouter.getArtist(artist.id))
+      ? track.artists.map((artist) =>
+          t.artistRouter.getArtist({ artistId: artist.id })
+        )
       : []
   )
 
