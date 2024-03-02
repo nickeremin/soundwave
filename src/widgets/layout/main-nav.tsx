@@ -3,24 +3,55 @@
 import React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { AudioLinesIcon, HomeIcon, SearchIcon } from "lucide-react"
+import { FiSearch } from "react-icons/fi"
+import { GoHomeFill, GoSearch } from "react-icons/go"
 
 import CreatePlaylistButton from "@/features/playlist/create-playlist-button"
 import PlaylistList from "@/entities/playlist/playlist-list"
 import { LucideIcon } from "@/shared/components/icons"
 import { PageHeading } from "@/shared/components/ui/page-heading"
 import { cn } from "@/shared/lib/utils"
+import { useLayoutStore } from "@/shared/stores/layout-store"
 import { trpc } from "@/shared/trpc/client"
-
-const imageUrl =
-  "https://images.unsplash.com/photo-1682687221006-b7fd60cf9dd0?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 
 function MainNav() {
   const pathname = usePathname()
-  const { data: playlists } = trpc.playlistRouter.getPlaylists.useQuery()
+  const isCollapsed = useLayoutStore((state) => state.isCollapsed)
 
   return (
-    <nav className="flex h-full flex-col gap-2">
-      <ul className="flex flex-col rounded-lg bg-background-100 px-3 py-2">
+    <nav className="rounded-lg bg-background-100 px-3.5 py-1">
+      <ul className="flex flex-col">
+        <Link href="/" className="w-fit">
+          <li className="flex h-12 items-center gap-2 text-xl font-extrabold">
+            <AudioLinesIcon strokeWidth={2} className="size-7 text-pink" />
+            {!isCollapsed && "SoundWave"}
+          </li>
+        </Link>
+        <Link href="/">
+          <li
+            className={cn(
+              "flex h-12 items-center gap-2 text-lg font-semibold text-tertiary transition-colors hover:text-primary",
+              pathname === "/" && "text-primary"
+            )}
+          >
+            <HomeIcon className="size-7" />
+            {!isCollapsed && "Home"}
+          </li>
+        </Link>
+        <Link href="/search">
+          <li
+            className={cn(
+              "flex h-12 items-center gap-2 text-lg  font-semibold text-tertiary transition-colors hover:text-primary",
+              pathname === "/search" && "text-primary"
+            )}
+          >
+            <SearchIcon className="size-7" />
+            {!isCollapsed && "Search"}
+          </li>
+        </Link>
+      </ul>
+      {/* <ul className="flex flex-col rounded-lg bg-background-100 px-3 py-2">
         <Link href="/" className="w-fit">
           <li className="flex h-12 items-center px-3">
             <PageHeading
@@ -74,7 +105,7 @@ function MainNav() {
         <li className="flex flex-col">
           {playlists ? <PlaylistList playlists={playlists} /> : null}
         </li>
-      </ul>
+      </ul> */}
     </nav>
   )
 }

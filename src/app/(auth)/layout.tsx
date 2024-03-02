@@ -1,7 +1,7 @@
 import React from "react"
 import Image from "next/image"
 
-import { AuthHeader } from "@/widgets/layout"
+import AuthHeader from "@/widgets/layout/headers/auth-header"
 import { AspectRatio } from "@/shared/components/ui/aspect-ratio"
 import { GradientText } from "@/shared/components/ui/gradient-text"
 

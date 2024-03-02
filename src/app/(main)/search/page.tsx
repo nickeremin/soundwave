@@ -11,22 +11,22 @@ import { useSearch } from "@/shared/lib/hooks/use-search"
 import { trpc } from "@/shared/trpc/client"
 
 function SearchPage() {
-  const { columns } = useLayoutContext()
-  const query = useSearch()
-  const { data } = trpc.searchRouter.search.useQuery(
-    {
-      q: query!,
-    },
-    {
-      enabled: !!query,
-    }
-  )
+  // const { columns } = useLayoutContext()
+  // const query = useSearch()
+  // const { data } = trpc.searchRouter.search.useQuery(
+  //   {
+  //     q: query!,
+  //   },
+  //   {
+  //     enabled: !!query,
+  //   }
+  // )
 
-  if (!data || !columns) return null
+  // if (!data || !columns) return null
 
   return (
     <div>
-      <main className="relative">
+      {/* <main className="relative">
         <div
           style={{
             gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
@@ -38,7 +38,7 @@ function SearchPage() {
           <PreviewSearchAlbums albums={data.albums.items} />
         </div>
       </main>
-      <MainFooter />
+      <MainFooter /> */}
     </div>
   )
 }

@@ -137,6 +137,10 @@
   .link-hover {
     @apply border-b border-b-transparent hover:border-b-current;
   }
+
+  .text-gradient {
+    @apply text-transparent bg-clip-text bg-gradient-to-b from-primary/85 to-primary
+  }
 }
 
 @layer components {

@@ -11,6 +11,7 @@ import { ClerkProvider } from "@clerk/nextjs"
 import { PlayerContextProvider } from "@/features/player/player-context-provider"
 import { TRPCReactQueryProvider } from "@/shared/components/providers"
 import { Toaster } from "@/shared/components/ui/sonner"
+import { TooltipProvider } from "@/shared/components/ui/tooltip"
 import { cn } from "@/shared/lib/utils"
 
 const font = Inter({
@@ -29,27 +30,25 @@ interface RootLayoutProps {
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="en" suppressHydrationWarning>
-      {/* <head>
-        <script src="/path/to/dist/vibrant.js"></script>
-        <script src="/path/to/dist/vibrant.min.js"></script>
-      </head> */}
       <ClerkProvider localization={enUS}>
         <body
           className={cn(
             font.className,
-            "relative min-h-screen max-w-[100vw] antialiased"
+            "relative min-h-screen max-w-[100vw] bg-green antialiased"
           )}
           suppressHydrationWarning
         >
           <TRPCReactQueryProvider>
             <PlayerContextProvider>
-              {children}
-              <Toaster />
-              <ReactQueryDevtools
+              <TooltipProvider delayDuration={300}>
+                {children}
+                <Toaster />
+                {/* <ReactQueryDevtools
                 buttonPosition="bottom-left"
                 position="bottom"
                 initialIsOpen={false}
-              />
+              /> */}
+              </TooltipProvider>
             </PlayerContextProvider>
           </TRPCReactQueryProvider>
         </body>

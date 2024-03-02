@@ -18,8 +18,8 @@ function CreatePlaylistButton() {
   const [isPending, startTransition] = React.useTransition()
 
   return (
-    <TooltipProvider>
-      <Tooltip delayDuration={300}>
+    <TooltipProvider delayDuration={300}>
+      <Tooltip>
         <TooltipTrigger asChild>
           <Button
             variant="ghost"
