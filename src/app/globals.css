@@ -130,6 +130,15 @@
     }
   }
 
+  .user-library-scroll-wrapper {
+    transition: scrollbar-color 1s ease, scrollbar-color 1s ease 1s;
+    scrollbar-color: transparent transparent;
+  }
+
+  .user-library-scroll-wrapper:hover {
+    scrollbar-color: rgb(var(--focus)) transparent;
+  }
+
   .underline-link {
     @apply relative hover:after:absolute hover:after:bottom-0 hover:after:left-0 hover:after:right-0 hover:after:border-b hover:after:border-b-inherit hover:after:content-[''];
   }

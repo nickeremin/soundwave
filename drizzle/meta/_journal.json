@@ -15,6 +15,13 @@
       "when": 1709037525601,
       "tag": "0001_simple_thanos",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1709548417163,
+      "tag": "0002_colorful_meltdown",
+      "breakpoints": true
     }
   ]
 }

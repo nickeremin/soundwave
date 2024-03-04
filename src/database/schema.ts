@@ -13,3 +13,8 @@ export const playlistTracks = pgTable("playlist_track", {
   trackId: text("track_id").notNull().primaryKey(),
   playlistId: text("playlist_id").notNull(),
 })
+
+export const followedArtists = pgTable("followed_artist", {
+  artistId: text("artist_id").notNull().primaryKey(),
+  userId: text("user_id").notNull(),
+})

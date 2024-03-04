@@ -1,11 +1,14 @@
 import { db } from "@/database"
-import { playlists, playlistTracks } from "@/database/schema"
+import { followedArtists, playlists, playlistTracks } from "@/database/schema"
 import { and, count, eq } from "drizzle-orm"
 import { z } from "zod"
 
 import { catchAxiosError, generateId } from "@/shared/lib/utils"
+import { artistSchema } from "@/shared/lib/validations/artist"
 import { editPlaylistDetailsSchema } from "@/shared/lib/validations/playlist"
 import { protectedProcedure, router } from "@/shared/trpc/trpc"
+
+import { spotifyApi } from "../../_spotify"
 
 export const playlistRouter = router({
   updatePlaylist: protectedProcedure.input(editPlaylistDetailsSchema).mutation(
@@ -139,4 +142,31 @@ export const playlistRouter = router({
         console.log(error)
       }
     }),
+
+  // Library
+  getFollowedArtists: protectedProcedure.query(
+    async ({
+      ctx: {
+        auth: { userId },
+      },
+    }) => {
+      try {
+        const followedArtistIds = await db
+          .select({ artistId: followedArtists.artistId })
+          .from(followedArtists)
+          .where(eq(followedArtists.userId, userId))
+
+        const { data } = await spotifyApi.get("/artists", {
+          params: {
+            ids: followedArtistIds.map((item) => item.artistId).join(","),
+          },
+        })
+
+        const artists = artistSchema.array().parse(data.artists)
+        return artists
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  ),
 })

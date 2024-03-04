@@ -68,7 +68,7 @@ function MainLayout({ children }: MainLayoutProps) {
 
   return (
     <div>
-      <div className="relative grid h-screen grid-cols-[auto_1fr] gap-2 p-2">
+      <div className="relative grid h-screen grid-cols-[auto_1fr] gap-2 overflow-hidden p-2">
         <aside
           style={{ width: isCollapsed ? "72px" : "280px" }}
           className="flex flex-col gap-2"
