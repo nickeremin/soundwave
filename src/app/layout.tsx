@@ -9,10 +9,10 @@ import "./globals.css"
 import { ClerkProvider } from "@clerk/nextjs"
 
 import { PlayerContextProvider } from "@/features/player/player-context-provider"
-import { TRPCReactQueryProvider } from "@/shared/components/providers"
 import { Toaster } from "@/shared/components/ui/sonner"
 import { TooltipProvider } from "@/shared/components/ui/tooltip"
 import { cn } from "@/shared/lib/utils"
+import TRPCReactQueryProvider from "@/shared/trpc/trpc-react-query-provider"
 
 const font = Inter({
   weight: ["400", "500", "600", "700", "800", "900"],
@@ -34,7 +34,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <body
           className={cn(
             font.className,
-            "relative min-h-screen max-w-[100vw] bg-green antialiased"
+            "relative min-h-screen max-w-[100vw] antialiased"
           )}
           suppressHydrationWarning
         >
