@@ -37,7 +37,6 @@ interface TooltipProps
 function Tooltip({
   open,
   onOpenChange,
-  isVisible = true,
   children,
   content,
   ...props
@@ -49,7 +48,7 @@ function Tooltip({
       defaultOpen={false}
     >
       <TooltipTrigger asChild>{children}</TooltipTrigger>
-      {isVisible && <TooltipContent {...props}>{content}</TooltipContent>}
+      <TooltipContent {...props}>{content}</TooltipContent>
     </TooltipPrimitive.Root>
   )
 }

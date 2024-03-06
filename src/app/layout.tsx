@@ -34,7 +34,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <body
           className={cn(
             font.className,
-            "relative min-h-screen max-w-[100vw] bg-red antialiased"
+            "relative min-h-screen max-w-[100vw] antialiased"
           )}
           suppressHydrationWarning
         >
