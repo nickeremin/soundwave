@@ -2,9 +2,9 @@
 
 import * as React from "react"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import { LoaderIcon, SearchIcon, XCircleIcon } from "lucide-react"
 import { useDebounceValue } from "usehooks-ts"
 
-import { LucideIcon } from "@/shared/components/icons"
 import { Button } from "@/shared/components/ui/button"
 import { cn } from "@/shared/lib/utils"
 
@@ -42,9 +42,9 @@ function SearchInput({
     >
       <div className="-mr-3 flex h-full shrink-0 flex-col items-center justify-center bg-transparent px-3 text-muted-foreground">
         {search !== debouncedValue ? (
-          <LucideIcon name="Loader" className="size-6 animate-spin" />
+          <LoaderIcon className="size-6 animate-spin" />
         ) : (
-          <LucideIcon name="Search" className="size-6" />
+          <SearchIcon className="size-6" />
         )}
       </div>
       <input
@@ -75,7 +75,7 @@ function SearchInput({
             }}
             className="size-7 shrink-0 rounded-full text-tertiary transition hover:text-secondary"
           >
-            <LucideIcon name="XCircle" />
+            <XCircleIcon className="size-5" />
           </Button>
         </span>
       )}

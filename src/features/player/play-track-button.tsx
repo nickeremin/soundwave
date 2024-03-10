@@ -2,6 +2,7 @@
 
 import React from "react"
 import { HTMLMotionProps, motion } from "framer-motion"
+import { PlayIcon } from "lucide-react"
 
 import { LucideIcon } from "@/shared/components/icons"
 import { cn } from "@/shared/lib/utils"
@@ -37,11 +38,7 @@ function PlayTrackButton({
       )}
       {...props}
     >
-      <LucideIcon
-        name="Play"
-        fill="currentColor"
-        className="size-full -translate-y-px"
-      />
+      <PlayIcon fill="currentColor" className="size-full -translate-y-px" />
     </motion.button>
   )
 }

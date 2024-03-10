@@ -1,6 +1,7 @@
 "use client"
 
 import React from "react"
+import Link from "next/link"
 
 import MainFooter from "@/widgets/layout/footers/main-footer"
 import { useLayoutContext } from "@/widgets/layout/layout-context"
@@ -39,6 +40,19 @@ function SearchPage() {
         </div>
       </main>
       <MainFooter /> */}
+      <div className="mt-10 flex flex-col gap-10 px-6">
+        <section className="flex flex-col gap-4">
+          <Link
+            href="/search/recent-searches"
+            className="decoration-2 hover:underline"
+          >
+            <h2 className="text-2xl font-bold">Recent searches</h2>
+          </Link>
+          <div>
+            {/* TODO: Show recent searches tracks, albums, artists etc */}
+          </div>
+        </section>
+      </div>
     </div>
   )
 }

@@ -3,15 +3,15 @@
 import React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { useBoundStore } from "@/providers/bound-store-provider"
 import { AudioWaveformIcon, HomeIcon, SearchIcon } from "lucide-react"
 
 import { Tooltip } from "@/shared/components/ui/tooltip"
 import { cn } from "@/shared/lib/utils"
-import { useLayoutStore } from "@/shared/stores/layout-store"
 
 function MainNav() {
   const pathname = usePathname()
-  const isCollapsed = useLayoutStore((state) => state.isCollapsed)
+  const isCollapsed = useBoundStore((state) => state.isCollapsed)
 
   return (
     <nav className="rounded-lg bg-background-100 px-3 py-2">

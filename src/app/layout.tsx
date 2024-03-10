@@ -6,6 +6,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 
 import "./globals.css"
 
+import { BoundStoreProvider } from "@/providers/bound-store-provider"
 import { ClerkProvider } from "@clerk/nextjs"
 
 import { PlayerContextProvider } from "@/features/player/player-context-provider"
@@ -39,17 +40,19 @@ export default function RootLayout({ children }: RootLayoutProps) {
           suppressHydrationWarning
         >
           <TRPCReactQueryProvider>
-            <PlayerContextProvider>
-              <TooltipProvider delayDuration={300}>
-                {children}
-                <Toaster />
-                {/* <ReactQueryDevtools
+            <BoundStoreProvider>
+              <PlayerContextProvider>
+                <TooltipProvider delayDuration={300}>
+                  {children}
+                  <Toaster />
+                  {/* <ReactQueryDevtools
                 buttonPosition="bottom-left"
                 position="bottom"
                 initialIsOpen={false}
               /> */}
-              </TooltipProvider>
-            </PlayerContextProvider>
+                </TooltipProvider>
+              </PlayerContextProvider>
+            </BoundStoreProvider>
           </TRPCReactQueryProvider>
         </body>
       </ClerkProvider>

@@ -2,69 +2,28 @@
 
 import { stat } from "fs"
 import React from "react"
-import useResizeObserver from "@react-hook/resize-observer"
+import { useBoundStore } from "@/providers/bound-store-provider"
 
-import { LayoutContext } from "@/widgets/layout/layout-context"
 import MainNav from "@/widgets/layout/main-nav"
 import UserLibrary from "@/widgets/layout/user-library"
 import { Button } from "@/shared/components/ui/button"
+import { ScrollArea } from "@/shared/components/ui/scroll-area"
 import { useColumnsCount } from "@/shared/lib/hooks/use-columns-count"
-import { useLayoutStore } from "@/shared/stores/layout-store"
 
 interface MainLayoutProps {
-  children: React.ReactNode
+  children?: React.ReactNode
 }
 
+const REMAIN_HEIGHT = 8 * 2
+
 function MainLayout({ children }: MainLayoutProps) {
-  // const [columns, setColumns] = React.useState(0)
-
-  // const layoutRef = React.useRef<{
-  //   leftBarWidth: number | undefined
-  //   mainContainerWidth: number | undefined
-  // }>({
-  //   leftBarWidth: undefined,
-  //   mainContainerWidth: undefined,
-  // })
-  // const leftBarRef = React.useRef<HTMLElement | null>(null)
-  // const mainContainerRef = React.useRef<HTMLDivElement | null>(null)
-
-  // function setColumnsCount(width: number) {
-  //   if (width < 512) setColumns(2)
-  //   if (width >= 512 && width < 768) setColumns(3)
-  //   if (width >= 768 && width < 1024) setColumns(4)
-  //   if (width >= 1024 && width < 1280) setColumns(5)
-  //   if (width >= 1280 && width < 1400) setColumns(6)
-  //   if (width >= 1400) setColumns(7)
-  // }
-
-  // function initializeLayout() {
-  //   if (!leftBarRef.current || !mainContainerRef.current) return
-  //   layoutRef.current.leftBarWidth = leftBarRef.current.offsetWidth
-  //   layoutRef.current.mainContainerWidth = mainContainerRef.current.offsetWidth
-  //   setColumnsCount(layoutRef.current.mainContainerWidth)
-  // }
-
-  // React.useEffect(() => {
-  //   initializeLayout()
-
-  //   const handleResize = () => {
-  //     if (!leftBarRef.current || !mainContainerRef.current) return
-
-  //     layoutRef.current.leftBarWidth = leftBarRef.current.offsetWidth
-  //     layoutRef.current.mainContainerWidth =
-  //       mainContainerRef.current.offsetWidth
-  //     setColumnsCount(layoutRef.current.mainContainerWidth)
-  //   }
-
-  //   window.addEventListener("resize", handleResize)
-
-  //   return () => window.removeEventListener("resize", handleResize)
-  // }, [])
-
-  const isCollapsed = useLayoutStore((state) => state.isCollapsed)
+  const isCollapsed = useBoundStore((state) => state.isCollapsed)
+  const hasHydrated = useBoundStore((state) => state._hasHydrated)
 
   const mainContainerRef = React.useRef(null)
   useColumnsCount(mainContainerRef)
+
+  if (!hasHydrated) return null
 
   return (
     <div>
@@ -76,8 +35,14 @@ function MainLayout({ children }: MainLayoutProps) {
           <MainNav />
           <UserLibrary />
         </aside>
-        <div ref={mainContainerRef} className="bg-blue/50">
-          {/* <MainContent /> */}
+        <div className="overflow-hidden bg-background-100">
+          <ScrollArea
+            style={{ height: `calc(100vh - ${REMAIN_HEIGHT}px)` }}
+            ref={mainContainerRef}
+            className="rounded-lg"
+          >
+            {children}
+          </ScrollArea>
         </div>
       </div>
     </div>

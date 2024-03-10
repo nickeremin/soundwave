@@ -2,7 +2,8 @@ import React from "react"
 import Link from "next/link"
 import { SignedIn, SignedOut } from "@clerk/nextjs"
 
-import { BackForwardButtons, UserNav } from "@/features/nav"
+import BackForwardButtons from "@/features/nav/back-forward-buttons"
+import UserNav from "@/features/nav/user-nav"
 import { buttonVariants } from "@/shared/components/ui/button"
 import { Wrapper } from "@/shared/components/ui/wrapper"
 import { cn } from "@/shared/lib/utils"
@@ -12,7 +13,10 @@ function MainHeader({ className }: React.HTMLAttributes<HTMLElement>) {
     <Wrapper
       variant="header"
       as="header"
-      className={cn("backdrop-blur-xl backdrop-saturate-200", className)}
+      className={cn(
+        "rounded-t-lg backdrop-blur-xl backdrop-saturate-200",
+        className
+      )}
     >
       <nav className="flex h-16 w-full items-center justify-between px-6">
         <BackForwardButtons />

@@ -1,11 +1,10 @@
 import React from "react"
+import { useBoundStore } from "@/providers/bound-store-provider"
 import useResizeObserver from "@react-hook/resize-observer"
 
-import { useLayoutStore } from "@/shared/stores/layout-store"
-
 export function useColumnsCount(target: React.RefObject<HTMLElement> | null) {
-  const currentColumnsCount = useLayoutStore((state) => state.columnsCount)
-  const setCloumnsCount = useLayoutStore((state) => state.setColumnsCount)
+  const currentColumnsCount = useBoundStore((state) => state.columnsCount)
+  const setCloumnsCount = useBoundStore((state) => state.setColumnsCount)
 
   React.useLayoutEffect(() => {
     if (target && target.current) {

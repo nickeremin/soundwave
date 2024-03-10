@@ -4,13 +4,11 @@ import React from "react"
 import { useSelectedLayoutSegment } from "next/navigation"
 import { SignedIn, SignedOut } from "@clerk/nextjs"
 
-import {
-  BackForwardButtons,
-  LogInSignUpButtons,
-  SearchInput,
-  UserNav,
-} from "@/features/nav"
+import BackForwardButtons from "@/features/nav/back-forward-buttons"
+import LogInSignUpButtons from "@/features/nav/login-signup-buttons"
 import SearchTabs from "@/features/nav/search-tabs"
+import UserNav from "@/features/nav/user-nav"
+import SearchInput from "@/features/search/search-input"
 import { Wrapper } from "@/shared/components/ui/wrapper"
 
 import SearchTrackSubheader from "./search-track-subheader"
