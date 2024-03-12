@@ -1,6 +1,7 @@
 import React from "react"
 import { type Metadata } from "next"
 
+import MainFooter from "@/widgets/layout/footers/main-footer"
 import SearchHeader from "@/widgets/layout/headers/search/search-header"
 
 export const metadata: Metadata = {
@@ -14,8 +15,11 @@ interface SearchLayoutProps {
 function SearchLayout({ children }: SearchLayoutProps) {
   return (
     <div>
-      <SearchHeader key="search-header" />
-      {children}
+      <div className="min-h-screen">
+        <SearchHeader key="search-header" />
+        <main>{children}</main>
+      </div>
+      <MainFooter />
     </div>
   )
 }

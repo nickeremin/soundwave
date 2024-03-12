@@ -5,6 +5,8 @@ import { useStore, type StoreApi } from "zustand"
 import { type PersistStorage } from "zustand/middleware"
 
 import { BoundStore, createBoundStore } from "./stores/bound-store"
+import { LayoutStore } from "./stores/layout-store"
+import { MusicStore } from "./stores/music-store"
 
 const BoundStoreContext = React.createContext<StoreApi<BoundStore> | null>(null)
 
@@ -30,6 +32,26 @@ export function useBoundStore<T>(selector: (store: BoundStore) => T) {
 
   if (!boundStoreContext) {
     throw new Error(`useBoundStore must be use within BoundStoreProvider`)
+  }
+
+  return useStore(boundStoreContext, selector)
+}
+
+export function useLayoutStore<T>(selector: (store: LayoutStore) => T) {
+  const boundStoreContext = React.useContext(BoundStoreContext)
+
+  if (!boundStoreContext) {
+    throw new Error(`useLayoutStore must be use within BoundStoreProvider`)
+  }
+
+  return useStore(boundStoreContext, selector)
+}
+
+export function useSearchStore<T>(selector: (store: MusicStore) => T) {
+  const boundStoreContext = React.useContext(BoundStoreContext)
+
+  if (!boundStoreContext) {
+    throw new Error(`useSearchStore must be use within BoundStoreProvider`)
   }
 
   return useStore(boundStoreContext, selector)

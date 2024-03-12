@@ -1,7 +1,7 @@
 import React from "react"
 import Link from "next/link"
 
-import { ArtistShort } from "@/shared/types/artist"
+import { SimplifiedArtistObject } from "@/shared/types/artist"
 import { cn } from "@/shared/lib/utils"
 
 interface ArtistNamesLinksProps<TArtist> {
@@ -9,7 +9,7 @@ interface ArtistNamesLinksProps<TArtist> {
   className?: string
 }
 
-function ArtistNameLinks<TArtist extends ArtistShort>({
+function ArtistNameLinks<TArtist extends SimplifiedArtistObject>({
   artists,
   className,
 }: ArtistNamesLinksProps<TArtist>) {

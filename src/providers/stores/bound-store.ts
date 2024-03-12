@@ -1,4 +1,5 @@
-import { createJSONStorage, persist, PersistStorage } from "zustand/middleware"
+import { create } from "zustand"
+import { createJSONStorage, persist } from "zustand/middleware"
 import { createStore } from "zustand/vanilla"
 
 import { createLayoutSlice, type LayoutStore } from "./layout-store"
@@ -18,7 +19,7 @@ type HydrateStore = HydrateState & HydrateActions
 export type BoundStore = LayoutStore & LibraryStore & MusicStore & HydrateStore
 
 export function createBoundStore() {
-  const store = createStore<BoundStore>()(
+  return createStore<BoundStore>()(
     persist(
       (...a) => ({
         _hasHydrated: false,
@@ -28,22 +29,47 @@ export function createBoundStore() {
         ...createMusicSlice(...a),
       }),
       {
-        name: "music-store",
+        name: "music-storage",
         storage: createJSONStorage(() => localStorage),
         partialize: (state) => ({
           isCollapsed: state.isCollapsed,
           recentSearchs: state.recentSearches,
         }),
+        skipHydration: true,
         onRehydrateStorage: () => (state) => {
+          console.log({
+            searches: state?.recentSearches,
+          })
           state?.setHasHydrated(true)
         },
       }
     )
   )
-
-  return store
 }
 
-// name: "music-storage",
-// storage: createJSONStorage(() => localStorage),
-// partialize: (state) => ({ recentSearchs: state.recentSearches }),
+export const useStore = create<BoundStore>()(
+  persist(
+    (...a) => ({
+      _hasHydrated: false,
+      setHasHydrated: (_hasHydrated) => a[0](() => ({ _hasHydrated })),
+      ...createLayoutSlice(...a),
+      ...createLibrarySlice(...a),
+      ...createMusicSlice(...a),
+    }),
+    {
+      name: "search-storage",
+      storage: createJSONStorage(() => localStorage),
+      partialize: (state) => ({
+        isCollapsed: state.isCollapsed,
+        recentSearchs: state.recentSearches,
+      }),
+      skipHydration: true,
+      onRehydrateStorage: () => (state) => {
+        console.log({
+          searches: state?.recentSearches,
+        })
+        state?.setHasHydrated(true)
+      },
+    }
+  )
+)

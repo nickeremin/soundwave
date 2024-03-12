@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react"
-import { useSelectedLayoutSegment } from "next/navigation"
+import { useSearchParams, useSelectedLayoutSegment } from "next/navigation"
 import { SignedIn, SignedOut } from "@clerk/nextjs"
 
 import BackForwardButtons from "@/features/nav/back-forward-buttons"
@@ -15,6 +15,7 @@ import SearchTrackSubheader from "./search-track-subheader"
 
 function SearchHeader() {
   const segment = useSelectedLayoutSegment()
+  const search = useSearchParams().get("query")
 
   return (
     <Wrapper
@@ -35,9 +36,11 @@ function SearchHeader() {
         </SignedOut>
       </nav>
 
-      <nav className="flex w-full items-center px-6 pb-3 pt-1">
-        <SearchTabs />
-      </nav>
+      {search && search.length > 0 && (
+        <nav className="flex w-full items-center px-6 pb-3 pt-1">
+          <SearchTabs />
+        </nav>
+      )}
 
       {segment === "tracks" && <SearchTrackSubheader />}
     </Wrapper>

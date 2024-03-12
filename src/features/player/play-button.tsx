@@ -10,6 +10,7 @@ import { cn } from "@/shared/lib/utils"
 function PlayButton({ className, ...props }: HTMLMotionProps<"button">) {
   return (
     <motion.button
+      data-shadcnui-button
       whileHover={{
         scale: 1.1,
       }}
@@ -17,7 +18,7 @@ function PlayButton({ className, ...props }: HTMLMotionProps<"button">) {
         scale: 1,
       }}
       className={cn(
-        "relative inline-flex size-12 items-center justify-center rounded-full bg-pink",
+        "relative inline-flex size-12 items-center justify-center rounded-full bg-pink outline-none",
         className
       )}
       {...props}

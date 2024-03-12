@@ -1,18 +1,18 @@
 "use client"
 
 import React from "react"
+import { useBoundStore } from "@/providers/bound-store-provider"
 
-import { Artist } from "@/shared/types/artist"
-import { useLayoutContext } from "@/widgets/layout/layout-context"
+import { ArtistObject } from "@/shared/types/artist"
 import ArtistPreviewCard from "@/entities/artist/artist-preview-card"
 import ArtistPreviewCardLoading from "@/entities/artist/artist-preview-card-loading"
 
 interface ArtistPreviewListProps {
-  artists: Artist[] | undefined
+  artists: ArtistObject[]
 }
 
 function ArtistPreviewList({ artists }: ArtistPreviewListProps) {
-  const { columns } = useLayoutContext()
+  const columns = useBoundStore((state) => state.columnsCount)
 
   return (
     <div

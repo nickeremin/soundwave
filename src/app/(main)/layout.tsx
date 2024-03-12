@@ -19,14 +19,19 @@ const REMAIN_HEIGHT = 8 * 2
 function MainLayout({ children }: MainLayoutProps) {
   const isCollapsed = useBoundStore((state) => state.isCollapsed)
   const hasHydrated = useBoundStore((state) => state._hasHydrated)
+  const columns = useBoundStore((state) => state.columnsCount)
 
   const mainContainerRef = React.useRef(null)
   useColumnsCount(mainContainerRef)
 
-  if (!hasHydrated) return null
+  const isVisible = hasHydrated && columns > 0
 
   return (
-    <div>
+    <div
+      style={{
+        visibility: isVisible ? "visible" : "hidden",
+      }}
+    >
       <div className="relative grid h-screen grid-cols-[auto_1fr] gap-2 overflow-hidden p-2">
         <aside
           style={{ width: isCollapsed ? "72px" : "280px" }}
