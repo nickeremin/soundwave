@@ -3,7 +3,7 @@
 import React from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { useBoundStore } from "@/providers/bound-store-provider"
+import { useLayoutStore } from "@/providers/bound-store-provider"
 import { AudioWaveformIcon } from "lucide-react"
 
 import PlayButton from "@/features/player/play-button"
@@ -11,7 +11,7 @@ import { getImageUrl } from "@/shared/lib/utils"
 import { trpc } from "@/shared/trpc/client"
 
 function RecommendedPlaylists() {
-  const columns = useBoundStore((state) => state.columnsCount)
+  const columns = useLayoutStore((state) => state.columnsCount)
   const { data: followedArtists } =
     trpc.playlistRouter.getFollowedArtists.useQuery()
 

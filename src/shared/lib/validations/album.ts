@@ -18,6 +18,7 @@ export const albumSchema = z.object({
   images: imageSchema.array(),
   name: z.string(),
   release_date: z.string(),
+  type: z.enum(["album"]),
   artists: simplifiedArtistSchema.array(),
   tracks: simplifiedTracksSchema,
   copyrights: z

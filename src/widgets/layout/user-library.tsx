@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react"
-import { useBoundStore } from "@/providers/bound-store-provider"
+import { useLayoutStore } from "@/providers/bound-store-provider"
 import { HeadphonesIcon, PlusIcon } from "lucide-react"
 
 import LibraryFilters from "@/features/library/library-filters"
@@ -13,11 +13,13 @@ import { Tooltip } from "@/shared/components/ui/tooltip"
 import { trpc } from "@/shared/trpc/client"
 
 function UserLibrary() {
-  const isCollapsed = useBoundStore((state) => state.isCollapsed)
-  const toggleIsCollapsed = useBoundStore((state) => state.toggleIsCollapsed)
+  const isLibraryCollapsed = useLayoutStore((state) => state.isLibraryCollapsed)
+  const toggleIsLibraryCollapsed = useLayoutStore(
+    (state) => state.toggleIsLibraryCollapsed
+  )
 
   // This height based on left menu layout for scroll area
-  const REMAIN_HEIGHT = isCollapsed ? 240 : 288
+  const REMAIN_HEIGHT = isLibraryCollapsed ? 240 : 288
 
   const [isPending, startTransition] = React.useTransition()
   const { mutateAsync: createPlaylist } =
@@ -95,23 +97,25 @@ function UserLibrary() {
             <div className="flex items-center">
               <Tooltip
                 content={
-                  isCollapsed ? "Expand Your Library" : "Collapse Your Library"
+                  isLibraryCollapsed
+                    ? "Expand Your Library"
+                    : "Collapse Your Library"
                 }
-                side={isCollapsed ? "right" : "top"}
+                side={isLibraryCollapsed ? "right" : "top"}
               >
                 <Button
-                  onClick={toggleIsCollapsed}
+                  onClick={toggleIsLibraryCollapsed}
                   variant="none"
                   size="none"
                   className="h-10 gap-3 rounded-full px-2 font-bold text-tertiary hover:text-primary"
                 >
                   <HeadphonesIcon className="size-6" />
-                  {!isCollapsed && "Your library"}
+                  {!isLibraryCollapsed && "Your library"}
                 </Button>
               </Tooltip>
             </div>
 
-            {!isCollapsed && (
+            {!isLibraryCollapsed && (
               <div className="flex items-center">
                 <Tooltip content="Create playlist">
                   <Button
@@ -135,7 +139,7 @@ function UserLibrary() {
             )}
           </div>
         </div>
-        {!isCollapsed && <LibraryFilters />}
+        {!isLibraryCollapsed && <LibraryFilters />}
       </div>
 
       <div className="relative h-full">
@@ -144,7 +148,7 @@ function UserLibrary() {
           style={{ height: `calc(100vh - ${REMAIN_HEIGHT}px)` }}
         >
           <div className="flex flex-col gap-2 px-2">
-            {!isCollapsed && <LibrarySearchBar />}
+            {!isLibraryCollapsed && <LibrarySearchBar />}
             <LibraryItemList />
           </div>
         </ScrollArea>

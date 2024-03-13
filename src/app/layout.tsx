@@ -45,11 +45,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
                 <TooltipProvider delayDuration={300}>
                   {children}
                   <Toaster />
-                  {/* <ReactQueryDevtools
-                buttonPosition="bottom-left"
-                position="bottom"
-                initialIsOpen={false}
-              /> */}
+                  <ReactQueryDevtools
+                    buttonPosition="bottom-left"
+                    position="bottom"
+                    initialIsOpen={false}
+                  />
                 </TooltipProvider>
               </PlayerContextProvider>
             </BoundStoreProvider>

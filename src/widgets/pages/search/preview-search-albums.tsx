@@ -30,7 +30,8 @@ function PreviewSearchAlbums({ albums }: PreviewSearchAlbumsProps) {
                 <AlbumPreviewCard
                   key={album.id}
                   album={album}
-                  withArtists={true}
+                  withArtists
+                  withAddToRecentSearches
                 />
               ))
           : Array.from({ length: columns }, (_, i) => i).map((_, i) => (

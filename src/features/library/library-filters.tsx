@@ -1,65 +1,52 @@
 "use client"
 
-import { useBoundStore } from "@/providers/bound-store-provider"
-import { FilterType } from "@/providers/stores/library-store"
+import {
+  useBoundStore,
+  useLibraryStore,
+} from "@/providers/bound-store-provider"
 import { XIcon } from "lucide-react"
 
 import { Button } from "@/shared/components/ui/button"
+import { libraryFilters } from "@/shared/constants/library"
 import { cn } from "@/shared/lib/utils"
 
-type Filter = {
-  name: string
-  value: FilterType
-}
-
-const filterTypes: Filter[] = [
-  {
-    name: "Playlists",
-    value: "playlists",
-  },
-  {
-    name: "Artists",
-    value: "artists",
-  },
-]
-
 function LibraryFilters() {
-  const activeFilter = useBoundStore((state) => state.filter)
-  const setFilter = useBoundStore((state) => state.setFilter)
+  const currentFilter = useLibraryStore((state) => state.libraryFilter)
+  const setLibraryFilter = useLibraryStore((state) => state.setLibraryFilter)
 
   return (
     <div className="flex h-12 items-center gap-2 px-4">
-      {activeFilter ? (
+      {currentFilter ? (
         <Button
           variant="ghost"
           size="icon"
           className="bg-muted"
           onClick={() => {
-            setFilter(undefined)
+            setLibraryFilter(undefined)
           }}
         >
           <XIcon strokeWidth={2} className="size-4" />
         </Button>
       ) : null}
-      {filterTypes
+      {libraryFilters
         .filter((filter) => {
-          if (!activeFilter) return true
-          else return activeFilter === filter.value
+          if (!currentFilter) return true
+          else return currentFilter === filter.type
         })
         .map((filter) => (
           <Button
-            key={filter.value}
+            key={filter.type}
             role="checkbox"
-            aria-checked={activeFilter === filter.value}
+            aria-checked={currentFilter === filter.type}
             variant="none"
             size="none"
             className={cn(
               "h-8 rounded-full bg-muted px-3 text-[13px] font-medium hover:bg-accent",
-              activeFilter === filter.value &&
+              currentFilter === filter.type &&
                 "bg-primary font-semibold text-gray-dark hover:bg-primary"
             )}
             onClick={() => {
-              setFilter(filter.value)
+              setLibraryFilter(filter.type)
             }}
           >
             {filter.name}

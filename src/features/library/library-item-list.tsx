@@ -3,37 +3,43 @@
 import React from "react"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
-import { useBoundStore } from "@/providers/bound-store-provider"
+import {
+  useLayoutStore,
+  useLibraryStore,
+} from "@/providers/bound-store-provider"
 import { useUser } from "@clerk/nextjs"
 
-import LibraryItemListLoading from "@/entities/library/library-item-list-loading"
+import LibraryEntityListLoading from "@/entities/library/library-item-list-loading"
 import LibrarySearchNotFound from "@/entities/library/library-not-found-results"
 import { Tooltip } from "@/shared/components/ui/tooltip"
 import { cn, getImageUrl } from "@/shared/lib/utils"
 import { trpc } from "@/shared/trpc/client"
 
-function LibraryItemList() {
-  const isCollapsed = useBoundStore((state) => state.isCollapsed)
-  const search = useBoundStore((state) => state.search)
-  const filter = useBoundStore((state) => state.filter)
+function LibraryEntityList() {
+  const isLibraryCollapsed = useLayoutStore((state) => state.isLibraryCollapsed)
+  const librarySearch = useLibraryStore((state) => state.librarySearch)
+  const libraryFilter = useLibraryStore((state) => state.libraryFilter)
 
   const router = useRouter()
 
   const { user } = useUser()
-  const { data: playlists } = trpc.playlistRouter.getPlaylists.useQuery()
-  const { data: followedArtists } =
-    trpc.playlistRouter.getFollowedArtists.useQuery()
+  const {
+    isLoading: isLibraryLoading,
+    playlists,
+    followedArtists,
+  } = useLibraryEntities()
 
-  if (!playlists || !followedArtists || !user) return <LibraryItemListLoading />
+  if (isLibraryLoading || !user) return <LibraryEntityListLoading />
 
   const filteredPlaylists = playlists.filter((playlist) => {
-    if (filter === "artists") return false
-    else return playlist.name.toLowerCase().includes(search.toLowerCase())
+    if (libraryFilter === "artists") return false
+    else
+      return playlist.name.toLowerCase().includes(librarySearch.toLowerCase())
   })
 
   const filteredFollowedArtists = followedArtists.filter((artist) => {
-    if (filter === "playlists") return false
-    else return artist.name.toLowerCase().includes(search.toLowerCase())
+    if (libraryFilter === "playlists") return false
+    else return artist.name.toLowerCase().includes(librarySearch.toLowerCase())
   })
 
   const totalCount = filteredPlaylists.length + filteredFollowedArtists.length
@@ -41,14 +47,9 @@ function LibraryItemList() {
   if (totalCount === 0) return <LibrarySearchNotFound />
 
   return (
-    <ul
-      // ref={listRef}
-      role="list"
-      tabIndex={0}
-      className="flex flex-col"
-    >
-      {filteredPlaylists.map((playlist, i) =>
-        isCollapsed ? (
+    <ul className="flex flex-col">
+      {filteredPlaylists.map((playlist) =>
+        isLibraryCollapsed ? (
           <Tooltip
             key={playlist.id}
             side="right"
@@ -63,9 +64,10 @@ function LibraryItemList() {
             }
           >
             <li
-              // ref={(el) => (listItemRefs.current[i] = el)}
-              className="relative flex h-16 items-center px-1"
-              tabIndex={i + 1}
+              className={cn(
+                "relative flex h-16 items-center",
+                isLibraryCollapsed ? "px-1" : "px-2"
+              )}
             >
               <div
                 role="button"
@@ -89,9 +91,7 @@ function LibraryItemList() {
         ) : (
           <li
             key={playlist.id}
-            // ref={(el) => (listItemRefs.current[i] = el)}
             className="relative flex h-16 items-center px-2"
-            tabIndex={i + 1}
           >
             <div
               role="button"
@@ -125,7 +125,7 @@ function LibraryItemList() {
       {filteredFollowedArtists.map((artist) => {
         const imageUrl = getImageUrl(artist.images)
 
-        return isCollapsed ? (
+        return isLibraryCollapsed ? (
           <Tooltip
             key={artist.id}
             side="right"
@@ -139,12 +139,10 @@ function LibraryItemList() {
             }
           >
             <li
-              // ref={(el) => (listItemRefs.current[i] = el)}
               className={cn(
                 "relative flex h-16 items-center",
-                isCollapsed ? "px-1" : "px-2"
+                isLibraryCollapsed ? "px-1" : "px-2"
               )}
-              // tabIndex={i + 1}
             >
               <div
                 role="button"
@@ -166,12 +164,7 @@ function LibraryItemList() {
             </li>
           </Tooltip>
         ) : (
-          <li
-            key={artist.id}
-            // ref={(el) => (listItemRefs.current[i] = el)}
-            className="relative flex h-16 items-center px-2"
-            // tabIndex={i + 1}
-          >
+          <li key={artist.id} className="relative flex h-16 items-center px-2">
             <div
               role="button"
               tabIndex={-1}
@@ -204,4 +197,26 @@ function LibraryItemList() {
   )
 }
 
-export default LibraryItemList
+function useLibraryEntities() {
+  const { data: playlists } = trpc.playlistRouter.getPlaylists.useQuery()
+  const { data: followedArtists } =
+    trpc.playlistRouter.getFollowedArtists.useQuery()
+
+  const isLoading = !playlists || !followedArtists
+
+  if (!isLoading) {
+    return {
+      isLoading,
+      playlists,
+      followedArtists,
+    }
+  } else {
+    return {
+      isLoading,
+      playlists,
+      followedArtists,
+    }
+  }
+}
+
+export default LibraryEntityList

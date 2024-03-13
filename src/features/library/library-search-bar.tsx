@@ -1,32 +1,22 @@
 "use client"
 
 import React from "react"
-import { useBoundStore } from "@/providers/bound-store-provider"
-import { motion, type Variants } from "framer-motion"
+import { useLibraryStore } from "@/providers/bound-store-provider"
+import { motion } from "framer-motion"
 import { SearchIcon, XIcon } from "lucide-react"
 
 import { Button } from "@/shared/components/ui/button"
 import { Tooltip } from "@/shared/components/ui/tooltip"
+import { librarySearhInputVariants } from "@/shared/constants/library"
 import { cn } from "@/shared/lib/utils"
-
-const variants: Variants = {
-  closed: {
-    width: "32px",
-    opacity: 0,
-  },
-  open: {
-    width: "180px",
-    opacity: 1,
-  },
-}
 
 function LibrarySearchBar() {
   // const [sortBy, setSortBy] = React.useState("recents")
   const [isOpen, setIsOpen] = React.useState(false)
   const inputRef = React.useRef<HTMLInputElement | null>(null)
 
-  const search = useBoundStore((state) => state.search)
-  const setSearch = useBoundStore((state) => state.setSearch)
+  const librarySearch = useLibraryStore((state) => state.librarySearch)
+  const setLibrarySearch = useLibraryStore((state) => state.setLibrarySearch)
 
   return (
     <div className="px-2 pt-0.5">
@@ -38,21 +28,21 @@ function LibrarySearchBar() {
             autoCorrect="off"
             spellCheck="false"
             ref={inputRef}
-            variants={variants}
+            variants={librarySearhInputVariants}
             initial="closed"
             animate={isOpen ? "open" : "closed"}
             placeholder="Search in Your Library"
             className={cn(
               "test-input h-8 rounded bg-accent pl-8 text-[13px] font-medium leading-none text-secondary outline-none placeholder:text-tertiary",
               !isOpen && "pointer-events-none",
-              search.length > 0 && "pr-8"
+              librarySearch.length > 0 && "pr-8"
             )}
-            value={search}
+            value={librarySearch}
             onChange={(e) => {
-              setSearch(e.target.value)
+              setLibrarySearch(e.target.value)
             }}
             onBlur={() => {
-              if (search.length === 0) {
+              if (librarySearch.length === 0) {
                 setIsOpen(false)
               } else {
               }
@@ -86,12 +76,12 @@ function LibrarySearchBar() {
             type="reset"
             onPointerDown={(e) => e.preventDefault()}
             onClick={() => {
-              setSearch("")
+              setLibrarySearch("")
               inputRef.current?.focus()
             }}
             className={cn(
               "absolute right-0 top-0.5 size-8 rounded text-tertiary transition hover:text-secondary",
-              search.length > 0 ? "visible" : "invisible"
+              librarySearch.length > 0 ? "visible" : "invisible"
             )}
           >
             <XIcon className="size-4" />

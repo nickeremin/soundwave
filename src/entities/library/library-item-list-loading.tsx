@@ -1,19 +1,19 @@
 "use client"
 
 import React from "react"
-import { useBoundStore } from "@/providers/bound-store-provider"
+import { useLayoutStore } from "@/providers/bound-store-provider"
 
 import { Skeleton } from "@/shared/components/ui/skeleton"
 
-function LibraryItemListLoading() {
-  const isCollapsed = useBoundStore((state) => state.isCollapsed)
+function LibraryEnitityListLoading() {
+  const isLibraryCollapsed = useLayoutStore((state) => state.isLibraryCollapsed)
 
   return (
     <ul className="flex flex-col">
       {Array(3)
         .fill(0)
         .map((_, i) =>
-          isCollapsed ? (
+          isLibraryCollapsed ? (
             <li key={i} className="flex h-16 items-center px-1">
               <Skeleton className="size-12" />
             </li>
@@ -30,7 +30,7 @@ function LibraryItemListLoading() {
       {Array(2)
         .fill(0)
         .map((_, i) =>
-          isCollapsed ? (
+          isLibraryCollapsed ? (
             <li key={i} className="flex h-16 items-center px-1">
               <Skeleton className="size-12 rounded-full" />
             </li>
@@ -48,4 +48,4 @@ function LibraryItemListLoading() {
   )
 }
 
-export default LibraryItemListLoading
+export default LibraryEnitityListLoading

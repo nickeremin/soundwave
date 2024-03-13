@@ -1,6 +1,6 @@
 import React from "react"
 import Image from "next/image"
-import { useBoundStore, useSearchStore } from "@/providers/bound-store-provider"
+import { useSearchStore } from "@/providers/bound-store-provider"
 
 import { ArtistObject } from "@/shared/types/artist"
 import PlayerButton from "@/features/player/play-button"
@@ -8,24 +8,24 @@ import { getImageUrl } from "@/shared/lib/utils"
 
 interface ArtistPreviewCardProps {
   artist: ArtistObject
-  addToRecentSearches?: boolean
+  withAddToRecentSearches?: boolean
 }
 
 function ArtistPreviewCard({
   artist,
-  addToRecentSearches,
+  withAddToRecentSearches,
 }: ArtistPreviewCardProps) {
   const imageUrl = getImageUrl(artist.images)
-  const add = useSearchStore((state) => state.setRecentSearches)
+  const addToRecentSearches = useSearchStore((state) => state.addRecentSearch)
 
   function handleClick() {
-    if (addToRecentSearches) {
-      add({ id: artist.id, type: "artist" })
+    if (withAddToRecentSearches) {
+      addToRecentSearches({ item: artist, type: "artist" })
     }
   }
 
   return (
-    <div className="group relative flex flex-col gap-6 rounded-lg p-3 pb-8 transition duration-300 hover:bg-accent">
+    <div className="group relative flex flex-col gap-6 rounded-lg p-3 transition duration-300 hover:bg-accent">
       <div
         data-shadcnui-button
         role="button"

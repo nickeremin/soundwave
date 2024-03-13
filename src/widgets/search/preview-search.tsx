@@ -2,7 +2,7 @@
 
 import React from "react"
 import { useSearchParams } from "next/navigation"
-import { useBoundStore } from "@/providers/bound-store-provider"
+import { useLayoutStore } from "@/providers/bound-store-provider"
 
 import { trpc } from "@/shared/trpc/client"
 
@@ -12,7 +12,7 @@ import PreviewSearchTracks from "../pages/search/preview-search-tracks"
 
 function PreviewSearch() {
   const query = useSearchParams().get("query")
-  const columns = useBoundStore((state) => state.columnsCount)
+  const columns = useLayoutStore((state) => state.columnsCount)
 
   const { data } = trpc.searchRouter.search.useQuery(
     { q: query!, type: ["album", "artist", "track"] },
@@ -32,7 +32,6 @@ function PreviewSearch() {
     >
       <PreviewSearchTracks tracks={data.tracks.items} />
       <PreviewSearchArtists artists={data?.artists.items ?? []} />
-
       <PreviewSearchAlbums albums={data?.albums.items ?? []} />
     </div>
   )

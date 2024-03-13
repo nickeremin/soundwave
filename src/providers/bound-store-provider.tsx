@@ -2,11 +2,11 @@
 
 import React from "react"
 import { useStore, type StoreApi } from "zustand"
-import { type PersistStorage } from "zustand/middleware"
 
 import { BoundStore, createBoundStore } from "./stores/bound-store"
 import { LayoutStore } from "./stores/layout-store"
-import { MusicStore } from "./stores/music-store"
+import { LibraryStore } from "./stores/library-store"
+import { SearchStore } from "./stores/search-store"
 
 const BoundStoreContext = React.createContext<StoreApi<BoundStore> | null>(null)
 
@@ -47,7 +47,17 @@ export function useLayoutStore<T>(selector: (store: LayoutStore) => T) {
   return useStore(boundStoreContext, selector)
 }
 
-export function useSearchStore<T>(selector: (store: MusicStore) => T) {
+export function useLibraryStore<T>(selector: (store: LibraryStore) => T) {
+  const boundStoreContext = React.useContext(BoundStoreContext)
+
+  if (!boundStoreContext) {
+    throw new Error(`useLibraryStore must be use within BoundStoreProvider`)
+  }
+
+  return useStore(boundStoreContext, selector)
+}
+
+export function useSearchStore<T>(selector: (store: SearchStore) => T) {
   const boundStoreContext = React.useContext(BoundStoreContext)
 
   if (!boundStoreContext) {

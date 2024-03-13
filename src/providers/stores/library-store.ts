@@ -1,17 +1,17 @@
 import { type StateCreator } from "zustand"
 
+import { type LibraryFilterType } from "@/shared/types/library"
+
 import { type BoundStore } from "./bound-store"
 
-export type FilterType = "playlists" | "artists" | undefined
-
 type LibraryState = {
-  search: string
-  filter: FilterType
+  librarySearch: string
+  libraryFilter: LibraryFilterType
 }
 
 type LibraryAction = {
-  setSearch: (search: string) => void
-  setFilter: (filter: FilterType) => void
+  setLibrarySearch: (librarySearch: string) => void
+  setLibraryFilter: (libraryFilter: LibraryFilterType) => void
 }
 
 export type LibraryStore = LibraryState & LibraryAction
@@ -22,8 +22,8 @@ export const createLibrarySlice: StateCreator<
   [],
   LibraryStore
 > = (set) => ({
-  search: "",
-  filter: undefined,
-  setSearch: (search) => set(() => ({ search })),
-  setFilter: (filter) => set(() => ({ filter })),
+  librarySearch: "",
+  libraryFilter: undefined,
+  setLibrarySearch: (librarySearch) => set(() => ({ librarySearch })),
+  setLibraryFilter: (libraryFilter) => set(() => ({ libraryFilter })),
 })

@@ -3,7 +3,11 @@
 import React from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { useBoundStore, useSearchStore } from "@/providers/bound-store-provider"
+import {
+  useBoundStore,
+  useLayoutStore,
+  useSearchStore,
+} from "@/providers/bound-store-provider"
 
 import { TrackObject } from "@/shared/types/track"
 import { useLayoutContext } from "@/widgets/layout/layout-context"
@@ -17,7 +21,8 @@ interface PreviewSearchTracksProps {
 }
 
 function PreviewSearchTracks({ tracks }: PreviewSearchTracksProps) {
-  const columns = useBoundStore((state) => state.columnsCount)
+  const columns = useLayoutStore((state) => state.columnsCount)
+  const addToRecentSearches = useSearchStore((state) => state.addRecentSearch)
 
   if (tracks.length === 0) return null
 
@@ -25,10 +30,9 @@ function PreviewSearchTracks({ tracks }: PreviewSearchTracksProps) {
   const trackName = topTrack.name
   const imageUrl = getImageUrl(topTrack.album.images)
 
-  const add = useSearchStore((state) => state.setRecentSearches)
   function handleClick() {
-    add({
-      id: topTrack.id,
+    addToRecentSearches({
+      item: topTrack,
       type: "track",
     })
   }

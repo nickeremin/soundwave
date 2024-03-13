@@ -3,7 +3,7 @@
 import React from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { useBoundStore } from "@/providers/bound-store-provider"
+import { useLayoutStore } from "@/providers/bound-store-provider"
 import { AudioWaveformIcon, HomeIcon, SearchIcon } from "lucide-react"
 
 import { Tooltip } from "@/shared/components/ui/tooltip"
@@ -11,7 +11,7 @@ import { cn } from "@/shared/lib/utils"
 
 function MainNav() {
   const pathname = usePathname()
-  const isCollapsed = useBoundStore((state) => state.isCollapsed)
+  const isLibraryCollapsed = useLayoutStore((state) => state.isLibraryCollapsed)
 
   return (
     <nav className="rounded-lg bg-background-100 px-3 py-2">
@@ -19,10 +19,10 @@ function MainNav() {
         <Link href="/" className="w-fit">
           <li className="flex h-12 items-center gap-3 px-3 text-lg font-bold">
             <AudioWaveformIcon className="size-6 text-pink" />
-            {!isCollapsed && "SoundWave"}
+            {!isLibraryCollapsed && "SoundWave"}
           </li>
         </Link>
-        {isCollapsed ? (
+        {isLibraryCollapsed ? (
           <Tooltip content="Home" side="right">
             <Link href="/">
               <li
@@ -49,7 +49,7 @@ function MainNav() {
           </Link>
         )}
 
-        {isCollapsed ? (
+        {isLibraryCollapsed ? (
           <Tooltip content="Search" side="right">
             <Link href="/search">
               <li

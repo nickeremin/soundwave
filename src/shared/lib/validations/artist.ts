@@ -11,6 +11,7 @@ export const artistSchema = z.object({
   images: imageSchema.array(),
   name: z.string(),
   popularity: z.number(),
+  type: z.enum(["artist"]),
 })
 
 export const simplifiedArtistSchema = z.object({

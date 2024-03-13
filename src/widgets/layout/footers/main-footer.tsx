@@ -1,41 +1,14 @@
 import React from "react"
 import Link from "next/link"
 
-type FooterSection = {
-  title: string
-  items: {
-    title: string
-    href: string
-  }[]
-}
-
-const footerLinks: FooterSection[] = [
-  {
-    title: "Company",
-    items: [
-      { title: "About", href: "/" },
-      { title: "Contact", href: "/" },
-      { title: "Privacy Policy", href: "/" },
-      { title: "Terms of Use", href: "/" },
-    ],
-  },
-  {
-    title: "Useful Links",
-    items: [
-      { title: "First Link", href: "/" },
-      { title: "Second", href: "/" },
-      { title: "Another Link", href: "/" },
-      { title: "One More", href: "/" },
-    ],
-  },
-]
+import { footerSections } from "@/shared/constants/layout"
 
 function MainFooter() {
   return (
     <footer className="flex p-8 pt-20">
       <nav className="flex w-full flex-col">
         <div className="flex">
-          {footerLinks.map((section, i) => (
+          {footerSections.map((section, i) => (
             <ul key={i} className="flex w-[320px] flex-col">
               <li className="font-medium">{section.title}</li>
               {section.items.map((link, j) => (

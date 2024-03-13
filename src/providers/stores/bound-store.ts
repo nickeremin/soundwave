@@ -1,10 +1,9 @@
-import { create } from "zustand"
 import { createJSONStorage, persist } from "zustand/middleware"
 import { createStore } from "zustand/vanilla"
 
 import { createLayoutSlice, type LayoutStore } from "./layout-store"
 import { createLibrarySlice, type LibraryStore } from "./library-store"
-import { createMusicSlice, type MusicStore } from "./music-store"
+import { createSearchSlice, type SearchStore } from "./search-store"
 
 type HydrateState = {
   _hasHydrated: boolean
@@ -16,9 +15,9 @@ type HydrateActions = {
 
 type HydrateStore = HydrateState & HydrateActions
 
-export type BoundStore = LayoutStore & LibraryStore & MusicStore & HydrateStore
+export type BoundStore = LayoutStore & LibraryStore & SearchStore & HydrateStore
 
-export function createBoundStore() {
+export function          createBoundStore() {
   return createStore<BoundStore>()(
     persist(
       (...a) => ({
@@ -26,16 +25,15 @@ export function createBoundStore() {
         setHasHydrated: (_hasHydrated) => a[0](() => ({ _hasHydrated })),
         ...createLayoutSlice(...a),
         ...createLibrarySlice(...a),
-        ...createMusicSlice(...a),
+        ...createSearchSlice(...a),
       }),
       {
-        name: "music-storage",
+        name: "search-storage",
         storage: createJSONStorage(() => localStorage),
         partialize: (state) => ({
-          isCollapsed: state.isCollapsed,
-          recentSearchs: state.recentSearches,
+          isLibraryCollapsed: state.isLibraryCollapsed,
+          recentSearches: state.recentSearches,
         }),
-        skipHydration: true,
         onRehydrateStorage: () => (state) => {
           console.log({
             searches: state?.recentSearches,
@@ -46,30 +44,3 @@ export function createBoundStore() {
     )
   )
 }
-
-export const useStore = create<BoundStore>()(
-  persist(
-    (...a) => ({
-      _hasHydrated: false,
-      setHasHydrated: (_hasHydrated) => a[0](() => ({ _hasHydrated })),
-      ...createLayoutSlice(...a),
-      ...createLibrarySlice(...a),
-      ...createMusicSlice(...a),
-    }),
-    {
-      name: "search-storage",
-      storage: createJSONStorage(() => localStorage),
-      partialize: (state) => ({
-        isCollapsed: state.isCollapsed,
-        recentSearchs: state.recentSearches,
-      }),
-      skipHydration: true,
-      onRehydrateStorage: () => (state) => {
-        console.log({
-          searches: state?.recentSearches,
-        })
-        state?.setHasHydrated(true)
-      },
-    }
-  )
-)

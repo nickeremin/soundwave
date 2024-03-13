@@ -3,12 +3,12 @@ import { type StateCreator } from "zustand"
 import { type BoundStore } from "./bound-store"
 
 type LayoutState = {
-  isCollapsed: boolean
+  isLibraryCollapsed: boolean
   columnsCount: number
 }
 
 type LayoutActions = {
-  toggleIsCollapsed: () => void
+  toggleIsLibraryCollapsed: () => void
   setColumnsCount: (columnsCount: number) => void
 }
 
@@ -20,9 +20,9 @@ export const createLayoutSlice: StateCreator<
   [],
   LayoutStore
 > = (set) => ({
-  isCollapsed: false,
+  isLibraryCollapsed: false,
   columnsCount: 0,
-  toggleIsCollapsed: () =>
-    set((state) => ({ isCollapsed: !state.isCollapsed })),
+  toggleIsLibraryCollapsed: () =>
+    set((state) => ({ isLibraryCollapsed: !state.isLibraryCollapsed })),
   setColumnsCount: (columnsCount) => set(() => ({ columnsCount })),
 })

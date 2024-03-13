@@ -29,9 +29,9 @@ function PreviewSearchArtists({ artists }: PreviewSearchArtistsProps) {
               .slice(0, columns)
               .map((artist) => (
                 <ArtistPreviewCard
-                  addToRecentSearches={true}
                   key={artist.id}
                   artist={artist}
+                  withAddToRecentSearches
                 />
               ))
           : Array.from({ length: columns }, (_, i) => i).map((_, i) => (

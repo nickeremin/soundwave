@@ -12,7 +12,11 @@ function SearchPage() {
   return (
     <div className="p-6">
       <div className="flex flex-col">
-        {query && query.length > 0 ? <PreviewSearch /> : <RecentSearches />}
+        {query && query.length > 0 ? (
+          <PreviewSearch />
+        ) : (
+          <RecentSearches preview />
+        )}
       </div>
     </div>
   )
