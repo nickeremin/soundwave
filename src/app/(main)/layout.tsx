@@ -16,14 +16,14 @@ interface MainLayoutProps {
 }
 
 function MainLayout({ children }: MainLayoutProps) {
-  const hasHydrated = useBoundStore((state) => state._hasHydrated)
   const isLibraryCollapsed = useLayoutStore((state) => state.isLibraryCollapsed)
   const columns = useLayoutStore((state) => state.columnsCount)
 
   const mainContainerRef = React.useRef(null)
+  console.log({ mainContainerRef })
   useColumnsCount(mainContainerRef)
 
-  const isVisible = hasHydrated && columns > 0
+  const isVisible = columns > 0
 
   return (
     <div

@@ -2,6 +2,7 @@
 
 import React from "react"
 import Link from "next/link"
+import { usePathname, useRouter } from "next/navigation"
 import {
   useLayoutStore,
   useSearchStore,
@@ -17,17 +18,26 @@ interface RecentSearchesProps {
 }
 
 function RecentSearches({ preview }: RecentSearchesProps) {
+  const pathname = usePathname()
+  const router = useRouter()
+
   const columns = useLayoutStore((state) => state.columnsCount)
   const recentSearches = useSearchStore((state) => state.recentSearches)
   const clearRecentSearches = useSearchStore(
     (state) => state.clearRecentSearches
   )
 
+  React.useEffect(() => {
+    if (pathname === "/recent-searches" && recentSearches.length === 0) {
+      router.push("/search")
+    }
+  }, [recentSearches])
+
   if (recentSearches.length === 0) return null
 
   return (
     <section className="flex flex-col gap-4">
-      <div className="flex items-baseline justify-between">
+      <div className="flex h-9 items-baseline justify-between">
         {preview ? (
           <React.Fragment>
             {recentSearches.length > columns ? (
