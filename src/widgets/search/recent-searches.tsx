@@ -36,7 +36,7 @@ function RecentSearches({ preview }: RecentSearchesProps) {
   if (recentSearches.length === 0) return null
 
   return (
-    <section className="flex flex-col gap-4">
+    <section className="flex flex-col gap-2">
       <div className="flex h-9 items-baseline justify-between">
         {preview ? (
           <React.Fragment>

@@ -58,12 +58,16 @@ function AlbumPreviewCard<TAlbum extends SimplifiedAlbumObject>({
           <PlayerButton className="shadow-player-button" />
         </div>
       </div>
-      <div className="flex flex-col items-start gap-1">
+      <div className="flex min-h-16 flex-col items-start">
         <p className="line-clamp-1 font-bold">{album.name}</p>
         <div className="line-clamp-2 text-sm font-medium text-tertiary [&>*:not(:first-child)]:before:mx-1 [&>*:not(:first-child)]:before:content-['•']">
           <span>{releaseDate}</span>
           {withType && <span>{albumType}</span>}
-          {withArtists && <ArtistLinksNames artists={album.artists} />}
+          {withArtists && (
+            <span className="relative z-10">
+              <ArtistLinksNames artists={album.artists} />
+            </span>
+          )}
         </div>
       </div>
     </div>

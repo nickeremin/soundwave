@@ -1,8 +1,7 @@
 "use client"
 
-import { stat } from "fs"
 import React from "react"
-import { useBoundStore, useLayoutStore } from "@/providers/bound-store-provider"
+import { useLayoutStore } from "@/providers/bound-store-provider"
 
 import MainNav from "@/widgets/layout/main-nav"
 import UserLibrary from "@/widgets/layout/user-library"
@@ -39,11 +38,10 @@ function MainLayout({ children }: MainLayoutProps) {
           <MainNav />
           <UserLibrary />
         </aside>
-        <div className="overflow-hidden bg-background-100">
+        <div className="overflow-hidden rounded-lg bg-background-100">
           <ScrollArea
             style={{ height: `calc(100vh - ${REMAIN_HEIGHT}px)` }}
             ref={mainContainerRef}
-            className="rounded-lg"
           >
             {children}
           </ScrollArea>

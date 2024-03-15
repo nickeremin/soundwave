@@ -5,10 +5,12 @@ import { RecentSearchEntity } from "@/shared/types/search"
 import { type BoundStore } from "./bound-store"
 
 type SearchState = {
+  searchQuery: string
   recentSearches: RecentSearchEntity[]
 }
 
 type SearchActions = {
+  setSearchQuery: (searchQuery: string) => void
   addRecentSearch: (entity: RecentSearchEntity) => void
   deleteRecentSearch: (entity: {
     id: string
@@ -25,7 +27,9 @@ export const createSearchSlice: StateCreator<
   [],
   SearchStore
 > = (set) => ({
+  searchQuery: "",
   recentSearches: [],
+  setSearchQuery: (searchQuery) => set(() => ({ searchQuery })),
   addRecentSearch: (recentSearch) =>
     set((state) => ({
       recentSearches: [

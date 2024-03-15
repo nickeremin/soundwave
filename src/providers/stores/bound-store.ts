@@ -17,7 +17,7 @@ type HydrateStore = HydrateState & HydrateActions
 
 export type BoundStore = LayoutStore & LibraryStore & SearchStore & HydrateStore
 
-export function          createBoundStore() {
+export function createBoundStore() {
   return createStore<BoundStore>()(
     persist(
       (...a) => ({
@@ -35,9 +35,6 @@ export function          createBoundStore() {
           recentSearches: state.recentSearches,
         }),
         onRehydrateStorage: () => (state) => {
-          console.log({
-            searches: state?.recentSearches,
-          })
           state?.setHasHydrated(true)
         },
       }

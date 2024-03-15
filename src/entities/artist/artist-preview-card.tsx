@@ -25,7 +25,7 @@ function ArtistPreviewCard({
   }
 
   return (
-    <div className="group relative flex flex-col gap-6 rounded-lg p-3 transition duration-300 hover:bg-accent">
+    <div className="group relative flex flex-col gap-4 rounded-lg p-3 transition duration-300 hover:bg-accent">
       <div
         data-shadcnui-button
         role="button"
@@ -47,7 +47,7 @@ function ArtistPreviewCard({
           <PlayerButton className="shadow-player-button" />
         </div>
       </div>
-      <div className="flex flex-col items-start">
+      <div className="flex min-h-[72px] flex-col items-start">
         <p className="line-clamp-1 font-bold">{artist.name}</p>
         <p className="text-sm font-medium text-tertiary">Artist</p>
       </div>

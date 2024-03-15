@@ -2,8 +2,8 @@
 
 import React from "react"
 import { useSearchParams } from "next/navigation"
+import { useLayoutStore } from "@/providers/bound-store-provider"
 
-import { useLayoutContext } from "@/widgets/layout/layout-context"
 import AlbumPreviewCard from "@/entities/album/album-preview-card"
 import { trpc } from "@/shared/trpc/client"
 
@@ -11,7 +11,7 @@ function SearchAlbumsPage() {
   const searchParams = useSearchParams()
   const query = searchParams.get("query")
 
-  const { columns } = useLayoutContext()
+  const columns = useLayoutStore((state) => state.columnsCount)
 
   const { data } = trpc.searchRouter.searchAlbums.useInfiniteQuery(
     {
@@ -27,10 +27,10 @@ function SearchAlbumsPage() {
 
   return (
     <main>
-      <div className="px-6 py-3">
+      <div className="p-6">
         <div
           style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))` }}
-          className="grid gap-8"
+          className="grid"
         >
           {data.pages.map((page, i) => (
             <React.Fragment key={i}>

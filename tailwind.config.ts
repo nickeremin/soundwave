@@ -71,6 +71,7 @@ const config = {
 
         focus: {
           DEFAULT: "rgb(var(--focus))",
+          ring: "rgb(var(--focus-ring))",
         },
 
         destructive: {

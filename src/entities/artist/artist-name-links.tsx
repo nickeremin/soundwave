@@ -20,7 +20,10 @@ function ArtistNameLinks<TArtist extends SimplifiedArtistObject>({
           <Link
             key={artist.id}
             href={`/artist/${artist.id}`}
-            className={cn("hover:underline", className)}
+            className={cn(
+              "outline-none hover:underline focus-visible:underline focus-visible:decoration-ring",
+              className
+            )}
           >
             {artist.name}
           </Link>

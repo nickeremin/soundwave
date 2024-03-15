@@ -2,7 +2,6 @@
 
 import React from "react"
 import { type Metadata } from "next"
-import Link from "next/link"
 import { useBoundStore } from "@/providers/bound-store-provider"
 
 import MainHeader from "@/widgets/layout/headers/main-header"
