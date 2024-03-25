@@ -1,15 +1,22 @@
 import React from "react"
 import { motion, type HTMLMotionProps } from "framer-motion"
+import { HeartIcon } from "lucide-react"
 
 import { LucideIcon } from "@/shared/components/icons"
 import { cn } from "@/shared/lib/utils"
 
+interface AddFavoriteTrackButtonProps extends HTMLMotionProps<"button"> {
+  iconClassName?: string
+}
+
 function AddFavoriteTrackButton({
   className,
+  iconClassName,
   ...props
-}: HTMLMotionProps<"button">) {
+}: AddFavoriteTrackButtonProps) {
   return (
     <motion.button
+      data-shadcnui-button
       whileHover={{
         scale: 1.1,
       }}
@@ -20,12 +27,12 @@ function AddFavoriteTrackButton({
         e.stopPropagation()
       }}
       className={cn(
-        "relative inline-flex size-5 items-center justify-center rounded-full",
+        "relative inline-flex size-5 items-center justify-center rounded-full outline-none",
         className
       )}
       {...props}
     >
-      <LucideIcon name="Heart" className="size-full transition" />
+      <HeartIcon className={cn("size-full transition", iconClassName)} />
     </motion.button>
   )
 }

@@ -147,17 +147,17 @@ function LibraryEntityList() {
               <div
                 role="button"
                 tabIndex={-1}
-                onClick={() => router.push(`/playlist/${artist.id}`)}
+                onClick={() => router.push(`/artist/${artist.id}`)}
                 className="absolute inset-0 cursor-pointer"
               />
-              <div className="size-12 rounded bg-accent shadow-image-sm">
+              <div className="size-12 rounded-full bg-accent shadow-image-sm">
                 {imageUrl ? (
                   <Image
                     src={imageUrl}
                     alt=""
                     width={80}
                     height={80}
-                    className="size-full rounded object-cover object-center"
+                    className="size-full rounded-full object-cover object-center"
                   />
                 ) : null}
               </div>

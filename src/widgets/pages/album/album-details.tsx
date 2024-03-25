@@ -10,7 +10,12 @@ import AddFavoriteAlbumButton from "@/features/favorite/add-favorite-album-butto
 import AlbumMenuButton from "@/features/menu/album-menu-button"
 import PlayButton from "@/features/player/play-button"
 import MainArtistLink from "@/entities/artist/main-artist-link"
-import { getAverageColor, getImageUrl } from "@/shared/lib/utils"
+import {
+  formatAlbumDuration,
+  formatReleaseDate,
+  getAverageColor,
+  getImageUrl,
+} from "@/shared/lib/utils"
 import { trpc } from "@/shared/trpc/client"
 
 interface AlbumDetailsProps {
@@ -24,13 +29,8 @@ function AlbumDetails({ albumId }: AlbumDetailsProps) {
   if (!album) return null
 
   const imageUrl = getImageUrl(album.images)
-  const albumDate = format(new Date(album.release_date ?? 0), "yyyy")
-  const albumDuration = format(
-    new Date(
-      album.tracks.items.reduce((prev, cur) => prev + cur.duration_ms, 0)
-    ),
-    "m 'min' ss 'sec'"
-  )
+  const albumDate = formatReleaseDate(album.release_date)
+  const albumDuration = formatAlbumDuration(album)
 
   return (
     <div>

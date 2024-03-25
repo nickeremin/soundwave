@@ -17,12 +17,18 @@ interface MainLayoutProps {
 function MainLayout({ children }: MainLayoutProps) {
   const isLibraryCollapsed = useLayoutStore((state) => state.isLibraryCollapsed)
   const columns = useLayoutStore((state) => state.columnsCount)
+  const setMainContainerRef = useLayoutStore(
+    (state) => state.setMainContainerRef
+  )
 
-  const mainContainerRef = React.useRef(null)
-  console.log({ mainContainerRef })
+  const mainContainerRef = React.useRef<HTMLDivElement | null>(null)
   useColumnsCount(mainContainerRef)
 
   const isVisible = columns > 0
+
+  React.useEffect(() => {
+    setMainContainerRef(mainContainerRef)
+  }, [])
 
   return (
     <div

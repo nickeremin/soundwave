@@ -1,15 +1,14 @@
 "use client"
 
-import React from "react"
+import React, { useState } from "react"
 import Image from "next/image"
 import chroma from "chroma-js"
+import { BadgeCheckIcon } from "lucide-react"
 
-import { useLayoutContext } from "@/widgets/layout/layout-context"
-import { usePageContext } from "@/widgets/providers/page-context-provider"
+import { usePageStore } from "@/widgets/providers/page-context-provider"
 import FollowArtistButton from "@/features/favorite/follow-artist-button"
 import ArtistMenuButton from "@/features/menu/artist-menu-button"
 import PlayButton from "@/features/player/play-button"
-import { LucideIcon } from "@/shared/components/icons"
 import { getAverageColor, getImageUrl } from "@/shared/lib/utils"
 import { trpc } from "@/shared/trpc/client"
 
@@ -17,9 +16,10 @@ interface ArtistDetailsProps {
   artistId: string
 }
 
+// For better user experience, first the page is made invisible before we can get the artist,
+// after that we load the image and once we get the average color of the image we show the page to the user.
 function ArtistDetails({ artistId }: ArtistDetailsProps) {
-  const { setIsVisible, backgroundColor, setBackgroundColor } = usePageContext()
-
+  const { setIsVisible, backgroundColor, setBackgroundColor } = usePageStore()
   const { data: artist } = trpc.artistRouter.getArtist.useQuery({ artistId })
 
   if (!artist) return null
@@ -32,9 +32,7 @@ function ArtistDetails({ artistId }: ArtistDetailsProps) {
         <div
           style={{
             backgroundColor: backgroundColor
-              ? backgroundColor.isDark
-                ? chroma(backgroundColor.hex).saturate(1).brighten(1.25).hex()
-                : chroma(backgroundColor.hex).saturate(1.25).darken(1.5).hex()
+              ? chroma(backgroundColor.hex).saturate().hex()
               : undefined,
           }}
           className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50 "
@@ -58,10 +56,12 @@ function ArtistDetails({ artistId }: ArtistDetailsProps) {
         </div>
         <div className="relative flex flex-col items-start text-sm font-medium">
           <div className="flex items-center gap-2">
-            <span>
-              <LucideIcon name="BadgeCheck" fill="#0a84ff" className="size-7" />
-            </span>{" "}
-            <span>Verified Artist</span>
+            <BadgeCheckIcon
+              fill="#0a84ff"
+              strokeWidth={1.5}
+              className="size-7"
+            />
+            Verified Artist
           </div>
           <span className="mb-2 line-clamp-3">
             <h1 className="text-[4rem] font-black leading-tight">
@@ -77,9 +77,7 @@ function ArtistDetails({ artistId }: ArtistDetailsProps) {
       <div
         style={{
           backgroundColor: backgroundColor
-            ? backgroundColor.isDark
-              ? chroma(backgroundColor.hex).saturate(1).brighten(1.25).hex()
-              : chroma(backgroundColor.hex).saturate(1.25).darken(1.5).hex()
+            ? chroma(backgroundColor.hex).saturate().hex()
             : undefined,
         }}
         className="absolute z-[-1] h-[240px] w-full bg-gradient-to-b from-black/60 to-background-100 "

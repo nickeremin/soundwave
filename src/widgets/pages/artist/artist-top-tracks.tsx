@@ -17,12 +17,9 @@ function ArtistTopTracks({ artistId }: ArtistTopTracksProps) {
     artistId,
   })
 
-  console.log({ topTracks: tracks })
-
   return (
-    <div className="flex flex-col gap-2 px-6">
+    <div className="flex flex-col gap-2">
       <h2 className="text-2xl font-bold">Popular</h2>
-
       <div>
         {tracks ? (
           <TrackList

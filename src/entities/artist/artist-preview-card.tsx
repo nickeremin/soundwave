@@ -1,5 +1,6 @@
 import React from "react"
 import Image from "next/image"
+import { useRouter } from "next/navigation"
 import { useSearchStore } from "@/providers/bound-store-provider"
 
 import { ArtistObject } from "@/shared/types/artist"
@@ -15,6 +16,7 @@ function ArtistPreviewCard({
   artist,
   withAddToRecentSearches,
 }: ArtistPreviewCardProps) {
+  const router = useRouter()
   const imageUrl = getImageUrl(artist.images)
   const addToRecentSearches = useSearchStore((state) => state.addRecentSearch)
 
@@ -22,6 +24,7 @@ function ArtistPreviewCard({
     if (withAddToRecentSearches) {
       addToRecentSearches({ item: artist, type: "artist" })
     }
+    router.push(`/artist/${artist.id}`)
   }
 
   return (

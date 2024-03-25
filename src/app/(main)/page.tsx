@@ -17,7 +17,7 @@ function HomePage() {
   return (
     <div>
       <MainHeader />
-      <div className="mt-10 flex flex-col gap-10 px-6">
+      <div className="p-6">
         {/* TODO: Recently played artists and playlists and albums */}
         {/* <section className="flex flex-col gap-4">
           <Link

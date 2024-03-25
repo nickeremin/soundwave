@@ -8,6 +8,7 @@ import PlayerButton from "@/features/player/play-button"
 import { getImageUrl } from "@/shared/lib/utils"
 
 import ArtistLinksNames from "../artist/artist-name-links"
+import { useRouter } from "next/navigation"
 
 interface AlbumPreviewCardProps<TAlbum> {
   album: TAlbum
@@ -22,6 +23,7 @@ function AlbumPreviewCard<TAlbum extends SimplifiedAlbumObject>({
   withType,
   withAddToRecentSearches,
 }: AlbumPreviewCardProps<TAlbum>) {
+  const router = useRouter()
   const imageUrl = getImageUrl(album.images)
   const releaseDate = format(album.release_date, "yyyy")
   const albumType =
@@ -33,6 +35,8 @@ function AlbumPreviewCard<TAlbum extends SimplifiedAlbumObject>({
     if (withAddToRecentSearches) {
       addToRecentSearches({ item: album, type: "album" })
     }
+
+    router.push(`/album/${album.id}`)
   }
 
   return (

@@ -8,14 +8,32 @@ import { twMerge } from "tailwind-merge"
 import { v4 } from "uuid"
 import * as z from "zod"
 
+import { type AlbumObject } from "../types/album"
 import { type ImageObject } from "../types/image"
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+export function formatAlbumType(type: string) {
+  return type[0]?.toUpperCase() + type.slice(1).toLowerCase()
+}
+
 export function formatTimeDuration(ms: number | undefined) {
   return format(new Date(ms ?? 0), "m:ss")
+}
+
+export function formatReleaseDate(releaseDate: string) {
+  return format(new Date(releaseDate ?? 0), "yyyy")
+}
+
+export function formatAlbumDuration(album: AlbumObject) {
+  return format(
+    new Date(
+      album.tracks.items.reduce((prev, cur) => prev + cur.duration_ms, 0)
+    ),
+    "m 'min' ss 'sec'"
+  )
 }
 
 export function getImageUrl(images: ImageObject[] | undefined) {

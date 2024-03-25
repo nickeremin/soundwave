@@ -7,7 +7,8 @@ const wrapperVariants = cva("", {
   variants: {
     variant: {
       default: "max-w-full w-[--content-page-width-with-margin] mx-auto",
-      header: "sticky top-0 z-50 flex w-full items-center bg-background-100/80",
+      header:
+        "sticky top-0 z-50 flex w-full items-center bg-background-100/80 backdrop-blur-xl  rounded-t-lg backdrop-saturate-200",
     },
   },
   defaultVariants: {

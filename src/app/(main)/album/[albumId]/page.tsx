@@ -5,7 +5,7 @@ import React from "react"
 import MainFooter from "@/widgets/layout/footers/main-footer"
 import AlbumDetails from "@/widgets/pages/album/album-details"
 import AlbumTracks from "@/widgets/pages/album/album-tracks"
-import ArtistPopularAlbums from "@/widgets/pages/artist/artist-popular-albums"
+import ArtistPopularAlbums from "@/widgets/pages/artist/artist-popular-releases"
 import { trpc } from "@/shared/trpc/client"
 
 interface AlbumPageProps {

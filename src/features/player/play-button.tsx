@@ -7,7 +7,11 @@ import { PlayIcon } from "lucide-react"
 import { LucideIcon } from "@/shared/components/icons"
 import { cn } from "@/shared/lib/utils"
 
-function PlayButton({ className, ...props }: HTMLMotionProps<"button">) {
+interface PlayButtonProps extends HTMLMotionProps<"button"> {
+  iconClassName?: string
+}
+
+function PlayButton({ iconClassName, className, ...props }: PlayButtonProps) {
   return (
     <motion.button
       data-shadcnui-button
@@ -25,7 +29,7 @@ function PlayButton({ className, ...props }: HTMLMotionProps<"button">) {
     >
       <PlayIcon
         fill="currentColor"
-        className="size-6 translate-x-0.5 text-black"
+        className={cn("size-6 translate-x-0.5 text-black", iconClassName)}
       />
     </motion.button>
   )

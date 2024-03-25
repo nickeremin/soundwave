@@ -2,7 +2,6 @@
 
 import * as React from "react"
 import { usePathname, useRouter, useSearchParams } from "next/navigation"
-import { useSearchStore } from "@/providers/bound-store-provider"
 import { LoaderIcon, SearchIcon, XCircleIcon } from "lucide-react"
 import { useDebounceValue } from "usehooks-ts"
 
@@ -21,29 +20,21 @@ function SearchInput({
 
   const searchParams = useSearchParams()
   const query = searchParams.get("query")
-  const setSearchQuery = useSearchStore((state) => state.setSearchQuery)
 
   React.useEffect(() => {
-    if (query) setSearch(query)
+    setSearch(query ?? "")
   }, [])
-
-  React.useEffect(() => {
-    if (!query) {
-      console.log("Here!")
-      router.push("/search")
-    }
-  }, [query])
 
   React.useEffect(() => {
     const newSearchParams = new URLSearchParams(searchParams)
 
     if (search) {
       newSearchParams.set("query", search)
+      router.push(`${pathname}?${newSearchParams.toString()}`)
     } else {
       newSearchParams.delete("query")
+      router.push(`/search?${newSearchParams.toString()}`)
     }
-
-    router.push(`${pathname}?${newSearchParams.toString()}`)
   }, [debouncedValue])
 
   return (

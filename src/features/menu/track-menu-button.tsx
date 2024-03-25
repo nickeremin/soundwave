@@ -1,5 +1,13 @@
 import React from "react"
 import { motion, type HTMLMotionProps } from "framer-motion"
+import {
+  DiscAlbumIcon,
+  HeartIcon,
+  MoreHorizontalIcon,
+  MusicIcon,
+  PlusIcon,
+  RadioIcon,
+} from "lucide-react"
 
 import { LucideIcon } from "@/shared/components/icons"
 import {
@@ -11,11 +19,20 @@ import {
 } from "@/shared/components/ui/dropdown-menu"
 import { cn } from "@/shared/lib/utils"
 
-function TrackMenuButton({ className, ...props }: HTMLMotionProps<"button">) {
+interface TrackMenuButtonProps extends HTMLMotionProps<"button"> {
+  iconClassName?: string
+}
+
+function TrackMenuButton({
+  className,
+  iconClassName,
+  ...props
+}: TrackMenuButtonProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <motion.button
+          data-shadcnui-button
           // whileHover={{
           //   scale: 1.1,
           // }}
@@ -23,23 +40,21 @@ function TrackMenuButton({ className, ...props }: HTMLMotionProps<"button">) {
           //   scale: 1,
           // }}
           className={cn(
-            "relative inline-flex size-10 items-center justify-center rounded-full",
+            "relative inline-flex size-10 items-center justify-center rounded-full outline-none",
             className
           )}
           {...props}
         >
-          <LucideIcon name="MoreHorizontal" className="size-8 transition" />
+          <MoreHorizontalIcon
+            className={cn("size-8 transition", iconClassName)}
+          />
         </motion.button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start" className="p-1">
         <ul className="flex flex-col">
           <DropdownMenuItem className="gap-3">
             <span>
-              <LucideIcon
-                name="Plus"
-                strokeWidth={2}
-                className="text-secondary"
-              />
+              <PlusIcon strokeWidth={2} className="size-5 text-secondary" />
             </span>
             Add to playlist
           </DropdownMenuItem>
@@ -50,11 +65,7 @@ function TrackMenuButton({ className, ...props }: HTMLMotionProps<"button">) {
             className="gap-3"
           >
             <span>
-              <LucideIcon
-                name="Heart"
-                strokeWidth={2}
-                className="text-secondary"
-              />
+              <HeartIcon strokeWidth={2} className="size-5 text-secondary" />
             </span>
             Save to your Liked songs
           </DropdownMenuItem>
@@ -63,30 +74,21 @@ function TrackMenuButton({ className, ...props }: HTMLMotionProps<"button">) {
 
           <DropdownMenuItem className="gap-3">
             <span>
-              <LucideIcon
-                name="Radio"
-                strokeWidth={2}
-                className="text-secondary"
-              />
+              <RadioIcon strokeWidth={2} className="size-5 text-secondary" />
             </span>
             Go to song radio
           </DropdownMenuItem>
           <DropdownMenuItem className="gap-3">
             <span>
-              <LucideIcon
-                name="Music"
-                strokeWidth={2}
-                className="text-secondary"
-              />
+              <MusicIcon strokeWidth={2} className="size-5 text-secondary" />
             </span>
             Go to artist
           </DropdownMenuItem>
           <DropdownMenuItem className="gap-3">
             <span>
-              <LucideIcon
-                name="DiscAlbum"
+              <DiscAlbumIcon
                 strokeWidth={2}
-                className="text-secondary"
+                className="size-5 text-secondary"
               />
             </span>
             Go to album

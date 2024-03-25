@@ -8,16 +8,11 @@ import { buttonVariants } from "@/shared/components/ui/button"
 import { Wrapper } from "@/shared/components/ui/wrapper"
 import { cn } from "@/shared/lib/utils"
 
-function MainHeader({ className }: React.HTMLAttributes<HTMLElement>) {
+import HeaderWrapper from "./header-wrapper"
+
+function MainHeader() {
   return (
-    <Wrapper
-      variant="header"
-      as="header"
-      className={cn(
-        "rounded-t-lg backdrop-blur-xl backdrop-saturate-200",
-        className
-      )}
-    >
+    <HeaderWrapper>
       <nav className="flex h-16 w-full items-center justify-between px-6">
         <BackForwardButtons />
         <SignedIn>
@@ -53,7 +48,7 @@ function MainHeader({ className }: React.HTMLAttributes<HTMLElement>) {
           </div>
         </SignedOut>
       </nav>
-    </Wrapper>
+    </HeaderWrapper>
   )
 }
 

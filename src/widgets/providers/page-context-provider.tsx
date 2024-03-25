@@ -3,48 +3,52 @@
 import React from "react"
 import { type FastAverageColorResult } from "fast-average-color"
 
-import { cn } from "@/shared/lib/utils"
-
-type PageContextData = {
-  isVisible: boolean
-  setIsVisible: React.Dispatch<React.SetStateAction<boolean>>
-  backgroundColor: FastAverageColorResult | undefined
-  setBackgroundColor: React.Dispatch<
-    React.SetStateAction<FastAverageColorResult | undefined>
-  >
-}
-
-const PageContext = React.createContext<PageContextData | null>(null)
-
-export function usePageContext() {
-  const context = React.useContext(PageContext)
-
-  if (!context) {
-    throw new Error("Use usePageContext inside PageContext boundary!")
-  }
-
-  return context
-}
+const PageStoreContext = React.createContext<PageStore | null>(null)
 
 interface PageContextProviderProps {
-  children?: React.ReactNode
+  children: React.ReactNode
 }
 
 function PageContextProvider({ children }: PageContextProviderProps) {
   const [isVisible, setIsVisible] = React.useState(false)
-  const [backgroundColor, setBackgroundColor] = React.useState<
-    FastAverageColorResult | undefined
-  >(undefined)
+  const [backgroundColor, setBackgroundColor] =
+    React.useState<FastAverageColorResult | null>(null)
 
   return (
-    <PageContext.Provider
+    <PageStoreContext.Provider
       value={{ isVisible, setIsVisible, backgroundColor, setBackgroundColor }}
     >
-      <div className={cn("relative z-10", isVisible ? "visible" : "invisible")}>
+      <div
+        style={{
+          visibility: isVisible ? "visible" : "hidden",
+        }}
+      >
         {children}
       </div>
-    </PageContext.Provider>
+    </PageStoreContext.Provider>
   )
 }
+
+export function usePageStore() {
+  const pageStoreContext = React.useContext(PageStoreContext)
+
+  if (!pageStoreContext) {
+    throw new Error(`usePageStore must be use within PageStoreProvider`)
+  }
+
+  return pageStoreContext
+}
+
+type PageState = {
+  isVisible: boolean
+  backgroundColor: FastAverageColorResult | null
+}
+
+type PageActions = {
+  setIsVisible: (isVisible: boolean) => void
+  setBackgroundColor: (backgroundColor: FastAverageColorResult) => void
+}
+
+type PageStore = PageState & PageActions
 
 export default PageContextProvider

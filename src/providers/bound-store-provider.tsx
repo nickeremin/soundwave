@@ -4,6 +4,7 @@ import React from "react"
 import { useStore, type StoreApi } from "zustand"
 
 import { BoundStore, createBoundStore } from "./stores/bound-store"
+import { DiscographyStore } from "./stores/discography-store"
 import { LayoutStore } from "./stores/layout-store"
 import { LibraryStore } from "./stores/library-store"
 import { SearchStore } from "./stores/search-store"

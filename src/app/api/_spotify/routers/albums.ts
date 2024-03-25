@@ -2,7 +2,10 @@ import { z } from "zod"
 
 import { env } from "@/shared/components/env.mjs"
 import { catchAxiosError } from "@/shared/lib/utils"
-import { albumSchema } from "@/shared/lib/validations/album"
+import {
+  albumSchema,
+  simplifiedAlbumsSchema,
+} from "@/shared/lib/validations/album"
 import { simplifiedTracksSchema } from "@/shared/lib/validations/track"
 import { publicProcedure, router } from "@/shared/trpc/trpc"
 

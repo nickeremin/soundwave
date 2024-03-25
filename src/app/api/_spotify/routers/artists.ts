@@ -31,8 +31,7 @@ export const artistRouter = router({
         artistId: z.string(),
         include_groups: z
           .enum(["album", "single", "appears_on", "compilation"])
-          .array()
-          .default(["album"]),
+          .array(),
         cursor: z.string().nullish(),
       })
     )
@@ -46,7 +45,9 @@ export const artistRouter = router({
 
         const { data } = await spotifyApi.get(`/artists/${artistId}/albums`, {
           params: {
-            include_groups: include_groups.join(","),
+            market: "ES",
+            include_groups:
+              include_groups.length > 0 ? include_groups.join(",") : undefined,
             limit,
             offset,
           },

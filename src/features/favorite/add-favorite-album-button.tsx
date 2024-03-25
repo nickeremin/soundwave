@@ -1,5 +1,6 @@
 import React from "react"
 import { motion, type HTMLMotionProps } from "framer-motion"
+import { HeartIcon } from "lucide-react"
 
 import { LucideIcon } from "@/shared/components/icons"
 import { cn } from "@/shared/lib/utils"
@@ -25,7 +26,7 @@ function AddFavoriteAlbumButton({
       )}
       {...props}
     >
-      <LucideIcon name="Heart" className="size-full transition" />
+      <HeartIcon className="size-full transition" />
     </motion.button>
   )
 }

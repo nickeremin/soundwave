@@ -22,6 +22,7 @@ function PlayTrackButton({
 
   return (
     <motion.button
+      data-shadcnui-button
       whileHover={{
         scale: 1.1,
       }}
@@ -33,7 +34,7 @@ function PlayTrackButton({
         setPlayingTrackId(trackId)
       }}
       className={cn(
-        "relative inline-flex size-4 items-center justify-center",
+        "relative inline-flex size-4 items-center justify-center outline-none",
         className
       )}
       {...props}
