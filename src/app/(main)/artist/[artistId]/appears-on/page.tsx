@@ -1,28 +1,28 @@
 import React from "react"
 import { type Metadata } from "next"
 
-import ArtistRelatedArtists from "@/widgets/artist/artist-related-artists"
+import ArtistAppearsOnAlbums from "@/widgets/artist/artist-appears-on-albums"
 import MainFooter from "@/widgets/layout/footers/main-footer"
 import MainHeader from "@/widgets/layout/headers/main-header"
 
 export const metadata: Metadata = {
-  title: "Related Artists | Soundwave",
+  title: "Appears On | Soundwave",
 }
 
-interface RelatedArtistsPageProps {
+interface AppearsOnPageProps {
   params: {
     artistId: string
   }
 }
 
-function RelatedArtistsPage({ params: { artistId } }: RelatedArtistsPageProps) {
+function AppearsOnPage({ params: { artistId } }: AppearsOnPageProps) {
   return (
     <React.Fragment>
       <div className="min-h-screen">
         <MainHeader />
         <main>
           <div className="p-6">
-            <ArtistRelatedArtists artistId={artistId} />
+            <ArtistAppearsOnAlbums artistId={artistId} />
           </div>
         </main>
       </div>
@@ -31,4 +31,4 @@ function RelatedArtistsPage({ params: { artistId } }: RelatedArtistsPageProps) {
   )
 }
 
-export default RelatedArtistsPage
+export default AppearsOnPage

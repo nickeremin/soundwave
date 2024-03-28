@@ -1,5 +1,6 @@
 import React from "react"
 import Image from "next/image"
+import { useRouter } from "next/navigation"
 import { useSearchStore } from "@/providers/bound-store-provider"
 import { format } from "date-fns"
 
@@ -8,19 +9,22 @@ import PlayerButton from "@/features/player/play-button"
 import { getImageUrl } from "@/shared/lib/utils"
 
 import ArtistLinksNames from "../artist/artist-name-links"
-import { useRouter } from "next/navigation"
 
 interface AlbumPreviewCardProps<TAlbum> {
   album: TAlbum
+  withReleaseDate?: boolean
   withType?: boolean
+  withMainArtist?: boolean
   withArtists?: boolean
   withAddToRecentSearches?: boolean
 }
 
 function AlbumPreviewCard<TAlbum extends SimplifiedAlbumObject>({
   album,
-  withArtists,
+  withReleaseDate,
   withType,
+  withMainArtist,
+  withArtists,
   withAddToRecentSearches,
 }: AlbumPreviewCardProps<TAlbum>) {
   const router = useRouter()
@@ -65,8 +69,13 @@ function AlbumPreviewCard<TAlbum extends SimplifiedAlbumObject>({
       <div className="flex min-h-16 flex-col items-start">
         <p className="line-clamp-1 font-bold">{album.name}</p>
         <div className="line-clamp-2 text-sm font-medium text-tertiary [&>*:not(:first-child)]:before:mx-1 [&>*:not(:first-child)]:before:content-['•']">
-          <span>{releaseDate}</span>
+          {withReleaseDate && <span>{releaseDate}</span>}
           {withType && <span>{albumType}</span>}
+          {withMainArtist && (
+            <span className="relative z-10">
+              <ArtistLinksNames artists={[album.artists[0]!]} />
+            </span>
+          )}
           {withArtists && (
             <span className="relative z-10">
               <ArtistLinksNames artists={album.artists} />

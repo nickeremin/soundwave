@@ -1,7 +1,7 @@
 import React from "react"
 import { motion, type HTMLMotionProps } from "framer-motion"
+import { MoreHorizontalIcon, RadioIcon, UserPlusIcon } from "lucide-react"
 
-import { LucideIcon } from "@/shared/components/icons"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,6 +16,7 @@ function ArtistMenuButton({ className, ...props }: HTMLMotionProps<"button">) {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <motion.button
+          data-shadcnui-button
           // whileHover={{
           //   scale: 1.1,
           // }}
@@ -23,23 +24,19 @@ function ArtistMenuButton({ className, ...props }: HTMLMotionProps<"button">) {
           //   scale: 1,
           // }}
           className={cn(
-            "relative inline-flex size-10 items-center justify-center rounded-full",
+            "relative inline-flex size-10 items-center justify-center rounded-full outline-none",
             className
           )}
           {...props}
         >
-          <LucideIcon name="MoreHorizontal" className="size-8 transition" />
+          <MoreHorizontalIcon className="size-8 transition" />
         </motion.button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="start" className="p-1">
         <ul className="flex flex-col">
           <DropdownMenuItem className="gap-3">
             <span>
-              <LucideIcon
-                name="UserPlus"
-                strokeWidth={2}
-                className="text-secondary"
-              />
+              <UserPlusIcon className="size-5 text-secondary" />
             </span>
             Follow
           </DropdownMenuItem>
@@ -53,11 +50,7 @@ function ArtistMenuButton({ className, ...props }: HTMLMotionProps<"button">) {
             className="gap-3"
           >
             <span>
-              <LucideIcon
-                name="Radio"
-                strokeWidth={2}
-                className="text-secondary"
-              />
+              <RadioIcon strokeWidth={2} className="size-5 text-secondary" />
             </span>
             Go to artist radio
           </DropdownMenuItem>

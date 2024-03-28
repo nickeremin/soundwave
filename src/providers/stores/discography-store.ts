@@ -1,12 +1,16 @@
 import { type StateCreator } from "zustand"
 
+import { DiscographyFilterType } from "@/shared/types/artist"
+
 import { type BoundStore } from "./bound-store"
 
-type DiscographyType = "album" | "single" | "compilation"
+type DiscographyState = {
+  discographyFilter: DiscographyFilterType
+}
 
-type DiscographyState = {}
-
-type DiscographyActions = {}
+type DiscographyActions = {
+  setDiscographyFilter: (discographyFilter: DiscographyFilterType) => void
+}
 
 export type DiscographyStore = DiscographyState & DiscographyActions
 
@@ -15,4 +19,8 @@ export const createDiscographySlice: StateCreator<
   [],
   [],
   DiscographyStore
-> = (set) => ({})
+> = (set) => ({
+  discographyFilter: "all",
+  setDiscographyFilter: (discographyFilter) =>
+    set(() => ({ discographyFilter })),
+})

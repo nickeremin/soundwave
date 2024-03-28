@@ -13,7 +13,7 @@ import { TrackObject } from "@/shared/types/track"
 import { useLayoutContext } from "@/widgets/layout/layout-context"
 import PlayerButton from "@/features/player/play-button"
 import ArtistLinksNames from "@/entities/artist/artist-name-links"
-import TrackList from "@/entities/track/track-list"
+import TrackList from "@/entities/track/simplified-track-list"
 import { cn, getImageUrl } from "@/shared/lib/utils"
 
 interface PreviewSearchTracksProps {

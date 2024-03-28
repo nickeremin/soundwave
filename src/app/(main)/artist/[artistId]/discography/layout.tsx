@@ -3,6 +3,7 @@
 import React from "react"
 import { type Metadata } from "next"
 
+import MainFooter from "@/widgets/layout/footers/main-footer"
 import DiscographyHeader from "@/widgets/layout/headers/discography-header"
 import { trpc } from "@/shared/trpc/client"
 
@@ -27,8 +28,11 @@ function DiscographyLayout({
 
   return (
     <React.Fragment>
-      <DiscographyHeader artist={artist} />
-      {children}
+      <div className="min-h-screen">
+        <DiscographyHeader artist={artist} />
+        <main className="relative">{children}</main>
+      </div>
+      <MainFooter />
     </React.Fragment>
   )
 }

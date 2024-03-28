@@ -67,3 +67,15 @@ export function useSearchStore<T>(selector: (store: SearchStore) => T) {
 
   return useStore(boundStoreContext, selector)
 }
+
+export function useDiscographyStore<T>(
+  selector: (store: DiscographyStore) => T
+) {
+  const boundStoreContext = React.useContext(BoundStoreContext)
+
+  if (!boundStoreContext) {
+    throw new Error(`useDiscographyStore must be use within BoundStoreProvider`)
+  }
+
+  return useStore(boundStoreContext, selector)
+}

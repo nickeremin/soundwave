@@ -5,7 +5,7 @@ import Image from "next/image"
 import chroma from "chroma-js"
 import { format } from "date-fns"
 
-import { usePageContext } from "@/widgets/providers/page-context-provider"
+import { usePageStore } from "@/widgets/providers/page-context-provider"
 import AddFavoriteAlbumButton from "@/features/favorite/add-favorite-album-button"
 import AlbumMenuButton from "@/features/menu/album-menu-button"
 import PlayButton from "@/features/player/play-button"
@@ -23,7 +23,7 @@ interface AlbumDetailsProps {
 }
 
 function AlbumDetails({ albumId }: AlbumDetailsProps) {
-  const { backgroundColor, setIsVisible, setBackgroundColor } = usePageContext()
+  const { backgroundColor, setIsVisible, setBackgroundColor } = usePageStore()
   const { data: album } = trpc.albumRouter.getAlbum.useQuery({ albumId })
 
   if (!album) return null

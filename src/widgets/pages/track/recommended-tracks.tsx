@@ -2,7 +2,7 @@
 
 import React from "react"
 
-import TrackList from "@/entities/track/track-list"
+import TrackList from "@/entities/track/simplified-track-list"
 import TrackListLoading from "@/entities/track/track-list-loading"
 import { trpc } from "@/shared/trpc/client"
 

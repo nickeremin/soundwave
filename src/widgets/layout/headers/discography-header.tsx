@@ -4,6 +4,7 @@ import { SignedIn, SignedOut } from "@clerk/nextjs"
 
 import { ArtistObject } from "@/shared/types/artist"
 import DiscographyTypeFilter from "@/features/album/discography-type-filter"
+import DiscographyFilterSelect from "@/features/discography/discography-filter-select"
 import DiscographyLayoutFilter from "@/features/discography/discography-layout-filter"
 import BackForwardButtons from "@/features/nav/back-forward-buttons"
 import UserNav from "@/features/nav/user-nav"
@@ -63,7 +64,7 @@ function DiscographyHeader({ artist }: DiscographyHeaderProps) {
             {artist.name}
           </Link>
           <div className="flex items-center gap-2">
-            <DiscographyTypeFilter />
+            <DiscographyFilterSelect artistId={artist.id} />
             <DiscographyLayoutFilter />
           </div>
         </div>

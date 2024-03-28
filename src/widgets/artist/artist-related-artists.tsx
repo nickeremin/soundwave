@@ -9,12 +9,15 @@ import ArtistPreviewCardLoading from "@/entities/artist/artist-preview-card-load
 import { cn } from "@/shared/lib/utils"
 import { trpc } from "@/shared/trpc/client"
 
-interface RelatedArtistsProps {
+interface ArtistRelatedArtistsProps {
   artistId: string
   isPreview?: boolean
 }
 
-function RelatedArtists({ artistId, isPreview }: RelatedArtistsProps) {
+function ArtistRelatedArtists({
+  artistId,
+  isPreview,
+}: ArtistRelatedArtistsProps) {
   const columns = useLayoutStore((state) => state.columnsCount)
   const { data: relatedArtists } =
     trpc.artistRouter.getArtistRelatedArtists.useQuery({ artistId })
@@ -52,7 +55,7 @@ function RelatedArtists({ artistId, isPreview }: RelatedArtistsProps) {
         style={{
           gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
         }}
-        className="grid"
+        className="-mx-3 grid"
       >
         {relatedArtists
           ? relatedArtists
@@ -68,4 +71,4 @@ function RelatedArtists({ artistId, isPreview }: RelatedArtistsProps) {
   )
 }
 
-export default RelatedArtists
+export default ArtistRelatedArtists

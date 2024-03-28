@@ -6,7 +6,7 @@ import { useLayoutStore } from "@/providers/bound-store-provider"
 import { SignedIn, SignedOut } from "@clerk/nextjs"
 import chroma from "chroma-js"
 
-import { ArtistObject } from "@/shared/types/artist"
+import { AlbumObject } from "@/shared/types/album"
 import { usePageStore } from "@/widgets/providers/page-context-provider"
 import BackForwardButtons from "@/features/nav/back-forward-buttons"
 import UserNav from "@/features/nav/user-nav"
@@ -14,12 +14,12 @@ import PlayButton from "@/features/player/play-button"
 import { buttonVariants } from "@/shared/components/ui/button"
 import { cn } from "@/shared/lib/utils"
 
-interface ArtistHeaderProps {
-  artist: ArtistObject
+interface AlbumHeaderProps {
+  album: AlbumObject
   previewEntry: IntersectionObserverEntry | undefined
 }
 
-function ArtistHeader({ artist, previewEntry }: ArtistHeaderProps) {
+function AlbumHeader({ album, previewEntry }: AlbumHeaderProps) {
   const mainContainerRef = useLayoutStore((state) => state.mainContainerRef)
   const { backgroundColor } = usePageStore()
 
@@ -88,7 +88,9 @@ function ArtistHeader({ artist, previewEntry }: ArtistHeaderProps) {
       />
       <nav className="relative flex h-16 w-full items-center justify-between px-6">
         <div className="flex items-center gap-2">
-          <BackForwardButtons />
+          <div>
+            <BackForwardButtons />
+          </div>
           <div
             ref={playContainerRef}
             style={{
@@ -97,7 +99,7 @@ function ArtistHeader({ artist, previewEntry }: ArtistHeaderProps) {
             className="flex items-center gap-2 transition-opacity duration-300"
           >
             <PlayButton className="size-12" />
-            <span className="text-2xl font-bold">{artist.name}</span>
+            <span className="text-2xl font-bold">{album.name}</span>
           </div>
         </div>
         <SignedIn>
@@ -137,4 +139,4 @@ function ArtistHeader({ artist, previewEntry }: ArtistHeaderProps) {
   )
 }
 
-export default ArtistHeader
+export default AlbumHeader

@@ -2,11 +2,13 @@ import React from "react"
 
 import { Skeleton } from "@/shared/components/ui/skeleton"
 
-interface TrackListLoadingProps {
+interface SimplifiedTrackListLoadingProps {
   limit: number
 }
 
-function TrackListLoading({ limit }: TrackListLoadingProps) {
+function SimplifiedTrackListLoading({
+  limit,
+}: SimplifiedTrackListLoadingProps) {
   return (
     <div className="flex flex-col">
       {Array.from({ length: limit }, (_, i) => i).map((_, i) => (
@@ -23,4 +25,4 @@ function TrackListLoading({ limit }: TrackListLoadingProps) {
   )
 }
 
-export default TrackListLoading
+export default SimplifiedTrackListLoading

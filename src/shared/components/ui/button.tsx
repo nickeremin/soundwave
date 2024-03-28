@@ -16,7 +16,7 @@ const buttonVariants = cva(
         secondary: "bg-muted text-primary hover:bg-accent",
         ghost: "hover:bg-accent hover:text-primary",
         destructive: "bg-red text-gray-light hover:bg-red/80",
-        link: "text-primary underline-offset-4 hover:underline",
+        link: "text-tertiary hover:text-primary font-bold",
         success: "bg-blue text-gray-light hover:bg-blue/80 ",
         none: "",
       },

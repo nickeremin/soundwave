@@ -2,9 +2,9 @@
 
 import React from "react"
 
+import ArtistPopularAlbums from "@/widgets/artist/artist-discography"
+import RelatedArtists from "@/widgets/artist/artist-related-artists"
 import MainFooter from "@/widgets/layout/footers/main-footer"
-import ArtistPopularAlbums from "@/widgets/pages/artist/artist-popular-releases"
-import RelatedArtists from "@/widgets/pages/artist/related-artists"
 import AlbumTracks from "@/widgets/pages/track/album-tracks"
 import RecommendedTracks from "@/widgets/pages/track/recommended-tracks"
 import TrackContextProvider from "@/widgets/pages/track/track-context-provider"

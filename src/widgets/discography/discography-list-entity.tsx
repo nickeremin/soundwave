@@ -1,19 +1,78 @@
 "use client"
 
 import React from "react"
+import Image from "next/image"
 import Link from "next/link"
 import { ClockIcon } from "lucide-react"
 
+import { type SimplifiedAlbumObject } from "@/shared/types/album"
+import AddFavoriteAlbumButton from "@/features/favorite/add-favorite-album-button"
 import AddFavoriteTrackButton from "@/features/favorite/add-favorite-track-button"
+import AlbumMenuButton from "@/features/menu/album-menu-button"
 import TrackMenuButton from "@/features/menu/track-menu-button"
+import PlayButton from "@/features/player/play-button"
 import PlayTrackButton from "@/features/player/play-track-button"
 import TrackWrapper from "@/features/player/track-wrapper"
 import ArtistNameLinks from "@/entities/artist/artist-name-links"
-import TrackList from "@/entities/track/simplified-track-list"
-import { LucideIcon } from "@/shared/components/icons"
 import { Skeleton } from "@/shared/components/ui/skeleton"
-import { cn, formatTimeDuration, getImageUrl } from "@/shared/lib/utils"
+import {
+  cn,
+  formatAlbumType,
+  formatReleaseDate,
+  formatTimeDuration,
+  getImageUrl,
+} from "@/shared/lib/utils"
 import { trpc } from "@/shared/trpc/client"
+
+interface DiscographyListEntityProps {
+  album: SimplifiedAlbumObject
+}
+
+function DiscographyListEntity({ album }: DiscographyListEntityProps) {
+  const albumType = formatAlbumType(album.album_type)
+  const releaseDate = formatReleaseDate(album.release_date)
+  const imageUrl = getImageUrl(album.images)
+
+  return (
+    <div className="flex flex-col">
+      <div className="flex gap-7 p-8">
+        <div className="size-[140px] rounded bg-accent shadow-image-lg">
+          {imageUrl ? (
+            <Image
+              src={imageUrl}
+              alt=""
+              width={280}
+              height={280}
+              className="size-full rounded object-cover object-center"
+            />
+          ) : null}
+        </div>
+        <div className="flex flex-col gap-6">
+          <div>
+            <Link href={`/`} className="text-[2rem] font-bold">
+              {album.name}
+            </Link>
+            <p className="text-sm font-medium text-tertiary [&>*:not(:first-child)]:before:mx-1 [&>*:not(:first-child)]:before:content-['•']">
+              <span>{albumType}</span>
+              <span>{releaseDate}</span>
+              <span>
+                {album.total_tracks} {album.total_tracks > 1 ? "songs" : "song"}
+              </span>
+            </p>
+          </div>
+          <div className="flex items-center gap-3">
+            <PlayButton className="size-9" iconClassName="size-5" />
+            <AddFavoriteAlbumButton className="size-7" />
+            <AlbumMenuButton className="size-7" />
+          </div>
+        </div>
+      </div>
+      <div className="px-6">
+        <AlbumTracks albumId={album.id} totalTracks={album.total_tracks} />
+      </div>
+    </div>
+  )
+}
 
 interface AlbumTracksProps {
   albumId: string
@@ -133,4 +192,4 @@ function AlbumTracks({ albumId, totalTracks, isSticky }: AlbumTracksProps) {
   )
 }
 
-export default AlbumTracks
+export default DiscographyListEntity

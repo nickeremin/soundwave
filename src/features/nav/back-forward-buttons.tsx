@@ -20,7 +20,7 @@ function BackForwardButtons() {
           }}
           variant="none"
           size="icon"
-          className="rounded-full bg-accent text-secondary hover:bg-focus hover:text-primary"
+          className="rounded-full bg-black/70 text-secondary hover:bg-black hover:text-primary"
         >
           <ChevronLeftIcon className="mr-0.5 size-7" />
         </Button>
@@ -32,7 +32,7 @@ function BackForwardButtons() {
           }}
           variant="none"
           size="icon"
-          className="rounded-full bg-accent text-secondary hover:bg-focus hover:text-primary"
+          className="rounded-full bg-black/70 text-secondary hover:bg-black hover:text-primary"
         >
           <ChevronRightIcon className="ml-0.5 size-7" />
         </Button>

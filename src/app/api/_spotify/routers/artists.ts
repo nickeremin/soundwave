@@ -40,7 +40,7 @@ export const artistRouter = router({
         const nextUrl = new URL(
           cursor ?? `${env.SPOTIFY_API_BASE_URL}/artists/${artistId}/albums`
         )
-        const limit = nextUrl.searchParams.get("limit")
+        // const limit = nextUrl.searchParams.get("limit")
         const offset = nextUrl.searchParams.get("offset")
 
         const { data } = await spotifyApi.get(`/artists/${artistId}/albums`, {
@@ -48,7 +48,7 @@ export const artistRouter = router({
             market: "ES",
             include_groups:
               include_groups.length > 0 ? include_groups.join(",") : undefined,
-            limit,
+            limit: 5,
             offset,
           },
         })
