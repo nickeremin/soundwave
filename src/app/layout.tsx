@@ -1,6 +1,6 @@
 import React from "react"
 import { type Metadata } from "next"
-import { Inter } from "next/font/google"
+import { Nunito_Sans } from "next/font/google"
 import { enUS } from "@clerk/localizations"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
 
@@ -16,7 +16,7 @@ import { TooltipProvider } from "@/shared/components/ui/tooltip"
 import { cn } from "@/shared/lib/utils"
 import TRPCReactQueryProvider from "@/shared/trpc/trpc-react-query-provider"
 
-const font = Inter({
+const font = Nunito_Sans({
   weight: ["400", "500", "600", "700", "800", "900"],
   subsets: ["cyrillic", "latin"],
 })

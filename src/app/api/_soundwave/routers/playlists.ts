@@ -26,7 +26,7 @@ export const playlistRouter = router({
             description,
           })
           .where(
-            and(eq(playlists.id, playlistId), eq(playlists.userId, userId))
+            and(eq(playlists.id, playlistId), eq(playlists.user_id, userId))
           )
       } catch (error) {
         console.log(error)
@@ -52,7 +52,7 @@ export const playlistRouter = router({
               .select()
               .from(playlists)
               .where(
-                and(eq(playlists.id, playlistId), eq(playlists.userId, userId))
+                and(eq(playlists.id, playlistId), eq(playlists.user_id, userId))
               )
           )[0]
           if (!playlist) return null
@@ -72,7 +72,7 @@ export const playlistRouter = router({
         const userPlaylists = await db
           .select()
           .from(playlists)
-          .where(eq(playlists.userId, userId))
+          .where(eq(playlists.user_id, userId))
         if (!userPlaylists) return null
         return userPlaylists
       } catch (error) {
@@ -90,15 +90,15 @@ export const playlistRouter = router({
         const userPlaylists = await db
           .select()
           .from(playlists)
-          .where(eq(playlists.userId, userId))
+          .where(eq(playlists.user_id, userId))
 
-        await db.insert(playlists).values({
-          id: generateId(),
-          userId: userId,
-          name: `My Playlist #${userPlaylists.length + 1}`,
-          description: null,
-          imageUrl: null,
-        })
+        // await db.insert(playlists).values({
+        //   id: generateId(),
+        //   userId: userId,
+        //   name: `My Playlist #${userPlaylists.length + 1}`,
+        //   description: null,
+        //   imageUrl: null,
+        // })
       } catch (error) {
         console.log(error)
       }

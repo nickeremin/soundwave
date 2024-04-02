@@ -37,10 +37,9 @@ function ArtistAppearsOnAlbums({
 
   React.useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) {
-      console.log("fetching...")
       fetchNextPage()
     }
-  }, [inView])
+  }, [inView, hasNextPage, isFetchingNextPage])
 
   if (albums && albums.pages[0]?.artistAlbums.length == 0) return null
 
@@ -60,14 +59,12 @@ function ArtistAppearsOnAlbums({
             >
               <h2 className="text-2xl">Appears On</h2>
             </Link>
-            {albums && albums.pages[0]!.artistAlbums.length > columns && (
-              <Link
-                href={`/artist/${artistId}/appears-on`}
-                className="text-sm text-tertiary hover:underline"
-              >
-                Show all
-              </Link>
-            )}
+            <Link
+              href={`/artist/${artistId}/appears-on`}
+              className="text-sm text-tertiary hover:underline"
+            >
+              Show all
+            </Link>
           </React.Fragment>
         ) : (
           <h2 className="text-2xl">Appears On</h2>

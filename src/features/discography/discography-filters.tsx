@@ -1,28 +1,27 @@
 "use client"
 
 import React from "react"
-import { useDiscographyStore } from "@/providers/bound-store-provider"
 
-import { DiscographyFilterType } from "@/shared/types/artist"
+import { type DiscographyFilterType } from "@/shared/types/artist"
 import { Button } from "@/shared/components/ui/button"
 import { discographyFilters } from "@/shared/constants/artist"
 import { cn } from "@/shared/lib/utils"
-import { trpc } from "@/shared/trpc/client"
 
 import useDiscographyExistedFilters from "./use-discography-existed-filters"
 
 interface DiscographyFiltersProps {
+  discographyFilter: DiscographyFilterType
+  setDiscographyFilter: React.Dispatch<
+    React.SetStateAction<DiscographyFilterType>
+  >
   artistId: string
 }
 
-function DiscographyFilters({ artistId }: DiscographyFiltersProps) {
-  const discographyFilter = useDiscographyStore(
-    (state) => state.discographyFilter
-  )
-  const setDiscographyFilter = useDiscographyStore(
-    (state) => state.setDiscographyFilter
-  )
-
+function DiscographyFilters({
+  artistId,
+  discographyFilter,
+  setDiscographyFilter,
+}: DiscographyFiltersProps) {
   const { existedFilters, isLoading } = useDiscographyExistedFilters(artistId)
 
   return (

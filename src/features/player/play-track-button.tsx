@@ -4,7 +4,6 @@ import React from "react"
 import { HTMLMotionProps, motion } from "framer-motion"
 import { PlayIcon } from "lucide-react"
 
-import { LucideIcon } from "@/shared/components/icons"
 import { cn } from "@/shared/lib/utils"
 
 import { usePlayerContext } from "./player-context-provider"

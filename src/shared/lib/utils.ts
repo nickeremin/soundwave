@@ -27,13 +27,34 @@ export function formatReleaseDate(releaseDate: string) {
   return format(new Date(releaseDate ?? 0), "yyyy")
 }
 
+export function formatTrackDuration(duration: number) {
+  const seconds = Math.floor((duration / 1000) % 60)
+  const minutes = Math.floor((duration / (1000 * 60)) % 60)
+  const hours = Math.floor((duration / (1000 * 60 * 60)) % 24)
+
+  const sDisplay =
+    seconds > 0 ? (seconds < 10 ? `0${seconds}` : `${seconds}`) : ""
+  const mDisplay = minutes > 0 ? `${minutes}:` : ""
+  const hDisplay = hours > 0 ? `${hours}:` : ""
+
+  return `${hDisplay}${mDisplay}${sDisplay}`
+}
+
 export function formatAlbumDuration(album: AlbumObject) {
-  return format(
-    new Date(
-      album.tracks.items.reduce((prev, cur) => prev + cur.duration_ms, 0)
-    ),
-    "m 'min' ss 'sec'"
+  const duration = album.tracks.items.reduce(
+    (prev, cur) => prev + cur.duration_ms,
+    0
   )
+
+  const seconds = Math.floor((duration / 1000) % 60)
+  const minutes = Math.floor((duration / (1000 * 60)) % 60)
+  const hours = Math.floor((duration / (1000 * 60 * 60)) % 24)
+
+  if (hours > 0) {
+    return `about ${hours} h ${minutes} min`
+  } else {
+    return `${minutes} min ${seconds} sec`
+  }
 }
 
 export function getImageUrl(images: ImageObject[] | undefined) {

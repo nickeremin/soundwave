@@ -6,7 +6,7 @@ import chroma from "chroma-js"
 import { format } from "date-fns"
 
 import { usePageStore } from "@/widgets/providers/page-context-provider"
-import AddFavoriteAlbumButton from "@/features/favorite/add-favorite-album-button"
+import AddFavoriteAlbumButton from "@/features/album/add-favorite-album-button"
 import AlbumMenuButton from "@/features/menu/album-menu-button"
 import PlayButton from "@/features/player/play-button"
 import MainArtistLink from "@/entities/artist/main-artist-link"

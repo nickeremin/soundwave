@@ -39,12 +39,12 @@ export const albumRouter = router({
         const nextUrl = new URL(
           cursor ?? `${env.SPOTIFY_API_BASE_URL}/albums/${albumId}/tracks`
         )
-        const limit = nextUrl.searchParams.get("limit")
+
         const offset = nextUrl.searchParams.get("offset")
 
         const { data } = await spotifyApi.get(`/albums/${albumId}/tracks`, {
           params: {
-            limit,
+            limit: 50,
             offset,
           },
         })

@@ -2,42 +2,48 @@
 
 import React from "react"
 
-import PlayableTrackEntityLoading from "@/entities/track/ordered-track-entity-loading"
+import OrderedTrackEntityLoading from "@/entities/track/ordered-track-entity-loading"
 import { Button } from "@/shared/components/ui/button"
 import { trpc } from "@/shared/trpc/client"
 
-import PlayableTrackEntity from "../track/ordered-track-entity"
+import OrderedTrackEntity from "./ordered-track-entity"
 
-interface ArtistTopTracksProps {
+interface TrackArtistPopularTracksProps {
   artistId: string
+  artistName: string
 }
 
-function ArtistTopTracks({ artistId }: ArtistTopTracksProps) {
+function TrackArtistPopularTracks({
+  artistId,
+  artistName,
+}: TrackArtistPopularTracksProps) {
   const [isExpanded, setIsExpanded] = React.useState(false)
   const { data: tracks } = trpc.artistRouter.getArtistTopTracks.useQuery({
     artistId,
   })
 
-  if (tracks && tracks.length == 0) return null
-
   const visibleTracks = tracks ? tracks.slice(0, isExpanded ? 10 : 5) : []
 
   return (
     <div className="flex flex-col gap-2">
-      <h2 className="text-2xl font-bold">Popular</h2>
+      <div className="flex flex-col">
+        <p className="text-sm font-medium text-tertiary">Popular tracks by</p>
+        <h2 className="text-2xl font-bold">{artistName}</h2>
+      </div>
       <div>
         {tracks
           ? visibleTracks.map((track, i) => (
-              <PlayableTrackEntity
+              <OrderedTrackEntity
                 key={track.id}
                 trackNumber={i + 1}
                 track={track}
                 withImage
+                withNames={false}
               />
             ))
           : Array(isExpanded ? 10 : 5)
               .fill(0)
-              .map((_, i) => <PlayableTrackEntityLoading key={i} withImage />)}
+              .map((_, i) => <OrderedTrackEntityLoading key={i} />)}
         <Button
           variant="link"
           size="none"
@@ -53,4 +59,4 @@ function ArtistTopTracks({ artistId }: ArtistTopTracksProps) {
   )
 }
 
-export default ArtistTopTracks
+export default TrackArtistPopularTracks

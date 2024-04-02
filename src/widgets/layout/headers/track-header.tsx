@@ -6,7 +6,7 @@ import { useLayoutStore } from "@/providers/bound-store-provider"
 import { SignedIn, SignedOut } from "@clerk/nextjs"
 import chroma from "chroma-js"
 
-import { type AlbumObject } from "@/shared/types/album"
+import { type TrackObject } from "@/shared/types/track"
 import { usePageStore } from "@/widgets/providers/page-context-provider"
 import BackForwardButtons from "@/features/nav/back-forward-buttons"
 import UserNav from "@/features/nav/user-nav"
@@ -14,12 +14,12 @@ import PlayButton from "@/features/player/play-button"
 import { buttonVariants } from "@/shared/components/ui/button"
 import { cn } from "@/shared/lib/utils"
 
-interface AlbumHeaderProps {
-  album: AlbumObject
+interface TrackHeaderProps {
+  track: TrackObject
   previewEntry: IntersectionObserverEntry | undefined
 }
 
-function AlbumHeader({ album, previewEntry }: AlbumHeaderProps) {
+function TrackHeader({ track, previewEntry }: TrackHeaderProps) {
   const mainContainerRef = useLayoutStore((state) => state.mainContainerRef)
   const { backgroundColor } = usePageStore()
 
@@ -97,7 +97,7 @@ function AlbumHeader({ album, previewEntry }: AlbumHeaderProps) {
             className="flex items-center gap-2 transition-opacity duration-300"
           >
             <PlayButton className="size-12" />
-            <span className="text-2xl font-bold">{album.name}</span>
+            <span className="text-2xl font-bold">{track.name}</span>
           </div>
         </div>
         <SignedIn>
@@ -137,4 +137,4 @@ function AlbumHeader({ album, previewEntry }: AlbumHeaderProps) {
   )
 }
 
-export default AlbumHeader
+export default TrackHeader

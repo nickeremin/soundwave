@@ -4,16 +4,18 @@ import React from "react"
 import Image from "next/image"
 import Link from "next/link"
 
-import { ArtistShort } from "@/shared/types/artist"
+import { type SimplifiedArtistObject } from "@/shared/types/artist"
 import { getImageUrl } from "@/shared/lib/utils"
 import { trpc } from "@/shared/trpc/client"
 
+import ArtistNameLinks from "./artist-name-links"
+
 interface TrackMainArtistLinkProps {
-  artist: ArtistShort
+  artist: SimplifiedArtistObject
 }
 
 function MainArtistLink({ artist }: TrackMainArtistLinkProps) {
-  const { data } = trpc.artistRouter.getArtist.useQuery(artist.id)
+  const { data } = trpc.artistRouter.getArtist.useQuery({ artistId: artist.id })
 
   const imageUrl = getImageUrl(data?.images)
 
@@ -31,9 +33,7 @@ function MainArtistLink({ artist }: TrackMainArtistLinkProps) {
         ) : null}
       </div>
       <p className="text-sm font-bold">
-        <Link href={`/artist/${artist.id}`} className="hover:underline">
-          {artist.name}
-        </Link>
+        <ArtistNameLinks artists={[artist]} />
       </p>
     </div>
   )

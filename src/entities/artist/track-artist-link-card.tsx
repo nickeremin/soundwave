@@ -2,11 +2,11 @@ import React from "react"
 import Image from "next/image"
 import Link from "next/link"
 
-import { Artist } from "@/shared/types/artist"
+import { type ArtistObject } from "@/shared/types/artist"
 import { getImageUrl } from "@/shared/lib/utils"
 
 interface TrackArtistLinkCardProps {
-  artist: Artist
+  artist: ArtistObject
 }
 
 function TrackArtistLinkCard({ artist }: TrackArtistLinkCardProps) {
@@ -27,7 +27,7 @@ function TrackArtistLinkCard({ artist }: TrackArtistLinkCardProps) {
           ) : null}
         </div>
         <div className="flex flex-col">
-          <p className="text-sm font-medium">Artist</p>
+          <p className="text-sm font-semibold">Artist</p>
           <p className="font-bold">{artist.name}</p>
         </div>
       </div>

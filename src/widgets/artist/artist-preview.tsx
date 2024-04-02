@@ -5,6 +5,7 @@ import Image from "next/image"
 import chroma from "chroma-js"
 import { ShieldCheckIcon } from "lucide-react"
 
+import { CustomIcon } from "@/shared/components/icons"
 import { getAverageColor, getImageUrl } from "@/shared/lib/utils"
 import { trpc } from "@/shared/trpc/client"
 
@@ -52,21 +53,23 @@ const ArtistPreview = React.forwardRef<HTMLDivElement, ArtistPreviewProps>(
               />
             ) : null}
           </div>
-          <div className="relative flex flex-col items-start text-sm font-semibold">
+          <div className="relative flex flex-col items-start font-semibold">
             <div className="flex items-center gap-2">
-              <ShieldCheckIcon
-                fill="#0a84ff"
-                strokeWidth={1.5}
-                className="size-7"
-              />
-              Verified Artist
+              <div className="relative inline-flex size-6 items-center justify-center">
+                <span className="absolute inset-1 bg-primary" />
+                <CustomIcon
+                  name="VerifiedArtist"
+                  className="absolute size-6 fill-pink"
+                />
+              </div>
+              <span className="text-sm">Verified Artist</span>
             </div>
             <span className="mb-2 line-clamp-3 select-none">
               <h1 className="text-[6rem] font-black leading-tight">
                 {artist.name}
               </h1>
             </span>
-            <span className="text-base">
+            <span className="">
               {artist.followers.total.toLocaleString("en", {
                 useGrouping: true,
               })}{" "}

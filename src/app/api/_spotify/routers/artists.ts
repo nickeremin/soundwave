@@ -25,6 +25,25 @@ export const artistRouter = router({
         catchAxiosError(error)
       }
     }),
+  getSeveralArtists: publicProcedure
+    .input(
+      z.object({
+        artistIds: z.string().array(),
+      })
+    )
+    .query(async ({ input: { artistIds } }) => {
+      try {
+        const { data } = await spotifyApi.get("/artists", {
+          params: {
+            ids: artistIds.join(","),
+          },
+        })
+        const artists = artistSchema.array().parse(data.artists)
+        return artists
+      } catch (error) {
+        catchAxiosError(error)
+      }
+    }),
   getArtistAlbums: publicProcedure
     .input(
       z.object({

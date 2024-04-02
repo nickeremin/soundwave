@@ -51,12 +51,10 @@ function ArtistHeader({ artist, previewEntry }: ArtistHeaderProps) {
         headerRef.current.style.setProperty("--header-opacity", "0")
       }
 
-      if (scrollTop >= previewHeight - headerHeight) {
+      if (scrollTop >= previewHeight - headerHeight / 2) {
         playContainerRef.current.style.opacity = "1"
-        headerRef.current.classList.add("shadow-boundary")
       } else {
         playContainerRef.current.style.opacity = "0"
-        headerRef.current.classList.remove("shadow-boundary")
       }
     }
 

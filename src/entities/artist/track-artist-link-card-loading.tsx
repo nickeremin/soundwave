@@ -4,7 +4,7 @@ import { Skeleton } from "@/shared/components/ui/skeleton"
 
 function TrackArtistLinkCardLoading() {
   return (
-    <div className="flex w-full items-center gap-4 p-2 lg:max-w-md">
+    <div className="flex w-full items-center gap-4 p-2">
       <div className="relative size-20 overflow-hidden rounded-full bg-muted shadow-image-lg">
         <Skeleton className="size-full object-cover object-center" />
       </div>

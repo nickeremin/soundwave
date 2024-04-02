@@ -17,7 +17,7 @@ const TooltipContent = React.forwardRef<
     ref={ref}
     sideOffset={sideOffset}
     className={cn(
-      "z-[100] overflow-hidden rounded bg-muted px-2 py-1 text-sm text-primary shadow-image-sm animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95",
+      "pointer-events-none z-[100] overflow-hidden rounded bg-muted px-2 py-1 text-sm font-medium text-primary shadow-image-sm animate-in fade-in-0",
       className
     )}
     {...props}
@@ -43,6 +43,7 @@ function Tooltip({
 }: TooltipProps) {
   return (
     <TooltipPrimitive.Root
+      disableHoverableContent
       open={open}
       onOpenChange={onOpenChange}
       defaultOpen={false}

@@ -1,25 +1,23 @@
 "use client"
 
 import React from "react"
-import chroma from "chroma-js"
 
-import FollowArtistButton from "@/features/favorite/follow-artist-button"
-import ArtistMenuButton from "@/features/menu/artist-menu-button"
+import { type SimplifiedArtistObject } from "@/shared/types/artist"
+import ArtistMenuButton from "@/features/artist/artist-menu-button"
+import FollowArtistButton from "@/features/artist/follow-artist-button"
 import PlayButton from "@/features/player/play-button"
 
-import { usePageStore } from "../providers/page-context-provider"
+interface ArtistActionBarProps {
+  artist: SimplifiedArtistObject
+}
 
-function ArtistActionBar() {
+function ArtistActionBar({ artist }: ArtistActionBarProps) {
   return (
-    <React.Fragment>
-      <div className="flex flex-col gap-6">
-        <div className="flex items-center gap-8">
-          <PlayButton className="size-14" />
-          <FollowArtistButton />
-          <ArtistMenuButton />
-        </div>
-      </div>
-    </React.Fragment>
+    <div className="flex items-center gap-8">
+      <PlayButton />
+      <FollowArtistButton artist={artist} />
+      <ArtistMenuButton artist={artist} />
+    </div>
   )
 }
 

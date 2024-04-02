@@ -6,7 +6,7 @@ import chroma from "chroma-js"
 import { BadgeCheckIcon } from "lucide-react"
 
 import { usePageStore } from "@/widgets/providers/page-context-provider"
-import FollowArtistButton from "@/features/favorite/follow-artist-button"
+import FollowArtistButton from "@/features/artist/follow-artist-button"
 import ArtistMenuButton from "@/features/menu/artist-menu-button"
 import PlayButton from "@/features/player/play-button"
 import { getAverageColor, getImageUrl } from "@/shared/lib/utils"

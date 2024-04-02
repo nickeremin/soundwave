@@ -2,25 +2,21 @@
 
 import React from "react"
 import Link from "next/link"
-import {
-  useDiscographyStore,
-  useLayoutStore,
-} from "@/providers/bound-store-provider"
+import { useLayoutStore } from "@/providers/bound-store-provider"
 
-import { type DiscographyFilterType } from "@/shared/types/artist"
-import DiscographyFilters from "@/features/discography/discography-filters"
 import AlbumPreviewCard from "@/entities/album/album-preview-card"
 import AlbumPreviewCardLoading from "@/entities/album/album-preview-card-loading"
 import { trpc } from "@/shared/trpc/client"
 
-interface ArtistDiscographyProps {
+interface AlbumMoreArtistDiscographyProps {
   artistId: string
+  artistName: string
 }
 
-function ArtistDiscography({ artistId }: ArtistDiscographyProps) {
-  const [discographyFilter, setDiscographyFilter] =
-    React.useState<DiscographyFilterType>("all")
-
+function AlbumMoreArtistDiscography({
+  artistId,
+  artistName,
+}: AlbumMoreArtistDiscographyProps) {
   const columns = useLayoutStore((state) => state.columnsCount)
 
   const { data: albums } = trpc.artistRouter.getArtistAlbums.useQuery({
@@ -52,25 +48,19 @@ function ArtistDiscography({ artistId }: ArtistDiscographyProps) {
     <div className="flex flex-col gap-2">
       <div className="flex items-baseline justify-between font-bold">
         <Link
-          href={`/artist/${artistId}/discography/${discographyFilter}`}
+          href={`/artist/${artistId}/discography/all`}
           className="decoration-2 hover:underline"
         >
-          <h2 className="text-2xl">Discography</h2>
+          <h2 className="text-2xl">More by {artistName}</h2>
         </Link>
         <Link
-          href={`/artist/${artistId}/discography/${discographyFilter}`}
+          href={`/artist/${artistId}/discography/all`}
           className="text-sm text-tertiary hover:underline"
         >
-          Show all
+          See discography
         </Link>
       </div>
-      <div className="flex items-center gap-2">
-        <DiscographyFilters
-          artistId={artistId}
-          discographyFilter={discographyFilter}
-          setDiscographyFilter={setDiscographyFilter}
-        />
-      </div>
+
       <div
         style={{
           gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`,
@@ -82,25 +72,16 @@ function ArtistDiscography({ artistId }: ArtistDiscographyProps) {
               <AlbumPreviewCardLoading key={i} />
             ))
           : allDiscography
-              .filter((item) => {
-                if (discographyFilter == "all") return true
-                else return discographyFilter == item.album_type.toLowerCase()
-              })
               .toSorted((first, second) =>
                 second.release_date.localeCompare(first.release_date)
               )
               .slice(0, columns)
               .map((item) => (
-                <AlbumPreviewCard
-                  key={item.id}
-                  album={item}
-                  withReleaseDate
-                  withType
-                />
+                <AlbumPreviewCard key={item.id} album={item} withReleaseDate />
               ))}
       </div>
     </div>
   )
 }
 
-export default ArtistDiscography
+export default AlbumMoreArtistDiscography

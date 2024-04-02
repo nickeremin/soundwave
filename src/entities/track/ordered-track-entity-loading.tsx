@@ -2,15 +2,11 @@ import React from "react"
 
 import { Skeleton } from "@/shared/components/ui/skeleton"
 
-interface PlayableTrackEntityLoading {
-  trackNumber?: number
+interface OrderedTrackEntityLoading {
   withImage?: boolean
 }
 
-function PlayableTrackEntityLoading({
-  trackNumber,
-  withImage,
-}: PlayableTrackEntityLoading) {
+function OrderedTrackEntityLoading({ withImage }: OrderedTrackEntityLoading) {
   return (
     <div className="flex items-center gap-3 p-2">
       <Skeleton className="size-10" />
@@ -23,4 +19,4 @@ function PlayableTrackEntityLoading({
   )
 }
 
-export default PlayableTrackEntityLoading
+export default OrderedTrackEntityLoading

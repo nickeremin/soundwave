@@ -6,7 +6,7 @@ import Link from "next/link"
 import { ClockIcon } from "lucide-react"
 
 import { type SimplifiedAlbumObject } from "@/shared/types/album"
-import AddFavoriteAlbumButton from "@/features/favorite/add-favorite-album-button"
+import AddFavoriteAlbumButton from "@/features/album/add-favorite-album-button"
 import AddFavoriteTrackButton from "@/features/favorite/add-favorite-track-button"
 import AlbumMenuButton from "@/features/menu/album-menu-button"
 import TrackMenuButton from "@/features/menu/track-menu-button"

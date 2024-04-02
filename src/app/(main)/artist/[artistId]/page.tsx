@@ -36,7 +36,7 @@ function ArtistPage({ params: { artistId } }: ArtistPageProps) {
           <ArtistPreview ref={artistPreviewRef} artistId={artistId} />
           <div className="relative px-6">
             <div className="py-5">
-              <ArtistActionBar />
+              <ArtistActionBar artist={artist} />
             </div>
             <div className="space-y-10">
               <ArtistTopTracks artistId={artistId} />

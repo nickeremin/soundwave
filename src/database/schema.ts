@@ -1,12 +1,18 @@
 import { InferInsertModel, InferSelectModel, relations } from "drizzle-orm"
-import { boolean, numeric, pgTable, text, timestamp } from "drizzle-orm/pg-core"
+import { boolean, numeric, pgTable, text } from "drizzle-orm/pg-core"
+import { v4 as uuidv4 } from "uuid"
 
 export const playlists = pgTable("playlist", {
-  id: text("id").notNull().primaryKey(),
-  userId: text("user_id").notNull(),
+  id: text("id")
+    .notNull()
+    .primaryKey()
+    .$defaultFn(() => uuidv4()),
+  user_id: text("user_id").notNull(),
   name: text("name").notNull(),
   description: text("description"),
-  imageUrl: text("image_url"),
+  duration_ms: numeric("duration_ms").notNull().default("0"),
+  total_tracks: numeric("total_tracks").notNull().default("0"),
+  image_url: text("image_url"),
 })
 
 export const playlistTracks = pgTable("playlist_track", {

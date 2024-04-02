@@ -2,12 +2,15 @@
 
 import React from "react"
 import Image from "next/image"
+import Link from "next/link"
+import { useUser } from "@clerk/nextjs"
 import chroma from "chroma-js"
 
 import MainArtistLink from "@/entities/artist/main-artist-link"
 import {
   formatAlbumDuration,
   formatReleaseDate,
+  formatTrackDuration,
   getAverageColor,
   getImageUrl,
 } from "@/shared/lib/utils"
@@ -15,22 +18,23 @@ import { trpc } from "@/shared/trpc/client"
 
 import { usePageStore } from "../providers/page-context-provider"
 
-interface AlbumPreviewProps {
-  albumId: string
+interface PlaylistPreviewProps {
+  playlistId: string
 }
 
-const AlbumPreview = React.forwardRef<HTMLDivElement, AlbumPreviewProps>(
-  function ({ albumId }, ref) {
+const PlaylistPreview = React.forwardRef<HTMLDivElement, PlaylistPreviewProps>(
+  function ({ playlistId }, ref) {
+    const { user } = useUser()
+
     const { backgroundColor, setIsVisible, setBackgroundColor } = usePageStore()
-    const { data: album } = trpc.albumRouter.getAlbum.useQuery({ albumId })
+    const { data: playlist } = trpc.playlistRouter.getPlaylist.useQuery({
+      playlistId,
+    })
 
-    if (!album) return null
+    if (!playlist) return null
 
-    console.log(album.tracks.items)
-
-    const imageUrl = getImageUrl(album.images)
-    const albumDate = formatReleaseDate(album.release_date)
-    const albumDuration = formatAlbumDuration(album)
+    const imageUrl = playlist.image_url
+    const playlistDuration = formatTrackDuration(Number(playlist.duration_ms))
 
     return (
       <React.Fragment>
@@ -61,22 +65,18 @@ const AlbumPreview = React.forwardRef<HTMLDivElement, AlbumPreviewProps>(
             ) : null}
           </div>
           <div className="relative flex flex-col items-start text-sm font-medium">
-            <span className="font-semibold">Album</span>
+            <span className="font-semibold">Playlist</span>
             <span className="mb-2 line-clamp-3">
               <h1 className="text-[4rem] font-black leading-tight">
-                {album.name}
+                {playlist.name}
               </h1>
             </span>
             <div className="flex flex-wrap items-center [&>*:not(:first-child)]:before:mx-1 [&>*:not(:first-child)]:before:content-['•']">
-              <MainArtistLink artist={album.artists[0]!} />
-              <span>{albumDate}</span>
-              {album.total_tracks > 50 ? (
-                <span>{album.total_tracks} songs</span>
-              ) : (
-                <span>
-                  {album.total_tracks} songs, {albumDuration}
-                </span>
-              )}
+              {user && <Link href={`/user/${user.id}`}>{user.username}</Link>}
+
+              <span>
+                {playlist.total_tracks} songs, {playlistDuration}
+              </span>
             </div>
           </div>
         </div>
@@ -93,6 +93,6 @@ const AlbumPreview = React.forwardRef<HTMLDivElement, AlbumPreviewProps>(
     )
   }
 )
-AlbumPreview.displayName = "AlbumPreview"
+PlaylistPreview.displayName = "PlaylistPreview"
 
-export default AlbumPreview
+export default PlaylistPreview

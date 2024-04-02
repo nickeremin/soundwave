@@ -26,9 +26,13 @@ export const trackRouter = router({
     .input(
       z
         .object({
-          seed_artists: z.string().array().max(5, "Max 5 artist ids"),
-          seed_genres: z.string().array().max(5, "Max 5 genres"),
-          seed_tracks: z.string().array().max(5, "Max 5 track ids"),
+          seed_artists: z
+            .string()
+            .array()
+            .max(5, "Max 5 artist ids")
+            .optional(),
+          seed_genres: z.string().array().max(5, "Max 5 genres").optional(),
+          seed_tracks: z.string().array().max(5, "Max 5 track ids").optional(),
         })
         .refine(
           (obj) => {
@@ -44,12 +48,12 @@ export const trackRouter = router({
       try {
         const { data } = await spotifyApi.get("/recommendations", {
           params: {
-            seed_artists: seed_artists.join(","),
-            seed_genres: seed_genres.join(","),
-            seed_tracks: seed_tracks.join(","),
+            seed_artists: seed_artists?.join(","),
+            seed_genres: seed_genres?.join(","),
+            seed_tracks: seed_tracks?.join(","),
           },
         })
-        const recommendedTracks = trackSchema.parse(data.tracks)
+        const recommendedTracks = trackSchema.array().parse(data.tracks)
         return recommendedTracks
       } catch (error) {
         catchAxiosError(error)

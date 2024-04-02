@@ -7,7 +7,7 @@ import chroma from "chroma-js"
 
 import { useEditPlaylistDetailsContext } from "@/widgets/providers/edit-playlist-details-provider"
 import { usePageContext } from "@/widgets/providers/page-context-provider"
-import PlaylistMenuButton from "@/features/menu/playlist-menu-button"
+import PlaylistMenuButton from "@/features/playlist/playlist-menu-button"
 import { LucideIcon } from "@/shared/components/icons"
 import { getAverageColor } from "@/shared/lib/utils"
 import { trpc } from "@/shared/trpc/client"
