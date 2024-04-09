@@ -3,10 +3,10 @@
 import React from "react"
 import Image from "next/image"
 import Link from "next/link"
-import chroma from "chroma-js"
 import { format } from "date-fns"
 
 import MainArtistLink from "@/entities/artist/main-artist-link"
+import PreviewBackgroundGradient from "@/entities/layout/preview-background-gradient"
 import {
   formatTimeDuration,
   getAverageColor,
@@ -14,7 +14,7 @@ import {
 } from "@/shared/lib/utils"
 import { trpc } from "@/shared/trpc/client"
 
-import { usePageStore } from "../providers/page-context-provider"
+import { usePageStore } from "../../providers/page-context-provider"
 
 interface TrackPreviewProps {
   trackId: string
@@ -22,7 +22,7 @@ interface TrackPreviewProps {
 
 const TrackPreview = React.forwardRef<HTMLDivElement, TrackPreviewProps>(
   function ({ trackId }, ref) {
-    const { backgroundColor, setIsVisible, setBackgroundColor } = usePageStore()
+    const { setIsVisible, setBackgroundColor } = usePageStore()
 
     const { data: track } = trpc.trackRouter.getTrack.useQuery({ trackId })
 
@@ -37,14 +37,7 @@ const TrackPreview = React.forwardRef<HTMLDivElement, TrackPreviewProps>(
     return (
       <React.Fragment>
         <div ref={ref} className="relative flex h-[344px] items-end gap-6 p-6">
-          <div
-            style={{
-              backgroundColor: backgroundColor
-                ? chroma(backgroundColor.hex).saturate().hex()
-                : "transparent",
-            }}
-            className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50"
-          />
+          <PreviewBackgroundGradient order={1} />
           <div className="relative size-[clamp(128px,128px_+_(100vw-320px-600px)/424*104,232px)] shrink-0 overflow-hidden rounded-md bg-accent shadow-image-lg">
             {imageUrl ? (
               <Image
@@ -55,7 +48,7 @@ const TrackPreview = React.forwardRef<HTMLDivElement, TrackPreviewProps>(
                 priority
                 onLoad={async (e) => {
                   const color = getAverageColor(e.currentTarget)
-                  setBackgroundColor(color)
+                  setBackgroundColor(color.hex)
                   setIsVisible(true)
                 }}
                 className="size-full object-cover object-center"
@@ -84,17 +77,11 @@ const TrackPreview = React.forwardRef<HTMLDivElement, TrackPreviewProps>(
             </div>
           </div>
         </div>
-        <div
-          style={{
-            backgroundColor: backgroundColor
-              ? chroma(backgroundColor.hex).saturate().hex()
-              : undefined,
-          }}
-          className="absolute h-[240px] w-full bg-gradient-to-b from-black/60 to-background-100"
-        />
+        <PreviewBackgroundGradient order={2} />
       </React.Fragment>
     )
   }
 )
+TrackPreview.displayName = "TrackPreview"
 
 export default TrackPreview

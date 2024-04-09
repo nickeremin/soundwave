@@ -25,7 +25,7 @@ function AuthLayout({ children }: AuthLayoutProps) {
             sizes="(max-width: 768px) 100vw, 50vw"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-background/75 to-background/25" />
-          <div className="absolute inset-0 flex flex-col justify-center px-6 pb-28 text-[5rem] font-extrabold ">
+          <div className="absolute inset-0 flex flex-col justify-center px-6 pb-28 text-[5rem] font-black ">
             <div className="grid grid-rows-3">
               <div className="justify-self-start">
                 <GradientText type="start" text="You are," />

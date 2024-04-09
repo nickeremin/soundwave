@@ -1,15 +1,15 @@
 "use client"
 
 import React from "react"
+import PageContextProvider from "@/providers/page-context-provider"
 import { useInView } from "react-intersection-observer"
 
 import AlbumActionBar from "@/widgets/album/album-action-bar"
 import AlbumMoreArtistDiscography from "@/widgets/album/album-more-artist-discography"
 import AlbumPreview from "@/widgets/album/album-preview"
 import AlbumTracks from "@/widgets/album/album-tracks"
-import MainFooter from "@/widgets/layout/footers/main-footer"
 import AlbumHeader from "@/widgets/layout/headers/album-header"
-import PageContextProvider from "@/widgets/providers/page-context-provider"
+import MainFooter from "@/widgets/layout/main-footer"
 import { trpc } from "@/shared/trpc/client"
 
 interface AlbumPageProps {

@@ -2,14 +2,13 @@ import { z } from "zod"
 
 import { env } from "@/shared/components/env.mjs"
 import { catchAxiosError } from "@/shared/lib/utils"
-import {
-  albumSchema,
-  simplifiedAlbumsSchema,
-} from "@/shared/lib/validations/album"
+import { albumSchema } from "@/shared/lib/validations/album"
 import { simplifiedTracksSchema } from "@/shared/lib/validations/track"
 import { publicProcedure, router } from "@/shared/trpc/trpc"
 
 import { spotifyApi } from ".."
+
+const LIMIT = 50
 
 export const albumRouter = router({
   getAlbum: publicProcedure
@@ -44,7 +43,7 @@ export const albumRouter = router({
 
         const { data } = await spotifyApi.get(`/albums/${albumId}/tracks`, {
           params: {
-            limit: 50,
+            limit: LIMIT,
             offset,
           },
         })

@@ -11,10 +11,10 @@ interface PlayButtonProps extends HTMLMotionProps<"button"> {
   iconClassName?: string
 }
 
-function PlayButton({ iconClassName, className, ...props }: PlayButtonProps) {
+function PlayButton({ className, iconClassName, ...props }: PlayButtonProps) {
   return (
     <Tooltip content={"Play"}>
-      <div className="relative size-14">
+      <div className={cn("relative size-14 rounded-full", className)}>
         <motion.button
           data-shadcnui-button
           whileHover={{
@@ -23,10 +23,7 @@ function PlayButton({ iconClassName, className, ...props }: PlayButtonProps) {
           whileTap={{
             scale: 1,
           }}
-          className={cn(
-            "absolute inline-flex size-14 items-center justify-center rounded-full bg-pink outline-none",
-            className
-          )}
+          className="absolute inline-flex size-full items-center justify-center rounded-full bg-pink outline-none"
           {...props}
         >
           <PlayIcon

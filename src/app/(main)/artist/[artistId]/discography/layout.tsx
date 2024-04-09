@@ -1,15 +1,10 @@
 "use client"
 
 import React from "react"
-import { type Metadata } from "next"
 
-import MainFooter from "@/widgets/layout/footers/main-footer"
 import DiscographyHeader from "@/widgets/layout/headers/discography-header"
+import MainFooter from "@/widgets/layout/main-footer"
 import { trpc } from "@/shared/trpc/client"
-
-export const metadata: Metadata = {
-  title: "Artist Discography | Soundwave",
-}
 
 interface DiscographyLayoutProps {
   children: React.ReactNode

@@ -1,18 +1,16 @@
 "use client"
 
 import React from "react"
-import Link from "next/link"
 import { useLayoutStore } from "@/providers/bound-store-provider"
+import { usePageStore } from "@/providers/page-context-provider"
 import { SignedIn, SignedOut } from "@clerk/nextjs"
 import chroma from "chroma-js"
 
 import { type TrackObject } from "@/shared/types/track"
-import { usePageStore } from "@/widgets/providers/page-context-provider"
 import BackForwardButtons from "@/features/nav/back-forward-buttons"
+import LogInSignUpButtons from "@/features/nav/login-signup-buttons"
 import UserNav from "@/features/nav/user-nav"
 import PlayButton from "@/features/player/play-button"
-import { buttonVariants } from "@/shared/components/ui/button"
-import { cn } from "@/shared/lib/utils"
 
 interface TrackHeaderProps {
   track: TrackObject
@@ -79,7 +77,7 @@ function TrackHeader({ track, previewEntry }: TrackHeaderProps) {
         style={{
           opacity: "var(--header-opacity)",
           backgroundColor: backgroundColor
-            ? chroma(backgroundColor.hex).saturate().hex()
+            ? chroma(backgroundColor).hex()
             : "transparent",
         }}
         className="absolute inset-0 bg-gradient-to-b from-black/60 to-black/60"
@@ -106,31 +104,7 @@ function TrackHeader({ track, previewEntry }: TrackHeaderProps) {
           </div>
         </SignedIn>
         <SignedOut>
-          <div className="flex items-center gap-3">
-            <Link
-              href="/login"
-              className={cn(
-                buttonVariants({
-                  variant: "outline",
-                  size: "lg",
-                  className: "rounded-full font-semibold",
-                })
-              )}
-            >
-              Log In
-            </Link>
-            <Link
-              href="/signup"
-              className={cn(
-                buttonVariants({
-                  size: "lg",
-                  className: "rounded-full font-semibold",
-                })
-              )}
-            >
-              Sign Up
-            </Link>
-          </div>
+          <LogInSignUpButtons />
         </SignedOut>
       </nav>
     </header>

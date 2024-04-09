@@ -1,5 +1,3 @@
-import React from "react"
-
 import { DiscographyFilterType } from "@/shared/types/artist"
 import { trpc } from "@/shared/trpc/client"
 

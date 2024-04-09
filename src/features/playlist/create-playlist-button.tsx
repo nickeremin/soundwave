@@ -5,12 +5,13 @@ import { PlusIcon } from "lucide-react"
 
 import { Button } from "@/shared/components/ui/button"
 import { Tooltip } from "@/shared/components/ui/tooltip"
-import { trpc } from "@/shared/trpc/client"
+
+import useCreatePlaylist from "./hooks/useCreatePlaylist"
 
 function CreatePlaylistButton() {
-  const { mutateAsync: createPlaylist } =
-    trpc.playlistRouter.createPlaylist.useMutation()
   const [isPending, startTransition] = React.useTransition()
+
+  const { mutateAsync: createPlaylist } = useCreatePlaylist()
 
   return (
     <Tooltip content="Create playlist">
@@ -18,11 +19,12 @@ function CreatePlaylistButton() {
         variant="ghost"
         size="icon"
         className="rounded-full disabled:bg-transparent disabled:ring-0"
-        // disabled={isPending}
         onClick={() => {
           startTransition(async () => {
             try {
-              await createPlaylist()
+              if (!isPending) {
+                await createPlaylist()
+              }
             } catch (error) {
               console.log(error)
             }

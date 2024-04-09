@@ -31,7 +31,7 @@
     --gray-color-600-hsl: hsl(240, 9.1%, 4.3%);
     --background-hsl: hsl(0, 0%, 0%);
     --gray-light: 250 250 255;
-    --gray-dark: 25 25 30;
+    --gray-dark: 0 0 0;
 
     /* Custom Colors */
     --ds-background-100: 18 18 23;

@@ -41,8 +41,9 @@ function ArtistPreviewCard({
           <Image
             src={imageUrl}
             alt=""
-            width={320}
-            height={320}
+            width={400}
+            height={400}
+            priority
             className="absolute size-full rounded-full object-cover object-center"
           />
         ) : null}

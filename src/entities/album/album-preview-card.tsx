@@ -57,9 +57,10 @@ function AlbumPreviewCard<TAlbum extends SimplifiedAlbumObject>({
           <Image
             src={imageUrl}
             alt=""
-            width={320}
-            height={320}
+            width={400}
+            height={400}
             className="absolute size-full rounded-md object-cover object-center"
+            priority
           />
         ) : null}
         <div className="absolute bottom-2 right-2 z-20  translate-y-2 opacity-0 transition duration-300 group-focus-within:opacity-100 group-hover:translate-y-0 group-hover:opacity-100">

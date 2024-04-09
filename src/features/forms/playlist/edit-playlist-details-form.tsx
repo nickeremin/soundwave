@@ -1,8 +1,8 @@
 "use client"
 
 import React from "react"
-import { useParams } from "next/navigation"
 import { zodResolver } from "@hookform/resolvers/zod"
+import { LoaderIcon, MusicIcon } from "lucide-react"
 import {
   useDropzone,
   type FileRejection,
@@ -11,8 +11,6 @@ import {
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
-import { useEditPlaylistDetailsContext } from "@/widgets/providers/edit-playlist-details-provider"
-import { LucideIcon } from "@/shared/components/icons"
 import { Button } from "@/shared/components/ui/button"
 import {
   Form,
@@ -21,9 +19,7 @@ import {
   FormItem,
 } from "@/shared/components/ui/form"
 import { Input } from "@/shared/components/ui/input"
-import { ScrollArea } from "@/shared/components/ui/scroll-area"
 import { Textarea } from "@/shared/components/ui/textarea"
-import { cn } from "@/shared/lib/utils"
 import { editPlaylistDetailsSchema } from "@/shared/lib/validations/playlist"
 import { trpc } from "@/shared/trpc/client"
 
@@ -61,11 +57,12 @@ function EditPlaylistDetailsForm({ playlistId }: { playlistId: string }) {
     onDrop,
   })
 
-  const [showUpdateImageDialog, setShowUpdateImageDialog] =
-    React.useState(false)
+  const [showUpdateImageDialog, setShowUpdateImageDialog] = React.useState(false)
   const [imgSrc, setImgSrc] = React.useState("")
   const imgRef = React.useRef<HTMLImageElement>(null)
   const [isPending, startTransition] = React.useTransition()
+
+  console.log(showUpdateImageDialog)
 
   function onDrop(
     acceptedFiles: FileWithPath[],
@@ -129,7 +126,7 @@ function EditPlaylistDetailsForm({ playlistId }: { playlistId: string }) {
                 />
               ) : (
                 <div className="flex h-full flex-col items-center justify-center">
-                  <LucideIcon name="Music" className="size-16 text-tertiary" />
+                  <MusicIcon className="size-16 text-tertiary" />
                 </div>
               )}
             </div>
@@ -176,11 +173,7 @@ function EditPlaylistDetailsForm({ playlistId }: { playlistId: string }) {
               disabled={isPending}
               className="h-12 w-24 shrink-0 gap-3 rounded-full text-base font-bold"
             >
-              {isPending ? (
-                <LucideIcon name="Loader" className="animate-spin" />
-              ) : (
-                "Save"
-              )}
+              {isPending ? <LoaderIcon className="animate-spin" /> : "Save"}
             </Button>
           </div>
         </div>

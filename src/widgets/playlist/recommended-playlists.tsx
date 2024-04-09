@@ -4,6 +4,7 @@ import React from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { useLayoutStore } from "@/providers/bound-store-provider"
+import { useUser } from "@clerk/nextjs"
 import { AudioWaveformIcon } from "lucide-react"
 
 import PlayButton from "@/features/player/play-button"
@@ -11,11 +12,18 @@ import { getImageUrl } from "@/shared/lib/utils"
 import { trpc } from "@/shared/trpc/client"
 
 function RecommendedPlaylists() {
-  const columns = useLayoutStore((state) => state.columnsCount)
-  const { data: followedArtists } =
-    trpc.playlistRouter.getFollowedArtists.useQuery()
+  const { isLoaded, isSignedIn } = useUser()
 
-  if (!followedArtists) return null
+  const isEnabled = isLoaded && isSignedIn
+
+  const columns = useLayoutStore((state) => state.columnsCount)
+
+  const { data: followedArtists } =
+    trpc.playlistRouter.getFollowedArtists.useQuery(undefined, {
+      enabled: isEnabled,
+    })
+
+  if (!followedArtists || followedArtists.length == 0) return null
 
   return (
     <section className="flex flex-col gap-1">

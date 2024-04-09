@@ -4,10 +4,9 @@ import Link from "next/link"
 import { PlayIcon } from "lucide-react"
 
 import { TrackObject } from "@/shared/types/track"
-import AddFavoriteTrackButton from "@/features/favorite/add-favorite-track-button"
-import TrackMenuButton from "@/features/menu/track-menu-button"
 import TrackWrapper from "@/features/player/track-wrapper"
-import { LucideIcon } from "@/shared/components/icons"
+import AddFavoriteTrackButton from "@/features/track/add-favorite-track-button"
+import TrackMenuButton from "@/features/track/track-menu-button"
 import { Button } from "@/shared/components/ui/button"
 import { formatTimeDuration, getImageUrl } from "@/shared/lib/utils"
 
@@ -76,11 +75,19 @@ function SimplifiedTrackList({ tracks, withAlbum }: SimplifiedTrackListProps) {
                 </div>
               )}
               <div className="flex items-center gap-4 justify-self-end">
-                <AddFavoriteTrackButton className="invisible hover:text-primary group-hover:visible group-aria-[selected=true]:visible" />
+                <AddFavoriteTrackButton
+                  track={track}
+                  className="invisible transition-colors hover:text-primary group-hover:visible group-aria-[selected=true]:visible"
+                />
                 <div className="flex w-[5ch] items-center justify-end">
-                  <span>{formatTimeDuration(track.duration_ms)}</span>
+                  <span className="tabular-nums">
+                    {formatTimeDuration(track.duration_ms)}
+                  </span>
                 </div>
-                <TrackMenuButton className="invisible size-5 text-primary group-hover:visible group-aria-[selected=true]:visible" />
+                <TrackMenuButton
+                  track={track}
+                  className="invisible transition-colors hover:text-primary group-hover:visible group-aria-[selected=true]:visible"
+                />
               </div>
             </li>
           </TrackWrapper>

@@ -2,10 +2,7 @@
 
 import React from "react"
 import Link from "next/link"
-import {
-  useDiscographyStore,
-  useLayoutStore,
-} from "@/providers/bound-store-provider"
+import { useLayoutStore } from "@/providers/bound-store-provider"
 
 import { type DiscographyFilterType } from "@/shared/types/artist"
 import DiscographyFilters from "@/features/discography/discography-filters"

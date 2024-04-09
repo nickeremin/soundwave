@@ -30,7 +30,7 @@ function AlbumMenuButton({ album, className, ...props }: AlbumMenuButtonProps) {
     <DropdownMenu>
       <Tooltip content={`More options for ${album.name}`}>
         <DropdownMenuTrigger asChild>
-          <div className="relative size-8">
+          <div className={cn("relative size-8", className)}>
             <motion.button
               data-shadcnui-button
               transition={{
@@ -44,12 +44,12 @@ function AlbumMenuButton({ album, className, ...props }: AlbumMenuButtonProps) {
                 scale: 1,
               }}
               className={cn(
-                "absolute inline-flex size-8 items-center justify-center rounded-full outline-none",
+                "absolute inline-flex size-full items-center justify-center rounded-full outline-none",
                 className
               )}
               {...props}
             >
-              <MoreHorizontalIcon strokeWidth={1.5} className="size-8" />
+              <MoreHorizontalIcon strokeWidth={1.5} className="size-full" />
             </motion.button>
           </div>
         </DropdownMenuTrigger>

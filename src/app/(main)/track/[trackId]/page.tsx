@@ -1,17 +1,12 @@
 "use client"
 
 import React from "react"
+import PageContextProvider from "@/providers/page-context-provider"
 import { useInView } from "react-intersection-observer"
 
-import ArtistPopularAlbums from "@/widgets/artist/artist-discography"
-import RelatedArtists from "@/widgets/artist/artist-related-artists"
 import ArtistRelatedArtists from "@/widgets/artist/artist-related-artists"
-import MainFooter from "@/widgets/layout/footers/main-footer"
 import TrackHeader from "@/widgets/layout/headers/track-header"
-import AlbumTracks from "@/widgets/pages/track/album-tracks"
-import TrackContextProvider from "@/widgets/pages/track/track-context-provider"
-import TrackDetails from "@/widgets/pages/track/track-details"
-import PageContextProvider from "@/widgets/providers/page-context-provider"
+import MainFooter from "@/widgets/layout/main-footer"
 import TrackActionBar from "@/widgets/track/track-action-bar"
 import TrackArtistPopularTracks from "@/widgets/track/track-artist-popular-tracks"
 import TrackArtistLinks from "@/widgets/track/track-artists"
@@ -70,21 +65,6 @@ function TrackPage({ params: { trackId } }: TrackPageProps) {
       </div>
       <MainFooter />
     </PageContextProvider>
-    // <PageContextProvider>
-    //   <main className="relative space-y-10">
-    //     <TrackDetails trackId={trackId} />
-    //     <RecommendedTracks trackId={trackId} />
-    //     {/* Popular releases by artists on this track */}
-    //     <div className="flex flex-col gap-10 px-6">
-    //       {track.artists.map((artist) => (
-    //         <ArtistPopularAlbums key={artist.id} artist={artist} />
-    //       ))}
-    //     </div>
-    //     {/* <RelatedArtists artistId={track.artists[0]!.id} />
-    //     <AlbumTracks albumId={track.album.id} /> */}
-    //   </main>
-    //   <MainFooter />
-    // </PageContextProvider>
   )
 }
 

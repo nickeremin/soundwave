@@ -7,6 +7,7 @@ import { HeartIcon } from "lucide-react"
 import { type SimplifiedTrackObject } from "@/shared/types/track"
 import { Tooltip } from "@/shared/components/ui/tooltip"
 import { cn } from "@/shared/lib/utils"
+import { trpc } from "@/shared/trpc/client"
 
 interface AddFavoriteTrackButtonProps extends HTMLMotionProps<"button"> {
   track: SimplifiedTrackObject
@@ -19,6 +20,10 @@ function AddFavoriteTrackButton({
   className,
   ...props
 }: AddFavoriteTrackButtonProps) {
+  const [isPending, startTransition] = React.useTransition()
+  const { mutateAsync: addTrackToFavorite } =
+    trpc.trackRouter.addTrackToFavorite.useMutation()
+
   return (
     <Tooltip content={"Save to Your Library"}>
       <div
@@ -30,6 +35,7 @@ function AddFavoriteTrackButton({
       >
         <motion.button
           data-shadcnui-button
+          disabled={isPending}
           transition={{
             duration: 0.15,
             easings: [0.4, 0, 0.2, 1],
@@ -40,8 +46,13 @@ function AddFavoriteTrackButton({
           whileTap={{
             scale: 1,
           }}
-          onClick={(e) => {
-            // e.stopPropagation()
+          onClick={() => {
+            startTransition(async () => {
+              await addTrackToFavorite({
+                trackId: track.id,
+                trackDuration: track.duration_ms,
+              })
+            })
           }}
           className={cn(
             "absolute inline-flex size-5 items-center justify-center rounded-full outline-none",

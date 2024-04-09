@@ -6,7 +6,7 @@ interface PlaylistRecommendationsProps {
   playlistId: string
 }
 
-function PlaylistRecommendations({ playlistId }: PlaylistRecommendationsProps) {
+function PlaylistRecommendations({}: PlaylistRecommendationsProps) {
   return <div>PlaylistRecommendations</div>
 }
 

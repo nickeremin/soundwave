@@ -2,10 +2,7 @@
 
 import React from "react"
 import { useLayoutStore } from "@/providers/bound-store-provider"
-import { SignedOut } from "@clerk/nextjs"
 
-import { SimplifiedArtistObject } from "@/shared/types/artist"
-import LogInSignUpButtons from "@/features/nav/login-signup-buttons"
 import TrackArtistLinkCard from "@/entities/artist/track-artist-link-card"
 import TrackArtistLinkCardLoading from "@/entities/artist/track-artist-link-card-loading"
 import { trpc } from "@/shared/trpc/client"

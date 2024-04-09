@@ -2,8 +2,8 @@ import React from "react"
 import { type Metadata } from "next"
 
 import ArtistAppearsOnAlbums from "@/widgets/artist/artist-appears-on-albums"
-import MainFooter from "@/widgets/layout/footers/main-footer"
 import MainHeader from "@/widgets/layout/headers/main-header"
+import MainFooter from "@/widgets/layout/main-footer"
 
 export const metadata: Metadata = {
   title: "Appears On | Soundwave",

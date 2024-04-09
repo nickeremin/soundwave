@@ -1,5 +1,4 @@
 import React from "react"
-import { type Metadata } from "next"
 import { Nunito_Sans } from "next/font/google"
 import { enUS } from "@clerk/localizations"
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
@@ -20,10 +19,6 @@ const font = Nunito_Sans({
   weight: ["400", "500", "600", "700", "800", "900"],
   subsets: ["cyrillic", "latin"],
 })
-
-export const metadata: Metadata = {
-  title: "Tablebuilder",
-}
 
 interface RootLayoutProps {
   children: React.ReactNode
@@ -46,13 +41,13 @@ export default function RootLayout({ children }: RootLayoutProps) {
                 <PlayerContextProvider>
                   <TooltipProvider delayDuration={300}>
                     {children}
-                    <Toaster />
-                    <ReactQueryDevtools
-                      buttonPosition="bottom-left"
-                      position="bottom"
-                      initialIsOpen={false}
-                    />
                   </TooltipProvider>
+                  <Toaster />
+                  <ReactQueryDevtools
+                    buttonPosition="bottom-left"
+                    position="bottom"
+                    initialIsOpen={false}
+                  />
                 </PlayerContextProvider>
               </BoundStoreHydrationProvider>
             </BoundStoreProvider>

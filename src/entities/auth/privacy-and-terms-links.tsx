@@ -1,7 +1,6 @@
 import React from "react"
 import Link from "next/link"
-
-import { LucideIcon } from "@/shared/components/icons"
+import { ExternalLinkIcon } from "lucide-react"
 
 function PrivacyAndTermsLinks() {
   return (
@@ -16,11 +15,7 @@ function PrivacyAndTermsLinks() {
               className="inline-flex items-center gap-0.5 font-medium"
             >
               Terms of Service
-              <LucideIcon
-                name="ExternalLink"
-                strokeWidth={2}
-                className="size-[14px]"
-              />
+              <ExternalLinkIcon className="size-[14px]" />
             </Link>
           </span>{" "}
           and{" "}
@@ -31,11 +26,7 @@ function PrivacyAndTermsLinks() {
               className="inline-flex items-center gap-0.5 font-medium"
             >
               Privacy Policy
-              <LucideIcon
-                name="ExternalLink"
-                strokeWidth={2}
-                className="size-[14px]"
-              />
+              <ExternalLinkIcon className="size-[14px]" />
             </Link>
           </span>
         </p>

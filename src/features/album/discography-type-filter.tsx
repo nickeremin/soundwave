@@ -2,7 +2,6 @@
 
 import React from "react"
 import { useParams, useRouter } from "next/navigation"
-import { useDiscographyStore } from "@/providers/bound-store-provider"
 
 import {
   Select,

@@ -2,14 +2,13 @@
 
 import React from "react"
 import Image from "next/image"
-import chroma from "chroma-js"
-import { ShieldCheckIcon } from "lucide-react"
 
-import { CustomIcon } from "@/shared/components/icons"
+import PreviewBackgroundGradient from "@/entities/layout/preview-background-gradient"
+import CustomIcon from "@/shared/components/icons/custom-icon"
 import { getAverageColor, getImageUrl } from "@/shared/lib/utils"
 import { trpc } from "@/shared/trpc/client"
 
-import { usePageStore } from "../providers/page-context-provider"
+import { usePageStore } from "../../providers/page-context-provider"
 
 interface ArtistPreviewProps {
   artistId: string
@@ -17,25 +16,17 @@ interface ArtistPreviewProps {
 
 const ArtistPreview = React.forwardRef<HTMLDivElement, ArtistPreviewProps>(
   function ({ artistId }, ref) {
-    const { setIsVisible, backgroundColor, setBackgroundColor } = usePageStore()
+    const { setIsVisible, setBackgroundColor } = usePageStore()
     const { data: artist } = trpc.artistRouter.getArtist.useQuery({ artistId })
 
     if (!artist) return null
 
     const imageUrl = getImageUrl(artist.images)
-    console.log({ images: artist.images })
 
     return (
       <React.Fragment>
         <div ref={ref} className="relative flex h-[340px] items-end gap-6 p-6">
-          <div
-            style={{
-              backgroundColor: backgroundColor
-                ? chroma(backgroundColor.hex).saturate().hex()
-                : undefined,
-            }}
-            className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50"
-          />
+          <PreviewBackgroundGradient order={1} />
           <div className="relative size-[clamp(128px,128px_+_(100vw-320px-600px)/424*104,232px)] shrink-0 select-none rounded-full bg-accent shadow-image-lg">
             {imageUrl ? (
               <Image
@@ -46,7 +37,7 @@ const ArtistPreview = React.forwardRef<HTMLDivElement, ArtistPreviewProps>(
                 priority
                 onLoad={async (e) => {
                   const color = getAverageColor(e.currentTarget)
-                  setBackgroundColor(color)
+                  setBackgroundColor(color.hex)
                   setIsVisible(true)
                 }}
                 className="size-full rounded-full object-cover object-center"
@@ -77,14 +68,7 @@ const ArtistPreview = React.forwardRef<HTMLDivElement, ArtistPreviewProps>(
             </span>
           </div>
         </div>
-        <div
-          style={{
-            backgroundColor: backgroundColor
-              ? chroma(backgroundColor.hex).saturate().hex()
-              : "transparent",
-          }}
-          className="absolute inset-x-0  h-[240px] w-full bg-gradient-to-b from-black/60 to-background-100 "
-        />
+        <PreviewBackgroundGradient order={2} />
       </React.Fragment>
     )
   }

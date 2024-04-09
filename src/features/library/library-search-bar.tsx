@@ -11,7 +11,6 @@ import { librarySearhInputVariants } from "@/shared/constants/library"
 import { cn } from "@/shared/lib/utils"
 
 function LibrarySearchBar() {
-  // const [sortBy, setSortBy] = React.useState("recents")
   const [isOpen, setIsOpen] = React.useState(false)
   const inputRef = React.useRef<HTMLInputElement | null>(null)
 
@@ -33,7 +32,7 @@ function LibrarySearchBar() {
             animate={isOpen ? "open" : "closed"}
             placeholder="Search in Your Library"
             className={cn(
-              "test-input h-8 rounded bg-accent pl-8 text-[13px] font-medium leading-none text-secondary outline-none placeholder:text-tertiary",
+              "test-input h-8 w-full rounded bg-accent pl-8 text-[13px] font-medium leading-none text-secondary outline-none placeholder:text-tertiary",
               !isOpen && "pointer-events-none",
               librarySearch.length > 0 && "pr-8"
             )}
@@ -49,11 +48,7 @@ function LibrarySearchBar() {
             }}
             tabIndex={!isOpen ? -1 : undefined}
           />
-          <Tooltip
-            align="start"
-            alignOffset={-16}
-            content="Search in Your Library"
-          >
+          <Tooltip content="Search in Your Library">
             <Button
               variant="ghost"
               size="icon"
@@ -87,26 +82,6 @@ function LibrarySearchBar() {
             <XIcon className="size-4" />
           </Button>
         </div>
-
-        {/* <Select value={sortBy} onValueChange={setSortBy}>
-            <SelectTrigger className="shrink-1 min-w-0 truncate">
-              <SelectValue placeholder="Recents" className="truncate" />
-            </SelectTrigger>
-            <SelectContent align="end" className="">
-              <SelectGroup>
-                <SelectLabel>Sort by</SelectLabel>
-                {sortTypes.map((type) => (
-                  <SelectItem
-                    key={type.value}
-                    value={type.value}
-                    className={cn(sortBy === type.value && "text-pink")}
-                  >
-                    {type.name}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select> */}
       </div>
     </div>
   )

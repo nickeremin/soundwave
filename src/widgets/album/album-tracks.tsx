@@ -1,20 +1,13 @@
 "use client"
 
 import React from "react"
-import Link from "next/link"
 import { useLayoutStore } from "@/providers/bound-store-provider"
 import { format } from "date-fns"
 import { ClockIcon } from "lucide-react"
 import { useInView } from "react-intersection-observer"
 
-import AddFavoriteTrackButton from "@/features/favorite/add-favorite-track-button"
-import TrackMenuButton from "@/features/menu/track-menu-button"
-import PlayTrackButton from "@/features/player/play-track-button"
-import TrackWrapper from "@/features/player/track-wrapper"
-import ArtistNameLinks from "@/entities/artist/artist-name-links"
 import PlayableTrackEntityLoading from "@/entities/track/ordered-track-entity-loading"
-import { Skeleton } from "@/shared/components/ui/skeleton"
-import { cn, formatTimeDuration } from "@/shared/lib/utils"
+import { cn } from "@/shared/lib/utils"
 import { trpc } from "@/shared/trpc/client"
 
 import PlayableTrackEntity from "../track/ordered-track-entity"

@@ -1,8 +1,5 @@
-"use client"
-
 import React from "react"
 import { type Metadata } from "next"
-import { useBoundStore } from "@/providers/bound-store-provider"
 
 import MainHeader from "@/widgets/layout/headers/main-header"
 import RecommendedPlaylists from "@/widgets/playlist/recommended-playlists"
@@ -12,8 +9,6 @@ export const metadata: Metadata = {
 }
 
 function HomePage() {
-  const columns = useBoundStore((state) => state.columnsCount)
-
   return (
     <div>
       <MainHeader />

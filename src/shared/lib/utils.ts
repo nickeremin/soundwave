@@ -8,7 +8,6 @@ import { twMerge } from "tailwind-merge"
 import { v4 } from "uuid"
 import * as z from "zod"
 
-import { type AlbumObject } from "../types/album"
 import { type ImageObject } from "../types/image"
 
 export function cn(...inputs: ClassValue[]) {
@@ -40,20 +39,17 @@ export function formatTrackDuration(duration: number) {
   return `${hDisplay}${mDisplay}${sDisplay}`
 }
 
-export function formatAlbumDuration(album: AlbumObject) {
-  const duration = album.tracks.items.reduce(
-    (prev, cur) => prev + cur.duration_ms,
-    0
-  )
-
+export function formatAlbumDuration(duration: number) {
   const seconds = Math.floor((duration / 1000) % 60)
   const minutes = Math.floor((duration / (1000 * 60)) % 60)
   const hours = Math.floor((duration / (1000 * 60 * 60)) % 24)
 
   if (hours > 0) {
     return `about ${hours} h ${minutes} min`
-  } else {
+  } else if (minutes > 0) {
     return `${minutes} min ${seconds} sec`
+  } else {
+    return `${seconds} sec`
   }
 }
 

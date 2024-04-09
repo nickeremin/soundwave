@@ -1,9 +1,15 @@
 "use client"
 
 import React from "react"
-import { useUser } from "@clerk/nextjs"
+import { useRouter } from "next/navigation"
+import { useClerk, useUser } from "@clerk/nextjs"
+import {
+  ArrowUpRightFromSquareIcon,
+  LogOutIcon,
+  SettingsIcon,
+  UserIcon,
+} from "lucide-react"
 
-import { LucideIcon } from "@/shared/components/icons"
 import { Avatar, AvatarImage } from "@/shared/components/ui/avatar"
 import { Button } from "@/shared/components/ui/button"
 import {
@@ -13,13 +19,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/shared/components/ui/dropdown-menu"
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/shared/components/ui/popover"
 
 function UserNav() {
+  const router = useRouter()
+  const { signOut } = useClerk()
   const { user } = useUser()
 
   return (
@@ -33,43 +36,26 @@ function UserNav() {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          {/* <div className="px-3 pb-3 pt-2">
-            <div className="flex flex-col gap-1">
-              <p className="font-medium leading-none">{user?.username}</p>
-              <p className="leading-none text-muted-foreground">
-                {user?.primaryEmailAddress?.emailAddress}
-              </p>
-            </div>
-          </div> */}
-
           <DropdownMenuItem className="gap-3">
-            <span>
-              <LucideIcon name="User" className="text-secondary" />
-            </span>
+            <UserIcon className="size-5 text-secondary" />
             Profile
           </DropdownMenuItem>
           <DropdownMenuItem className="gap-3">
-            <span>
-              <LucideIcon name="Settings" className="text-secondary" />
-            </span>
+            <SettingsIcon className="size-5 text-secondary" />
             Settings
           </DropdownMenuItem>
           <DropdownMenuItem className="gap-3">
-            <span>
-              <LucideIcon
-                name="ArrowUpRightFromSquare"
-                className="text-secondary"
-              />
-            </span>
+            <ArrowUpRightFromSquareIcon className="size-5 text-secondary" />
             Support
           </DropdownMenuItem>
 
           <DropdownMenuSeparator />
 
-          <DropdownMenuItem className="gap-3">
-            <span>
-              <LucideIcon name="LogOut" className="text-secondary" />
-            </span>
+          <DropdownMenuItem
+            className="gap-3"
+            onSelect={() => signOut(() => router.push("/"))}
+          >
+            <LogOutIcon className="size-5 text-secondary" />
             Log out
           </DropdownMenuItem>
         </DropdownMenuContent>

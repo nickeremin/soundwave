@@ -1,8 +1,8 @@
 import React from "react"
 import { type Metadata } from "next"
 
-import MainFooter from "@/widgets/layout/footers/main-footer"
-import SearchHeader from "@/widgets/layout/headers/search/search-header"
+import SearchHeader from "@/widgets/layout/headers/search-header"
+import MainFooter from "@/widgets/layout/main-footer"
 
 export const metadata: Metadata = {
   title: "Search | Soundwave",
@@ -14,13 +14,13 @@ interface SearchLayoutProps {
 
 function SearchLayout({ children }: SearchLayoutProps) {
   return (
-    <div>
-      <div className="min-h-screen">
-        <SearchHeader key="search-header" />
-        <main>{children}</main>
+    <React.Fragment>
+      <div className="flex min-h-[calc(100vh-16px)] flex-col">
+        <SearchHeader />
+        <main className="relative flex flex-1 flex-col">{children}</main>
       </div>
       <MainFooter />
-    </div>
+    </React.Fragment>
   )
 }
 

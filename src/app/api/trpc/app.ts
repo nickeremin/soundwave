@@ -2,9 +2,9 @@ import { inferRouterOutputs } from "@trpc/server"
 
 import { router } from "@/shared/trpc/trpc"
 
-import { playlistRouter } from "../_soundwave/routers/playlists"
 import { albumRouter } from "../_spotify/routers/albums"
 import { artistRouter } from "../_spotify/routers/artists"
+import { playlistRouter } from "../_spotify/routers/playlists"
 import { searchRouter } from "../_spotify/routers/search"
 import { trackRouter } from "../_spotify/routers/tracks"
 

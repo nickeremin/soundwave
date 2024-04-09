@@ -1,7 +1,7 @@
 "use client"
 
 import React from "react"
-import chroma from "chroma-js"
+import PageContextProvider from "@/providers/page-context-provider"
 import { useInView } from "react-intersection-observer"
 
 import ArtistActionBar from "@/widgets/artist/artist-action-bar"
@@ -10,9 +10,8 @@ import ArtistDiscography from "@/widgets/artist/artist-discography"
 import ArtistPreview from "@/widgets/artist/artist-preview"
 import ArtistRelatedArtists from "@/widgets/artist/artist-related-artists"
 import ArtistTopTracks from "@/widgets/artist/artist-top-tracks"
-import MainFooter from "@/widgets/layout/footers/main-footer"
 import ArtistHeader from "@/widgets/layout/headers/artist-header"
-import PageContextProvider from "@/widgets/providers/page-context-provider"
+import MainFooter from "@/widgets/layout/main-footer"
 import { trpc } from "@/shared/trpc/client"
 
 interface ArtistPageProps {

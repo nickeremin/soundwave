@@ -12,6 +12,8 @@ import { publicProcedure, router } from "@/shared/trpc/trpc"
 
 import { spotifyApi } from ".."
 
+const LIMIT = 50
+
 export const searchRouter = router({
   search: publicProcedure
     .input(
@@ -62,14 +64,13 @@ export const searchRouter = router({
     .query(async ({ input: { q, cursor } }) => {
       try {
         const nextUrl = new URL(cursor ?? `${env.SPOTIFY_API_BASE_URL}/search`)
-        const limit = nextUrl.searchParams.get("limit")
         const offset = nextUrl.searchParams.get("offset")
 
         const { data } = await spotifyApi.get("/search", {
           params: {
             q,
             type: "track",
-            limit,
+            limit: LIMIT,
             offset,
           },
         })
@@ -96,14 +97,13 @@ export const searchRouter = router({
     .query(async ({ input: { q, cursor } }) => {
       try {
         const nextUrl = new URL(cursor ?? `${env.SPOTIFY_API_BASE_URL}/search`)
-        const limit = nextUrl.searchParams.get("limit")
         const offset = nextUrl.searchParams.get("offset")
 
         const { data } = await spotifyApi.get("/search", {
           params: {
             q,
             type: "artist",
-            limit,
+            limit: LIMIT,
             offset,
           },
         })
@@ -130,14 +130,13 @@ export const searchRouter = router({
     .query(async ({ input: { q, cursor } }) => {
       try {
         const nextUrl = new URL(cursor ?? `${env.SPOTIFY_API_BASE_URL}/search`)
-        const limit = nextUrl.searchParams.get("limit")
         const offset = nextUrl.searchParams.get("offset")
 
         const { data } = await spotifyApi.get("/search", {
           params: {
             q,
             type: "album",
-            limit,
+            limit: LIMIT,
             offset,
           },
         })
@@ -194,7 +193,7 @@ export const searchRouter = router({
           trackRequestPromise,
         ])
 
-        let entities: EntityType[] = []
+        const entities: EntityType[] = []
 
         if (!!res[0]) {
           entities.push(

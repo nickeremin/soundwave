@@ -2,9 +2,9 @@
 
 import React from "react"
 import Image from "next/image"
-import chroma from "chroma-js"
 
 import MainArtistLink from "@/entities/artist/main-artist-link"
+import PreviewBackgroundGradient from "@/entities/layout/preview-background-gradient"
 import {
   formatAlbumDuration,
   formatReleaseDate,
@@ -13,7 +13,7 @@ import {
 } from "@/shared/lib/utils"
 import { trpc } from "@/shared/trpc/client"
 
-import { usePageStore } from "../providers/page-context-provider"
+import { usePageStore } from "../../providers/page-context-provider"
 
 interface AlbumPreviewProps {
   albumId: string
@@ -21,28 +21,22 @@ interface AlbumPreviewProps {
 
 const AlbumPreview = React.forwardRef<HTMLDivElement, AlbumPreviewProps>(
   function ({ albumId }, ref) {
-    const { backgroundColor, setIsVisible, setBackgroundColor } = usePageStore()
+    const { setIsVisible, setBackgroundColor } = usePageStore()
     const { data: album } = trpc.albumRouter.getAlbum.useQuery({ albumId })
 
     if (!album) return null
 
-    console.log(album.tracks.items)
-
     const imageUrl = getImageUrl(album.images)
+    const totalTracks = album.total_tracks
     const albumDate = formatReleaseDate(album.release_date)
-    const albumDuration = formatAlbumDuration(album)
+    const albumDuration = formatAlbumDuration(
+      album.tracks.items.reduce((prev, cur) => prev + cur.duration_ms, 0)
+    )
 
     return (
       <React.Fragment>
         <div ref={ref} className="relative flex h-[344px] items-end gap-6 p-6">
-          <div
-            style={{
-              backgroundColor: backgroundColor
-                ? chroma(backgroundColor.hex).saturate().hex()
-                : "transparent",
-            }}
-            className="absolute inset-0 bg-gradient-to-b from-transparent to-black/50"
-          />
+          <PreviewBackgroundGradient order={1} />
           <div className="relative size-[clamp(128px,128px_+_(100vw-320px-600px)/424*104,232px)] shrink-0 rounded-md bg-accent shadow-image-lg">
             {imageUrl ? (
               <Image
@@ -53,7 +47,7 @@ const AlbumPreview = React.forwardRef<HTMLDivElement, AlbumPreviewProps>(
                 priority
                 onLoad={async (e) => {
                   const color = getAverageColor(e.currentTarget)
-                  setBackgroundColor(color)
+                  setBackgroundColor(color.hex)
                   setIsVisible(true)
                 }}
                 className="size-full rounded-md object-cover object-center"
@@ -71,24 +65,18 @@ const AlbumPreview = React.forwardRef<HTMLDivElement, AlbumPreviewProps>(
               <MainArtistLink artist={album.artists[0]!} />
               <span>{albumDate}</span>
               {album.total_tracks > 50 ? (
-                <span>{album.total_tracks} songs</span>
+                <span>{totalTracks} songs</span>
               ) : (
                 <span>
-                  {album.total_tracks} songs, {albumDuration}
+                  {totalTracks} {totalTracks > 1 ? "songs" : "song"},{" "}
+                  {albumDuration}
                 </span>
               )}
             </div>
           </div>
         </div>
 
-        <div
-          style={{
-            backgroundColor: backgroundColor
-              ? chroma(backgroundColor.hex).saturate().hex()
-              : "transparent",
-          }}
-          className="absolute h-[240px] w-full bg-gradient-to-b from-black/60 to-background-100 "
-        />
+        <PreviewBackgroundGradient order={2} />
       </React.Fragment>
     )
   }

@@ -22,7 +22,8 @@ function AddFavoriteAlbumButton({
         className={cn(
           "relative",
           size == "sm" && "size-5",
-          size == "lg" && "size-9"
+          size == "lg" && "size-9",
+          className
         )}
       >
         <motion.button
@@ -37,9 +38,6 @@ function AddFavoriteAlbumButton({
           whileTap={{
             scale: 1,
           }}
-          onClick={(e) => {
-            // e.stopPropagation()
-          }}
           className={cn(
             "absolute inline-flex size-5 items-center justify-center rounded-full outline-none",
             size == "sm" && "size-5",
@@ -50,11 +48,7 @@ function AddFavoriteAlbumButton({
         >
           <HeartIcon
             strokeWidth={size == "lg" ? 1.5 : 2}
-            className={cn(
-              "",
-              size == "sm" && "size-5",
-              size == "lg" && "size-9"
-            )}
+            className="size-full"
           />
         </motion.button>
       </div>

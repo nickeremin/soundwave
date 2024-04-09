@@ -8,23 +8,25 @@ function LogInSignUpButtons() {
   return (
     <div className="flex items-center gap-3">
       <Link
+        data-shadcnui-button
         href="/login"
         className={cn(
           buttonVariants({
             variant: "outline",
             size: "lg",
-            className: "rounded-full font-semibold",
+            className: "rounded-full font-extrabold",
           })
         )}
       >
         Log In
       </Link>
       <Link
+        data-shadcnui-button
         href="/signup"
         className={cn(
           buttonVariants({
             size: "lg",
-            className: "rounded-full font-semibold",
+            className: "rounded-full font-extrabold",
           })
         )}
       >

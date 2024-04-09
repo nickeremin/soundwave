@@ -1,14 +1,17 @@
-import React from "react"
+"use client"
 
-import MainFooter from "@/widgets/layout/footers/main-footer"
-import PlaylistDetails from "@/widgets/pages/playlist/playlist-details"
-import EditPlaylistDetailsProvider from "@/widgets/providers/edit-playlist-details-provider"
-import EditPlaylistDetailsForm from "@/features/forms/playlist/edit-playlist-details-form"
-import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-} from "@/shared/components/ui/dialog"
+import React from "react"
+import PageContextProvider from "@/providers/page-context-provider"
+import { useInView } from "react-intersection-observer"
+
+import PlaylistHeader from "@/widgets/layout/headers/playlist-header"
+import MainFooter from "@/widgets/layout/main-footer"
+import PlaylistActionBar from "@/widgets/playlist/playlist-action-bar"
+import PlaylistPreview from "@/widgets/playlist/playlist-preview"
+import PlaylistRecommendedTracks from "@/widgets/playlist/playlist-recommended-tracks"
+import PlaylistSearch from "@/widgets/playlist/playlist-search"
+import PlaylistTracks from "@/widgets/playlist/playlist-tracks"
+import { trpc } from "@/shared/trpc/client"
 
 interface PlaylistPageProps {
   params: {
@@ -17,26 +20,40 @@ interface PlaylistPageProps {
 }
 
 function PlaylistPage({ params: { playlistId } }: PlaylistPageProps) {
+  const { data: playlist } = trpc.playlistRouter.getPlaylist.useQuery({
+    playlistId,
+  })
+
+  const { ref: playlistPreviewRef, entry } = useInView()
+
+  if (!playlist) return null
+
+  const totalTracks = Number(playlist.total_tracks)
+
   return (
-    <React.Fragment>
-      <main className="relative space-y-10">
-        {/* <EditPlaylistDetailsProvider playlistId={playlistId}> */}
-        {/* <PlaylistDetails playlistId={playlistId} /> */}
-        {/* </EditPlaylistDetailsProvider> */}
-        {/* <div className="flex flex-col gap-6 p-4">
-            <h1 className="text-2xl font-bold">Edit details</h1>
-            <EditPlaylistDetailsForm />
-          </div> */}
-        <Dialog>
-          <DialogTrigger>Open</DialogTrigger>
-          <DialogContent className="flex flex-col gap-6">
-            <h1 className="text-2xl font-bold">Edit details</h1>
-            <EditPlaylistDetailsForm playlistId={playlistId} />
-          </DialogContent>
-        </Dialog>
-      </main>
+    <PageContextProvider>
+      <div className="min-h-screen">
+        <PlaylistHeader playlist={playlist} previewEntry={entry} />
+        <main className="relative -mt-16">
+          <PlaylistPreview ref={playlistPreviewRef} playlistId={playlistId} />
+          <div className="relative px-6">
+            <div className="py-5">
+              <PlaylistActionBar playlist={playlist} />
+            </div>
+            <div className="space-y-10">
+              <PlaylistTracks
+                totalTracks={totalTracks}
+                playlistId={playlistId}
+                isSticky
+              />
+              <PlaylistSearch playlistId={playlistId} />
+              <PlaylistRecommendedTracks playlistId={playlistId} />
+            </div>
+          </div>
+        </main>
+      </div>
       <MainFooter />
-    </React.Fragment>
+    </PageContextProvider>
   )
 }
 

@@ -19,7 +19,7 @@ export const librarySearhInputVariants: Variants = {
     opacity: 0,
   },
   open: {
-    width: "180px",
+    width: "248px",
     opacity: 1,
   },
 }

@@ -82,25 +82,29 @@ function RecentSearches({ preview }: RecentSearchesProps) {
       >
         {recentSearches
           .slice(0, preview ? columns : recentSearches.length)
-          .map(({ type, item }, i) => {
+          .map(({ type, item }) => {
             if (type === "artist") {
               return (
                 <DeleteFromRecentSearchesWrapper
-                  key={i}
+                  key={`${type}:${item.id}`}
                   id={item.id}
                   type="artist"
                 >
-                  <ArtistPreviewCard key={i} artist={item} />
+                  <ArtistPreviewCard key={`${type}:${item.id}`} artist={item} />
                 </DeleteFromRecentSearchesWrapper>
               )
             } else if (type === "album") {
               return (
                 <DeleteFromRecentSearchesWrapper
-                  key={i}
+                  key={`${type}:${item.id}`}
                   id={item.id}
                   type="album"
                 >
-                  <AlbumPreviewCard key={i} album={item} withType />
+                  <AlbumPreviewCard
+                    key={`${type}:${item.id}`}
+                    album={item}
+                    withType
+                  />
                 </DeleteFromRecentSearchesWrapper>
               )
             } else return null

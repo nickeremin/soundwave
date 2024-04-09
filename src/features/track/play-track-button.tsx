@@ -3,7 +3,7 @@
 import React from "react"
 import { PlayIcon } from "lucide-react"
 
-import { type TrackObject } from "@/shared/types/track"
+import { type SimplifiedTrackObject } from "@/shared/types/track"
 import { Button } from "@/shared/components/ui/button"
 import { Tooltip } from "@/shared/components/ui/tooltip"
 import { cn } from "@/shared/lib/utils"
@@ -11,7 +11,7 @@ import { cn } from "@/shared/lib/utils"
 import { usePlayerContext } from "../player/player-context-provider"
 
 interface PlayTrackButtonProps {
-  track: TrackObject
+  track: SimplifiedTrackObject
   className?: string
 }
 

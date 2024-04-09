@@ -6,7 +6,7 @@ interface OrderedTrackEntityLoading {
   withImage?: boolean
 }
 
-function OrderedTrackEntityLoading({ withImage }: OrderedTrackEntityLoading) {
+function OrderedTrackEntityLoading({}: OrderedTrackEntityLoading) {
   return (
     <div className="flex items-center gap-3 p-2">
       <Skeleton className="size-10" />

@@ -37,7 +37,7 @@ function HeaderWrapper({
     return () => {
       mainContainerRef.current?.removeEventListener("scroll", handleScroll)
     }
-  }, [])
+  }, [mainContainerRef, headerRef])
 
   return (
     <Comp

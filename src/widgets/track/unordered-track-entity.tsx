@@ -26,7 +26,7 @@ function UnorderedTrackEnity({ track }: UnorderedTrackEntityProps) {
     >
       <li className="grid h-14 grid-cols-[minmax(120px,4fr)_minmax(120px,1fr)] items-center gap-4 px-2">
         <div className="flex items-center gap-3">
-          <div className="relative size-10 rounded bg-accent shadow-image-sm">
+          <div className="relative size-10 rounded bg-accent">
             {imageUrl ? (
               <Image
                 src={imageUrl}

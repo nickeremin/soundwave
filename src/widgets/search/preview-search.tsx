@@ -7,15 +7,15 @@ import { keepPreviousData } from "@tanstack/react-query"
 
 import { trpc } from "@/shared/trpc/client"
 
-import PreviewSearchAlbums from "../pages/search/preview-search-albums"
-import PreviewSearchArtists from "../pages/search/preview-search-artists"
-import PreviewSearchTracks from "../pages/search/preview-search-tracks"
+import PreviewSearchAlbums from "./preview-search-albums"
+import PreviewSearchArtists from "./preview-search-artists"
+import PreviewSearchTracks from "./preview-search-tracks"
 
 function PreviewSearch() {
   const query = useSearchParams().get("query")
   const columns = useLayoutStore((state) => state.columnsCount)
 
-  const { data, isPlaceholderData } = trpc.searchRouter.search.useQuery(
+  const { data } = trpc.searchRouter.search.useQuery(
     { q: query!, type: ["album", "artist", "track"] },
     {
       enabled: !!query,
@@ -26,8 +26,6 @@ function PreviewSearch() {
   const totalTracks = data?.tracks.total
   const totalArtists = data?.artists.total
   const totalAlbums = data?.albums.total
-
-  // if (!(totalTracks || totalArtists || totalAlbums)) return null
 
   return (
     <div

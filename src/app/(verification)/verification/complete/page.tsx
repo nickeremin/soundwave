@@ -1,14 +1,6 @@
 import React from "react"
-import { type Metadata } from "next"
 
-import { env } from "@/shared/components/env.mjs"
 import { PageHeading } from "@/shared/components/ui/page-heading"
-
-export const metadata: Metadata = {
-  metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
-  title: "Подтверждение успешно",
-  description: "Вы успешно подтвердили аккаунт",
-}
 
 interface VerificationCompletePageProps {
   searchParams: {

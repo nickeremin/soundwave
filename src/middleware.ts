@@ -4,13 +4,16 @@ import { authMiddleware } from "@clerk/nextjs"
 export default authMiddleware({
   publicRoutes: [
     "/",
-    "/search",
-    "/not-auth",
     "/signin(.*)",
     "/signup(.*)",
     "/sso-callback(.*)",
     "/verification(.*)",
     "/api/trpc(.*)",
+    "/search(.*)",
+    "/collection/tracks",
+    "/artist(.*)",
+    "/track(.*)",
+    "/album(.*)",
   ],
   async afterAuth(auth, req) {
     if (auth.isPublicRoute) {
