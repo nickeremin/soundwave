@@ -78,14 +78,14 @@ function ArtistDiscography({ artistId }: ArtistDiscographyProps) {
           ? Array.from({ length: columns }, (_, i) => i).map((_, i) => (
               <AlbumPreviewCardLoading key={i} />
             ))
-          : allDiscography
+          : [...allDiscography]
+              .sort((first, second) =>
+                second.release_date.localeCompare(first.release_date)
+              )
               .filter((item) => {
                 if (discographyFilter == "all") return true
                 else return discographyFilter == item.album_type.toLowerCase()
               })
-              .toSorted((first, second) =>
-                second.release_date.localeCompare(first.release_date)
-              )
               .slice(0, columns)
               .map((item) => (
                 <AlbumPreviewCard

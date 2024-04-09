@@ -8,8 +8,8 @@ import { InitialInputs } from "@/shared/types/signup"
 import { OAuthSignUpButtons } from "@/features/auth/oauth"
 import { Button } from "@/shared/components/ui/button"
 
+import { useSignUpContext } from "../../providers/signup-context-provider"
 import ContinueAuthWith from "./continue-auth-with"
-import { useSignUpContext } from "./signup-context-provider"
 
 function SignUpChooseMethodStep() {
   const { setStep } = useSignUpContext()

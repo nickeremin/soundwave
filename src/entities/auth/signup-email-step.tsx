@@ -19,8 +19,8 @@ import { Input } from "@/shared/components/ui/input"
 import { catchClerkError } from "@/shared/lib/utils"
 import { verifyEmailSchema } from "@/shared/lib/validations/auth"
 
+import { useSignUpContext } from "../../providers/signup-context-provider"
 import AuthVerifyEmailStep from "./auth-verify-email-step"
-import { useSignUpContext } from "./signup-context-provider"
 
 function SignUpEmailStep() {
   const { setStep, isEmailVerifying, setIsEmailVerifying } = useSignUpContext()

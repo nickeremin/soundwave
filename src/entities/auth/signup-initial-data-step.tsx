@@ -18,7 +18,7 @@ import { RadioGroup, RadioGroupItem } from "@/shared/components/ui/radio-group"
 import { subscriptionPlans } from "@/shared/constants/auth"
 import { cn } from "@/shared/lib/utils"
 
-import { useSignUpContext } from "./signup-context-provider"
+import { useSignUpContext } from "../../providers/signup-context-provider"
 
 function SignUpInitialDataStep() {
   const { setStep } = useSignUpContext()

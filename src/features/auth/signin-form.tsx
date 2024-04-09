@@ -3,12 +3,12 @@
 import React from "react"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
+import { ClerkLoaded, ClerkLoading } from "@clerk/nextjs"
 import { MailIcon } from "lucide-react"
 
 import ContinueAuthWith from "@/entities/auth/continue-auth-with"
 import CreateAccountLinkForMobiles from "@/entities/auth/create-account-link-for-mobiles"
 import OAuthLoading from "@/entities/auth/oauth-loading"
-import { ClerkLoaded } from "@/shared/components/clerk"
 import { buttonVariants } from "@/shared/components/ui/button"
 import { cn } from "@/shared/lib/utils"
 
@@ -27,7 +27,10 @@ function SignInForm() {
             </h1>
 
             <div className="flex min-h-[320px] w-full flex-col xs:max-w-[320px]">
-              <ClerkLoaded fallbackComponent={<OAuthLoading />}>
+              <ClerkLoading>
+                <OAuthLoading />
+              </ClerkLoading>
+              <ClerkLoaded>
                 <OAuthSignInButtons />
 
                 <ContinueAuthWith />

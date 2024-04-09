@@ -45,7 +45,7 @@ function TrackRelatedArtistDiscography({
         ...albums.artistAlbums,
         ...singles.artistAlbums,
         ...compilations.artistAlbums,
-      ].toSorted((first, second) =>
+      ].sort((first, second) =>
         second.release_date.localeCompare(first.release_date)
       )
 

@@ -71,8 +71,8 @@ function AlbumMoreArtistDiscography({
           ? Array.from({ length: columns }, (_, i) => i).map((_, i) => (
               <AlbumPreviewCardLoading key={i} />
             ))
-          : allDiscography
-              .toSorted((first, second) =>
+          : [...allDiscography]
+              .sort((first, second) =>
                 second.release_date.localeCompare(first.release_date)
               )
               .slice(0, columns)
