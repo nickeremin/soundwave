@@ -29,6 +29,12 @@ const TRPCReactQueryProvider = ({ children }: TRPCQueryProviderProps) => {
         httpBatchLink({
           transformer: transformer,
           url: "http://localhost:3000/api/trpc",
+          fetch(url, options) {
+            return fetch(url, {
+              ...options,
+              credentials: "include",
+            })
+          },
         }),
       ],
     })
