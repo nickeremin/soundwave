@@ -7,12 +7,8 @@ const nextConfig = {
         hostname: "**",
       },
     ],
-    unoptimized: true,
   },
   pageExtensions: ["tsx", "mdx", "ts", "js"],
-  experimental: {
-    esmExternals: "loose",
-  },
   eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: true },
 }

@@ -34,6 +34,8 @@ function PreviewSearchTracks({ tracks }: PreviewSearchTracksProps) {
     })
   }
 
+  console.log(imageUrl)
+
   return (
     <React.Fragment>
       <section className="col-span-2 flex flex-col gap-2">
@@ -77,7 +79,7 @@ function PreviewSearchTracks({ tracks }: PreviewSearchTracksProps) {
         </div>
       </section>
 
-      <section
+      {/* <section
         className={cn(
           "flex flex-col gap-2",
           columns < 4 ? "col-span-full" : "col-[3/-1]"
@@ -87,7 +89,7 @@ function PreviewSearchTracks({ tracks }: PreviewSearchTracksProps) {
         {tracks.slice(0, 4).map((track) => (
           <UnorderedTrackEnity key={track.id} track={track} />
         ))}
-      </section>
+      </section> */}
     </React.Fragment>
   )
 }
