@@ -35,8 +35,8 @@ function PreviewSearch() {
       className="grid gap-x-8 gap-y-10"
     >
       {!!totalTracks && <PreviewSearchTracks tracks={data.tracks.items} />}
-      {/* {!!totalArtists && <PreviewSearchArtists artists={data.artists.items} />}
-      {!!totalAlbums && <PreviewSearchAlbums albums={data.albums.items} />} */}
+      {!!totalArtists && <PreviewSearchArtists artists={data.artists.items} />}
+      {!!totalAlbums && <PreviewSearchAlbums albums={data.albums.items} />}
     </div>
   )
 }
