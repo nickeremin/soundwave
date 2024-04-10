@@ -6,6 +6,7 @@ import { httpBatchLink } from "@trpc/client"
 
 import { trpc } from "@/shared/trpc/client"
 
+import { getBaseUrl } from "../lib/universal/get-base-url"
 import { transformer } from "./transformer"
 
 interface TRPCQueryProviderProps {
@@ -28,13 +29,7 @@ const TRPCReactQueryProvider = ({ children }: TRPCQueryProviderProps) => {
       links: [
         httpBatchLink({
           transformer: transformer,
-          url: "http://localhost:3000/api/trpc",
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Access-Control-Allow-Headers": "*",
-            "Access-Control-Allow-Credentials": "true",
-            "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-          },
+          url: `${getBaseUrl()}/api/trpc`,
         }),
       ],
     })
